@@ -8,268 +8,22 @@
       href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="shared.css" />
     <style>
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        font-family: "DM Sans", sans-serif;
-        background: #f5f4f0;
-        color: #1a1a18;
-        font-size: 15px;
-        line-height: 1.7;
-        padding: 3rem 1rem;
-      }
-
-      .page {
-        max-width: 780px;
-        margin: 0 auto;
-      }
-
-      header {
-        margin-bottom: 2rem;
-        padding-bottom: 0.2rem;
-      }
-
-      header h1 {
-        font-size: 2.2rem;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-        line-height: 1.2;
-      }
-
-      header p {
-        margin-top: 0.5rem;
-        color: #5a5a56;
-        font-size: 14px;
-      }
-
-      .chapter {
-        margin-bottom: 3rem;
-      }
-
-      .chapter-heading {
-        display: inline-block;
-        font-size: 11px;
-        font-weight: 600;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        background: #1a1a18;
-        color: #f5f4f0;
-        padding: 3px 10px;
-        border-radius: 4px;
-        margin-bottom: 0.75rem;
-      }
-
-      h2 {
-        font-size: 1.35rem;
-        font-weight: 600;
-        letter-spacing: -0.01em;
-        margin-bottom: 1.25rem;
-        padding-bottom: 0.5rem;
-        border-bottom: 2px solid #1a1a18;
-      }
-
-      section {
-        margin-bottom: 2rem;
-      }
-
-      h3 {
-        font-size: 1rem;
-        font-weight: 600;
-        border-left: 3px solid #1a1a18;
-        padding-left: 0.75rem;
-        margin-bottom: 0.75rem;
-        color: #1a1a18;
-      }
-
-      h4 {
-        font-size: 0.88rem;
-        font-weight: 600;
-        color: #5a5a56;
-        margin-bottom: 0.4rem;
-        padding-left: 1.25rem;
-      }
-
-      p {
-        margin-bottom: 0.6rem;
-        color: #5a5a56;
-        font-size: 14px;
-      }
-
-      .card {
-        background: #fff;
-        border: 1px solid #e0dfd8;
-        border-radius: 12px;
-        padding: 1rem 1.25rem;
-        margin-bottom: 12px;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        font-size: 14px;
-        margin-top: 0.5rem;
-      }
-
-      th {
-        text-align: left;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: #888;
-        padding: 6px 12px;
-        border-bottom: 1px solid #e0dfd8;
-      }
-
-      td {
-        padding: 8px 12px;
-        border-bottom: 1px solid #f0efe8;
-        vertical-align: top;
-      }
-
-      tr:last-child td {
-        border-bottom: none;
-      }
-
-      td:first-child {
-        color: #5a5a56;
-        font-weight: 500;
-        width: 38%;
-      }
-
-      code {
-        font-family: "DM Mono", monospace;
-        font-size: 13px;
-        background: #f0efe8;
-        padding: 1px 6px;
-        border-radius: 4px;
-        color: #c0392b;
-      }
-
-      .code-block {
-        background: #1a1a18;
-        color: #e8e6df;
-        font-family: "DM Mono", monospace;
-        font-size: 13px;
-        padding: 1rem 1.25rem;
-        border-radius: 10px;
-        margin: 0.75rem 0;
-        line-height: 1.6;
-        overflow-x: auto;
-        white-space: pre;
-      }
-
       .code-block .prop { color: #89c4e1; }
       .code-block .val  { color: #a8e6a3; }
       .code-block .sel  { color: #f7aa44; }
       .code-block .cm   { color: #777; font-style: italic; }
-      .code-block .at   { color: #d4a0f7; }
-
-      ul {
-        padding-left: 1.25rem;
-        margin-bottom: 0.6rem;
-      }
-
-      ul li {
-        margin-bottom: 4px;
-        font-size: 14px;
-      }
-
-      .highlight-box {
-        background: #fffbea;
-        border-left: 3px solid #f59e0b;
-        padding: 0.75rem 1rem;
-        border-radius: 0 8px 8px 0;
-        margin: 0.75rem 0;
-        font-size: 14px;
-        color: #78350f;
-      }
-
-      .grid-2 {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-
-      .mini-card {
-        background: #fff;
-        border: 1px solid #e0dfd8;
-        border-radius: 10px;
-        padding: 0.75rem 1rem;
-      }
-
-      .mini-card .mc-label {
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: #999;
-        margin-bottom: 4px;
-      }
-
-      .mini-card p {
-        font-size: 14px;
-        margin: 0;
-      }
-
-      .nav-bar {
-        background: #fff;
-        border: 1px solid #e0dfd8;
-        border-radius: 10px;
-        padding: 0.75rem 1rem;
-        margin-bottom: 2rem;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        align-items: center;
-      }
-
-      .nav-bar .nav-label {
-        font-size: 11px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: #999;
-        margin-right: 0.5rem;
-      }
-
-      .nav-bar a {
-        font-size: 13px;
-        color: #1a1a18;
-        text-decoration: none;
-        padding: 4px 10px;
-        border-radius: 4px;
-        transition: background 0.15s ease;
-      }
-
-      .nav-bar a:hover {
-        background: #f0efe8;
-      }
-
-      .nav-bar a.active {
-        background: #1a1a18;
-        color: #f5f4f0;
-      }
-
-      @media (max-width: 560px) {
-        .grid-2 { grid-template-columns: 1fr; }
-        header h1 { font-size: 1.6rem; }
-        .nav-bar { flex-direction: column; align-items: flex-start; }
-        .nav-bar .nav-label { margin-bottom: 0.5rem; }
-      }
     </style>
   </head>
   <body>
     <div class="page">
       <header>
         <h1>CSS Notes</h1>
+        <button class="theme-toggle" onclick="toggleTheme()">
+          <span id="theme-icon">🌙</span>
+          <span id="theme-text">Dark</span>
+        </button>
       </header>
 
       <nav class="nav-bar">
@@ -1072,9 +826,10 @@
         </section>
       </div>
 
-      <footer style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #e0dfd8; font-size: 13px; color: #aaa;">
+      <footer style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid var(--card-border); font-size: 13px; color: var(--text-secondary);">
         CSS Notes
       </footer>
     </div>
+    <script src="shared.js"></script>
   </body>
 </html>
