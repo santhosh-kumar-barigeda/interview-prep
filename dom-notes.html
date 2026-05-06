@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Notes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: #f5f4f0;
+        color: #1a1a18;
+        font-size: 15px;
+        line-height: 1.7;
+        padding: 3rem 1rem;
+      }
+
+      .page {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 2rem;
+        padding-bottom: 0.2rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      .chapter {
+        margin-bottom: 3rem;
+      }
+
+      .chapter-heading {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #1a1a18;
+        color: #f5f4f0;
+        padding: 3px 10px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #1a1a18;
+      }
+
+      section {
+        margin-bottom: 2rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        border-left: 3px solid #1a1a18;
+        padding-left: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: #1a1a18;
+      }
+
+      h4 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #5a5a56;
+        margin-top: 1.25rem;
+        margin-bottom: 0.4rem;
+        padding-left: 1.25rem;
+      }
+
+      p {
+        margin-bottom: 0.6rem;
+        color: #5a5a56;
+        font-size: 14px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 12px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        margin-top: 0.5rem;
+      }
+
+      th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #888;
+        padding: 6px 12px;
+        border-bottom: 1px solid #e0dfd8;
+      }
+
+      td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #f0efe8;
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      td:first-child {
+        color: #5a5a56;
+        font-weight: 500;
+        width: 38%;
+      }
+
+      code {
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        background: #f0efe8;
+        padding: 1px 6px;
+        border-radius: 4px;
+        color: #c0392b;
+      }
+
+      .code-block {
+        background: #1a1a18;
+        color: #e8e6df;
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin: 0.75rem 0;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .code-block .kw  { color: #f7aa44; }
+      .code-block .str { color: #a8e6a3; }
+      .code-block .cm  { color: #777; font-style: italic; }
+      .code-block .fn  { color: #89c4e1; }
+      .code-block .num { color: #d4a0f7; }
+
+      ul {
+        padding-left: 1.25rem;
+        margin-bottom: 0.6rem;
+      }
+
+      ul li {
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .highlight-box {
+        background: #fffbea;
+        border-left: 3px solid #f59e0b;
+        padding: 0.75rem 1rem;
+        border-radius: 0 8px 8px 0;
+        margin: 0.75rem 0;
+        font-size: 14px;
+        color: #78350f;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .mini-card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+      }
+
+      .mini-card .mc-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-bottom: 4px;
+      }
+
+      .mini-card p {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .nav-bar {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .nav-bar .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-right: 0.5rem;
+      }
+
+      .nav-bar a {
+        font-size: 13px;
+        color: #1a1a18;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: background 0.15s ease;
+      }
+
+      .nav-bar a:hover {
+        background: #f0efe8;
+      }
+
+      .nav-bar a.active {
+        background: #1a1a18;
+        color: #f5f4f0;
+      }
+
+      @media (max-width: 560px) {
+        .grid-2 { grid-template-columns: 1fr; }
+        header h1 { font-size: 1.6rem; }
+        .nav-bar { flex-direction: column; align-items: flex-start; }
+        .nav-bar .nav-label { margin-bottom: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>DOM Notes</h1>
+      </header>
+
+      <nav class="nav-bar">
+        <span class="nav-label">Notes:</span>
+        <a href="html-notes.html">HTML</a>
+        <a href="css-notes.html">CSS</a>
+        <a href="javascript-notes.html">JavaScript</a>
+        <a href="dom-notes.html" class="active">DOM</a>
+        <a href="react-notes.html">React</a>
+        <a href="react-native-notes.html">React Native</a>
+        <a href="nextjs-notes.html">Next.js</a>
+        <a href="hr-interview-notes.html">HR Interview</a>
+      </nav>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 1 — What is the DOM?
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 1</div>
+        <h2>What is the DOM?</h2>
+
+        <section>
+          <h3>The Document Object Model</h3>
+          <div class="card">
+            <p>The <strong>DOM (Document Object Model)</strong> is a programming interface created by the browser when an HTML page loads. It represents the page as a tree of objects — each HTML element becomes a <strong>node</strong> that JavaScript can read, modify, add, or remove.</p>
+            <ul>
+              <li>The DOM is <strong>not</strong> JavaScript — it is a Web API provided by the browser.</li>
+              <li>JavaScript uses the DOM to make pages dynamic and interactive.</li>
+              <li>Any change to the DOM is immediately reflected in the browser rendering.</li>
+            </ul>
+          </div>
+          <div class="highlight-box">
+            <strong>DOM vs HTML:</strong> HTML is the source text. The DOM is the live, parsed, in-memory tree the browser builds from that HTML. They can diverge — JavaScript and CSS can change the DOM without touching the original HTML file.
+          </div>
+        </section>
+
+        <section>
+          <h3>The DOM Tree</h3>
+          <div class="card">
+            <p>Every part of an HTML document is a <strong>node</strong> in the tree. Nodes have types:</p>
+            <table>
+              <tr><th>Node type</th><th>Constant</th><th>Example</th></tr>
+              <tr><td>Element node</td><td><code>1</code></td><td><code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;img&gt;</code></td></tr>
+              <tr><td>Text node</td><td><code>3</code></td><td>The text content inside an element</td></tr>
+              <tr><td>Comment node</td><td><code>8</code></td><td><code>&lt;!-- comment --&gt;</code></td></tr>
+              <tr><td>Document node</td><td><code>9</code></td><td>The root <code>document</code> object itself</td></tr>
+              <tr><td>DocumentType node</td><td><code>10</code></td><td><code>&lt;!DOCTYPE html&gt;</code></td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// document is the entry point to the entire DOM</span>
+<span class="kw">typeof</span> document;          <span class="cm">// "object"</span>
+document.nodeType;        <span class="cm">// 9  (Document node)</span>
+document.documentElement; <span class="cm">// &lt;html&gt; element</span>
+document.head;            <span class="cm">// &lt;head&gt; element</span>
+document.body;            <span class="cm">// &lt;body&gt; element</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Node Relationships</h3>
+          <div class="card">
+            <p>Every node knows its relatives. These properties let you navigate the tree:</p>
+            <table>
+              <tr><th>Property</th><th>Returns</th></tr>
+              <tr><td><code>node.parentNode</code></td><td>The immediate parent node.</td></tr>
+              <tr><td><code>node.childNodes</code></td><td>A live NodeList of all child nodes (including text/comment nodes).</td></tr>
+              <tr><td><code>node.children</code></td><td>HTMLCollection of child <em>element</em> nodes only (no text/comment).</td></tr>
+              <tr><td><code>node.firstChild</code> / <code>lastChild</code></td><td>First/last child node (any type).</td></tr>
+              <tr><td><code>node.firstElementChild</code> / <code>lastElementChild</code></td><td>First/last child that is an element.</td></tr>
+              <tr><td><code>node.nextSibling</code> / <code>previousSibling</code></td><td>Adjacent sibling node (any type).</td></tr>
+              <tr><td><code>node.nextElementSibling</code> / <code>previousElementSibling</code></td><td>Adjacent sibling element only.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>Prefer <code>children</code> over <code>childNodes</code></strong> — <code>childNodes</code> includes text nodes (whitespace between tags), which is usually not what you want. Use <code>children</code> to get only element nodes.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 2 — Selecting Elements
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 2</div>
+        <h2>Selecting Elements</h2>
+
+        <section>
+          <h3>Selector Methods</h3>
+          <div class="card">
+            <table>
+              <tr><th>Method</th><th>Returns</th><th>Notes</th></tr>
+              <tr><td><code>document.getElementById(id)</code></td><td>Element or <code>null</code></td><td>Fastest. IDs must be unique.</td></tr>
+              <tr><td><code>document.querySelector(css)</code></td><td>First matching Element or <code>null</code></td><td>Takes any CSS selector string.</td></tr>
+              <tr><td><code>document.querySelectorAll(css)</code></td><td>Static NodeList</td><td>All matches. Non-live — won't update when DOM changes.</td></tr>
+              <tr><td><code>document.getElementsByClassName(cls)</code></td><td>Live HTMLCollection</td><td>Updates automatically if DOM changes.</td></tr>
+              <tr><td><code>document.getElementsByTagName(tag)</code></td><td>Live HTMLCollection</td><td>By tag name e.g. <code>"div"</code>.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// By ID — no # prefix needed</span>
+<span class="kw">const</span> header = document.<span class="fn">getElementById</span>(<span class="str">"main-header"</span>);
+
+<span class="cm">// querySelector — CSS selector syntax, returns first match</span>
+<span class="kw">const</span> btn    = document.<span class="fn">querySelector</span>(<span class="str">".btn-primary"</span>);
+<span class="kw">const</span> input  = document.<span class="fn">querySelector</span>(<span class="str">"form input[type='email']"</span>);
+<span class="kw">const</span> first  = document.<span class="fn">querySelector</span>(<span class="str">"li:first-child"</span>);
+
+<span class="cm">// querySelectorAll — returns NodeList (iterable, use forEach / for..of)</span>
+<span class="kw">const</span> cards = document.<span class="fn">querySelectorAll</span>(<span class="str">".card"</span>);
+cards.<span class="fn">forEach</span>(card => card.classList.<span class="fn">add</span>(<span class="str">"visible"</span>));
+
+<span class="cm">// Scope selectors to a parent element — not just document</span>
+<span class="kw">const</span> nav   = document.<span class="fn">querySelector</span>(<span class="str">"nav"</span>);
+<span class="kw">const</span> links = nav.<span class="fn">querySelectorAll</span>(<span class="str">"a"</span>);  <span class="cm">// only links inside nav</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>Live vs Static collections:</strong> <code>getElementsByClassName</code> / <code>getElementsByTagName</code> return <em>live</em> HTMLCollections — they update automatically when the DOM changes. <code>querySelectorAll</code> returns a <em>static</em> NodeList — a snapshot taken at the time of the call.
+          </div>
+        </section>
+
+        <section>
+          <h3>Traversal Methods</h3>
+          <div class="card">
+            <p>Sometimes it is more convenient to find an element relative to one you already have, rather than querying from <code>document</code>:</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> item = document.<span class="fn">querySelector</span>(<span class="str">".list-item"</span>);
+
+item.parentElement;                    <span class="cm">// direct parent element</span>
+item.<span class="fn">closest</span>(<span class="str">".container"</span>);          <span class="cm">// walks UP — first ancestor matching selector</span>
+item.<span class="fn">matches</span>(<span class="str">".list-item.active"</span>);  <span class="cm">// true/false — does this element match?</span>
+
+<span class="cm">// closest() is perfect for event delegation</span>
+document.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, e => {
+  <span class="kw">const</span> btn = e.target.<span class="fn">closest</span>(<span class="str">"button"</span>); <span class="cm">// find clicked button even if child was clicked</span>
+  <span class="kw">if</span> (btn) <span class="fn">handleClick</span>(btn);
+});</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 3 — Reading & Modifying Elements
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 3</div>
+        <h2>Reading &amp; Modifying Elements</h2>
+
+        <section>
+          <h3>Content — textContent, innerHTML, innerText</h3>
+          <div class="card">
+            <table>
+              <tr><th>Property</th><th>What it reads/writes</th><th>Notes</th></tr>
+              <tr><td><code>textContent</code></td><td>All text, including hidden elements. No HTML parsing.</td><td>Fastest. Safe — never interprets HTML tags.</td></tr>
+              <tr><td><code>innerText</code></td><td>Visible text only. Respects CSS visibility.</td><td>Slower (triggers layout). Doesn't return hidden text.</td></tr>
+              <tr><td><code>innerHTML</code></td><td>Full HTML markup of children.</td><td>Can read/write HTML. <strong>Risk of XSS</strong> if inserting user input.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> p = document.<span class="fn">querySelector</span>(<span class="str">"p"</span>);
+
+<span class="cm">// Reading</span>
+p.textContent; <span class="cm">// "Hello world" — raw text</span>
+p.innerHTML;   <span class="cm">// "Hello &lt;strong&gt;world&lt;/strong&gt;" — with tags</span>
+
+<span class="cm">// Writing</span>
+p.textContent = <span class="str">"New text"</span>;               <span class="cm">// ✅ safe — escapes HTML</span>
+p.innerHTML   = <span class="str">"&lt;strong&gt;Bold&lt;/strong&gt;"</span>; <span class="cm">// ✅ if content is trusted</span>
+p.innerHTML   = userInput;                  <span class="cm">// ❌ XSS risk — never do this</span>
+
+<span class="cm">// Safe alternative for user content</span>
+p.textContent = userInput; <span class="cm">// tags become literal text, not executed</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Attributes</h3>
+          <div class="card">
+            <table>
+              <tr><th>Method / Property</th><th>Description</th></tr>
+              <tr><td><code>el.getAttribute(name)</code></td><td>Read any attribute by name. Always returns a string or <code>null</code>.</td></tr>
+              <tr><td><code>el.setAttribute(name, val)</code></td><td>Set any attribute. Both args are strings.</td></tr>
+              <tr><td><code>el.removeAttribute(name)</code></td><td>Remove an attribute entirely.</td></tr>
+              <tr><td><code>el.hasAttribute(name)</code></td><td>Returns <code>true</code>/<code>false</code>.</td></tr>
+              <tr><td><code>el.id</code>, <code>el.href</code>, <code>el.src</code> …</td><td>Direct property access for common attributes — returns the <em>resolved</em> value (e.g. absolute URL for <code>href</code>).</td></tr>
+              <tr><td><code>el.dataset.key</code></td><td>Read/write <code>data-*</code> attributes. <code>data-user-id</code> → <code>el.dataset.userId</code> (camelCase).</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> img = document.<span class="fn">querySelector</span>(<span class="str">"img"</span>);
+
+img.<span class="fn">getAttribute</span>(<span class="str">"alt"</span>);          <span class="cm">// "Profile photo"</span>
+img.<span class="fn">setAttribute</span>(<span class="str">"alt"</span>, <span class="str">"Avatar"</span>); <span class="cm">// update</span>
+img.src;                           <span class="cm">// "https://..." (absolute URL)</span>
+img.<span class="fn">getAttribute</span>(<span class="str">"src"</span>);         <span class="cm">// "./img/photo.jpg" (as written in HTML)</span>
+
+<span class="cm">// data-* attributes</span>
+<span class="cm">// &lt;button data-user-id="42" data-role="admin"&gt;</span>
+<span class="kw">const</span> btn = document.<span class="fn">querySelector</span>(<span class="str">"button"</span>);
+btn.dataset.userId; <span class="cm">// "42"  (always a string)</span>
+btn.dataset.role;   <span class="cm">// "admin"</span>
+btn.dataset.userId = <span class="str">"99"</span>; <span class="cm">// write — updates data-user-id attribute</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>CSS Classes</h3>
+          <div class="card">
+            <p>The <code>classList</code> API is the modern, safe way to manage CSS classes on an element. Avoid manipulating <code>className</code> directly as string concatenation is fragile.</p>
+            <table>
+              <tr><th>Method</th><th>Description</th></tr>
+              <tr><td><code>el.classList.add("a", "b")</code></td><td>Add one or more classes.</td></tr>
+              <tr><td><code>el.classList.remove("a")</code></td><td>Remove a class.</td></tr>
+              <tr><td><code>el.classList.toggle("a")</code></td><td>Add if absent, remove if present. Returns new state (boolean).</td></tr>
+              <tr><td><code>el.classList.toggle("a", force)</code></td><td>Add if <code>force</code> is true, remove if false.</td></tr>
+              <tr><td><code>el.classList.contains("a")</code></td><td>Check if class exists. Returns boolean.</td></tr>
+              <tr><td><code>el.classList.replace("a", "b")</code></td><td>Replace one class with another.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> el = document.<span class="fn">querySelector</span>(<span class="str">".menu"</span>);
+
+el.classList.<span class="fn">add</span>(<span class="str">"open"</span>);           <span class="cm">// adds class</span>
+el.classList.<span class="fn">remove</span>(<span class="str">"hidden"</span>);       <span class="cm">// removes class</span>
+el.classList.<span class="fn">toggle</span>(<span class="str">"active"</span>);       <span class="cm">// flips active on/off</span>
+el.classList.<span class="fn">contains</span>(<span class="str">"open"</span>);      <span class="cm">// true</span>
+el.classList.<span class="fn">replace</span>(<span class="str">"open"</span>, <span class="str">"closed"</span>); <span class="cm">// swap</span>
+
+<span class="cm">// Toggle based on condition</span>
+el.classList.<span class="fn">toggle</span>(<span class="str">"disabled"</span>, !isEnabled);</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Inline Styles</h3>
+          <div class="card">
+            <p>The <code>style</code> property on an element maps to its inline <code>style</code> attribute. Property names are camelCased versions of CSS properties. Only use this for <em>dynamic</em> style changes — prefer toggling classes otherwise.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> box = document.<span class="fn">querySelector</span>(<span class="str">".box"</span>);
+
+<span class="cm">// Set inline styles — camelCase CSS properties</span>
+box.style.backgroundColor = <span class="str">"#ff0000"</span>;
+box.style.width            = <span class="str">"200px"</span>;
+box.style.transform        = <span class="str">"translateX(50px)"</span>;
+
+<span class="cm">// Remove an inline style (reverts to stylesheet value)</span>
+box.style.backgroundColor = <span class="str">""</span>;
+
+<span class="cm">// Read computed (final) style — includes stylesheet rules, not just inline</span>
+<span class="kw">const</span> computed = <span class="fn">getComputedStyle</span>(box);
+computed.<span class="fn">getPropertyValue</span>(<span class="str">"background-color"</span>); <span class="cm">// "rgb(255, 0, 0)"</span>
+computed.fontSize; <span class="cm">// "16px"</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>getComputedStyle vs .style:</strong> <code>el.style</code> only reads <em>inline</em> styles (set directly on the element). <code>getComputedStyle(el)</code> returns the <em>final calculated</em> style after all stylesheets and inline overrides are applied — use this to measure real values.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 4 — Creating & Modifying the DOM
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 4</div>
+        <h2>Creating &amp; Modifying the DOM</h2>
+
+        <section>
+          <h3>Creating Elements</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// 1. Create the element</span>
+<span class="kw">const</span> li = document.<span class="fn">createElement</span>(<span class="str">"li"</span>);
+
+<span class="cm">// 2. Set its content and attributes</span>
+li.textContent    = <span class="str">"New item"</span>;
+li.className      = <span class="str">"list-item"</span>;
+li.dataset.itemId = <span class="str">"7"</span>;
+
+<span class="cm">// 3. Append it to the DOM</span>
+<span class="kw">const</span> ul = document.<span class="fn">querySelector</span>(<span class="str">"ul"</span>);
+ul.<span class="fn">appendChild</span>(li);   <span class="cm">// adds at the end</span>
+
+<span class="cm">// Create a text node manually</span>
+<span class="kw">const</span> text = document.<span class="fn">createTextNode</span>(<span class="str">"Hello"</span>);
+li.<span class="fn">appendChild</span>(text);</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Inserting Elements — Modern API</h3>
+          <div class="card">
+            <table>
+              <tr><th>Method</th><th>Description</th></tr>
+              <tr><td><code>parent.append(...nodes)</code></td><td>Insert at the end. Accepts elements <em>or</em> strings. No return value.</td></tr>
+              <tr><td><code>parent.prepend(...nodes)</code></td><td>Insert at the beginning.</td></tr>
+              <tr><td><code>el.before(...nodes)</code></td><td>Insert just before <code>el</code> (as sibling).</td></tr>
+              <tr><td><code>el.after(...nodes)</code></td><td>Insert just after <code>el</code> (as sibling).</td></tr>
+              <tr><td><code>el.replaceWith(...nodes)</code></td><td>Replace <code>el</code> with the provided nodes.</td></tr>
+              <tr><td><code>el.remove()</code></td><td>Remove <code>el</code> from the DOM entirely.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> list = document.<span class="fn">querySelector</span>(<span class="str">"ul"</span>);
+<span class="kw">const</span> item = document.<span class="fn">createElement</span>(<span class="str">"li"</span>);
+item.textContent = <span class="str">"Last"</span>;
+
+list.<span class="fn">append</span>(item);         <span class="cm">// add element at end</span>
+list.<span class="fn">prepend</span>(<span class="str">"First item"</span>); <span class="cm">// prepend a string directly</span>
+
+<span class="kw">const</span> ref = document.<span class="fn">querySelector</span>(<span class="str">"li.active"</span>);
+ref.<span class="fn">before</span>(<span class="str">"Before active"</span>); <span class="cm">// insert string before ref element</span>
+ref.<span class="fn">after</span>(item);             <span class="cm">// insert element after ref</span>
+ref.<span class="fn">remove</span>();               <span class="cm">// detach from DOM</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>insertAdjacentHTML / insertAdjacentElement</h3>
+          <div class="card">
+            <p><code>insertAdjacentHTML</code> lets you inject HTML strings at precise positions relative to an element — without replacing or re-parsing existing content:</p>
+            <table>
+              <tr><th>Position string</th><th>Where it inserts</th></tr>
+              <tr><td><code>"beforebegin"</code></td><td>Before the element itself (as previous sibling).</td></tr>
+              <tr><td><code>"afterbegin"</code></td><td>Inside the element, before its first child.</td></tr>
+              <tr><td><code>"beforeend"</code></td><td>Inside the element, after its last child.</td></tr>
+              <tr><td><code>"afterend"</code></td><td>After the element itself (as next sibling).</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> card = document.<span class="fn">querySelector</span>(<span class="str">".card"</span>);
+
+card.<span class="fn">insertAdjacentHTML</span>(<span class="str">"beforeend"</span>, <span class="str">`
+  &lt;footer class="card-footer"&gt;Updated just now&lt;/footer&gt;
+`</span>);
+
+card.<span class="fn">insertAdjacentHTML</span>(<span class="str">"afterbegin"</span>, <span class="str">'&lt;span class="badge"&gt;New&lt;/span&gt;'</span>);</div>
+          </div>
+          <div class="highlight-box">
+            <strong>innerHTML vs insertAdjacentHTML:</strong> Setting <code>innerHTML</code> destroys and recreates all children — losing event listeners and focus. <code>insertAdjacentHTML</code> adds content without touching existing nodes. Prefer <code>insertAdjacentHTML</code> when you only want to add, not replace.
+          </div>
+        </section>
+
+        <section>
+          <h3>Cloning Nodes</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> original = document.<span class="fn">querySelector</span>(<span class="str">".card"</span>);
+
+<span class="cm">// cloneNode(true) — deep clone: element + all descendants</span>
+<span class="kw">const</span> copy = original.<span class="fn">cloneNode</span>(<span class="kw">true</span>);
+copy.querySelector(<span class="str">"h2"</span>).textContent = <span class="str">"Cloned card"</span>;
+document.body.<span class="fn">append</span>(copy);
+
+<span class="cm">// cloneNode(false) — shallow: only the element, no children</span>
+<span class="kw">const</span> emptyDiv = original.<span class="fn">cloneNode</span>(<span class="kw">false</span>);</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 5 — Events
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 5</div>
+        <h2>Events</h2>
+
+        <section>
+          <h3>addEventListener</h3>
+          <div class="card">
+            <p>The modern way to listen for events. An element can have multiple listeners for the same event type — unlike the old <code>onclick</code> property which only allows one.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> btn = document.<span class="fn">querySelector</span>(<span class="str">"button"</span>);
+
+<span class="cm">// addEventListener(type, handler, options)</span>
+btn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, <span class="kw">function</span>(event) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"clicked"</span>, event);
+});
+
+<span class="cm">// Arrow function — but loses `this` reference to the element</span>
+btn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, (e) => <span class="fn">console</span>.<span class="fn">log</span>(e.target));
+
+<span class="cm">// Named function — can be removed later with removeEventListener</span>
+<span class="kw">function</span> <span class="fn">handleClick</span>(e) { <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"handled"</span>); }
+btn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, handleClick);
+btn.<span class="fn">removeEventListener</span>(<span class="str">"click"</span>, handleClick); <span class="cm">// must be same ref</span>
+
+<span class="cm">// Options object</span>
+btn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, handleClick, {
+  once: <span class="kw">true</span>,     <span class="cm">// auto-remove after first call</span>
+  passive: <span class="kw">true</span>,  <span class="cm">// never calls preventDefault — improves scroll perf</span>
+  capture: <span class="kw">false</span>, <span class="cm">// bubble phase (default)</span>
+});</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>The Event Object</h3>
+          <div class="card">
+            <p>Every event handler receives an <strong>event object</strong> as its first argument, containing details about what happened:</p>
+            <table>
+              <tr><th>Property / Method</th><th>Description</th></tr>
+              <tr><td><code>e.type</code></td><td>Event type string: <code>"click"</code>, <code>"keydown"</code>, etc.</td></tr>
+              <tr><td><code>e.target</code></td><td>The element that <em>triggered</em> the event (where it originated).</td></tr>
+              <tr><td><code>e.currentTarget</code></td><td>The element the listener is <em>attached to</em>. Always equals <code>this</code> in a regular function handler.</td></tr>
+              <tr><td><code>e.preventDefault()</code></td><td>Stop the browser's default action (e.g. form submit, link navigation).</td></tr>
+              <tr><td><code>e.stopPropagation()</code></td><td>Stop the event from bubbling up (or capturing down) the DOM tree.</td></tr>
+              <tr><td><code>e.stopImmediatePropagation()</code></td><td>Stop all other listeners on the same element too.</td></tr>
+              <tr><td><code>e.key</code> / <code>e.code</code></td><td>For keyboard events: the key value (<code>"Enter"</code>) and physical key (<code>"KeyA"</code>).</td></tr>
+              <tr><td><code>e.clientX</code> / <code>e.clientY</code></td><td>Mouse position relative to the viewport.</td></tr>
+              <tr><td><code>e.pageX</code> / <code>e.pageY</code></td><td>Mouse position relative to the whole document (includes scroll).</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block">document.<span class="fn">querySelector</span>(<span class="str">"form"</span>).<span class="fn">addEventListener</span>(<span class="str">"submit"</span>, (e) => {
+  e.<span class="fn">preventDefault</span>();  <span class="cm">// stop page reload</span>
+  <span class="kw">const</span> data = <span class="kw">new</span> <span class="fn">FormData</span>(e.target);
+  <span class="fn">console</span>.<span class="fn">log</span>(Object.<span class="fn">fromEntries</span>(data));
+});
+
+document.<span class="fn">addEventListener</span>(<span class="str">"keydown"</span>, (e) => {
+  <span class="kw">if</span> (e.key === <span class="str">"Escape"</span>) <span class="fn">closeModal</span>();
+  <span class="kw">if</span> (e.key === <span class="str">"Enter"</span> && e.ctrlKey) <span class="fn">submit</span>();
+});</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Event Bubbling &amp; Capturing</h3>
+          <div class="card">
+            <p>When an event fires, it travels in three phases:</p>
+            <table>
+              <tr><th>Phase</th><th>Direction</th><th>Description</th></tr>
+              <tr><td>1. Capturing</td><td>Window → Target</td><td>Event travels down from <code>window</code> to the target. Listeners added with <code>capture: true</code> fire here.</td></tr>
+              <tr><td>2. Target</td><td>At the element</td><td>Event reaches the element it fired on.</td></tr>
+              <tr><td>3. Bubbling</td><td>Target → Window</td><td>Event travels back up. Most listeners use this phase (default).</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Click on inner &lt;button&gt; inside &lt;div&gt;</span>
+<span class="cm">// Bubbling order: button → div → body → html → document → window</span>
+
+div.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, e => {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"div heard click from:"</span>, e.target.tagName);
+  <span class="cm">// e.target = button (origin), e.currentTarget = div (this listener)</span>
+});
+
+<span class="cm">// Stop bubbling — div won't hear it</span>
+btn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, e => {
+  e.<span class="fn">stopPropagation</span>();
+});</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Not all events bubble:</strong> <code>focus</code>, <code>blur</code>, <code>scroll</code>, <code>load</code> do NOT bubble. Use their bubbling equivalents (<code>focusin</code>, <code>focusout</code>) or attach listeners to the target directly.
+          </div>
+        </section>
+
+        <section>
+          <h3>Event Delegation</h3>
+          <div class="card">
+            <p><strong>Event delegation</strong> means attaching one listener to a <em>parent</em> instead of many listeners on each child. It works because events bubble. This is more efficient, and automatically handles dynamically-added children.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// ❌ Naive — one listener per item (expensive, misses dynamic items)</span>
+document.<span class="fn">querySelectorAll</span>(<span class="str">".item"</span>).<span class="fn">forEach</span>(item => {
+  item.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, <span class="fn">handleClick</span>);
+});
+
+<span class="cm">// ✅ Delegation — one listener on the parent</span>
+<span class="kw">const</span> list = document.<span class="fn">querySelector</span>(<span class="str">"ul"</span>);
+list.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, (e) => {
+  <span class="kw">const</span> item = e.target.<span class="fn">closest</span>(<span class="str">".item"</span>); <span class="cm">// find the clicked .item</span>
+  <span class="kw">if</span> (!item) <span class="kw">return</span>;                       <span class="cm">// click was outside any .item</span>
+  <span class="fn">handleClick</span>(item);
+});</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Common Event Types</h3>
+          <div class="card">
+            <table>
+              <tr><th>Category</th><th>Events</th><th>Notes</th></tr>
+              <tr><td>Mouse</td><td><code>click</code>, <code>dblclick</code>, <code>mousedown</code>, <code>mouseup</code>, <code>mouseover</code>, <code>mouseout</code>, <code>mousemove</code>, <code>contextmenu</code></td><td><code>mouseover</code>/<code>mouseout</code> fire on children too. Use <code>mouseenter</code>/<code>mouseleave</code> to avoid that.</td></tr>
+              <tr><td>Keyboard</td><td><code>keydown</code>, <code>keyup</code>, <code>keypress</code> (deprecated)</td><td>Use <code>e.key</code> (e.g. <code>"Enter"</code>) not <code>e.keyCode</code> (deprecated).</td></tr>
+              <tr><td>Form</td><td><code>submit</code>, <code>change</code>, <code>input</code>, <code>focus</code>, <code>blur</code>, <code>focusin</code>, <code>focusout</code>, <code>reset</code></td><td><code>input</code> fires on every keystroke. <code>change</code> fires only when value commits (e.g. on blur).</td></tr>
+              <tr><td>Window / Document</td><td><code>load</code>, <code>DOMContentLoaded</code>, <code>resize</code>, <code>scroll</code>, <code>beforeunload</code></td><td><code>DOMContentLoaded</code> fires when HTML is parsed. <code>load</code> waits for images/stylesheets too.</td></tr>
+              <tr><td>Touch / Pointer</td><td><code>touchstart</code>, <code>touchend</code>, <code>pointerdown</code>, <code>pointermove</code></td><td>Pointer events unify mouse + touch + stylus.</td></tr>
+              <tr><td>Drag</td><td><code>dragstart</code>, <code>drag</code>, <code>dragend</code>, <code>dragover</code>, <code>drop</code></td><td>Must call <code>e.preventDefault()</code> on <code>dragover</code> to allow drop.</td></tr>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 6 — DOM Geometry & Dimensions
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 6</div>
+        <h2>DOM Geometry &amp; Dimensions</h2>
+
+        <section>
+          <h3>Element Size &amp; Position</h3>
+          <div class="card">
+            <table>
+              <tr><th>Property / Method</th><th>What it returns</th></tr>
+              <tr><td><code>el.getBoundingClientRect()</code></td><td>DOMRect with <code>top</code>, <code>left</code>, <code>right</code>, <code>bottom</code>, <code>width</code>, <code>height</code> — relative to the viewport.</td></tr>
+              <tr><td><code>el.offsetWidth</code> / <code>el.offsetHeight</code></td><td>Element size including padding and border (no margin). Integer pixels.</td></tr>
+              <tr><td><code>el.clientWidth</code> / <code>el.clientHeight</code></td><td>Element size including padding, excluding border and scrollbar.</td></tr>
+              <tr><td><code>el.scrollWidth</code> / <code>el.scrollHeight</code></td><td>Full scrollable content size, even if overflowing.</td></tr>
+              <tr><td><code>el.scrollTop</code> / <code>el.scrollLeft</code></td><td>How many pixels the content has been scrolled.</td></tr>
+              <tr><td><code>window.innerWidth</code> / <code>window.innerHeight</code></td><td>Viewport size.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> box = document.<span class="fn">querySelector</span>(<span class="str">".box"</span>);
+<span class="kw">const</span> rect = box.<span class="fn">getBoundingClientRect</span>();
+
+rect.top;    <span class="cm">// distance from viewport top</span>
+rect.left;   <span class="cm">// distance from viewport left</span>
+rect.width;  <span class="cm">// rendered width</span>
+rect.height; <span class="cm">// rendered height</span>
+
+<span class="cm">// Check if element is visible in viewport</span>
+<span class="kw">function</span> <span class="fn">isVisible</span>(el) {
+  <span class="kw">const</span> r = el.<span class="fn">getBoundingClientRect</span>();
+  <span class="kw">return</span> r.top >= <span class="num">0</span> && r.bottom <= window.innerHeight;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Scrolling</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Scroll the page</span>
+window.<span class="fn">scrollTo</span>({ top: <span class="num">0</span>, behavior: <span class="str">"smooth"</span> });   <span class="cm">// scroll to top</span>
+window.<span class="fn">scrollBy</span>({ top: <span class="num">200</span>, behavior: <span class="str">"smooth"</span> }); <span class="cm">// scroll down 200px</span>
+
+<span class="cm">// Scroll element into view</span>
+document.<span class="fn">querySelector</span>(<span class="str">"#section-3"</span>).<span class="fn">scrollIntoView</span>({ behavior: <span class="str">"smooth"</span> });
+
+<span class="cm">// Scroll position</span>
+window.scrollY;       <span class="cm">// pixels scrolled from top (vertical)</span>
+window.scrollX;       <span class="cm">// pixels scrolled from left (horizontal)</span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 7 — DOM Performance
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 7</div>
+        <h2>DOM Performance</h2>
+
+        <section>
+          <h3>Reflow &amp; Repaint</h3>
+          <div class="card">
+            <p>Every time you change the DOM or CSS, the browser may need to:</p>
+            <table>
+              <tr><th>Operation</th><th>Triggers</th><th>Cost</th></tr>
+              <tr><td><strong>Reflow (layout)</strong></td><td>Size / position changes: width, height, font-size, adding/removing elements.</td><td>Expensive — recalculates positions of potentially many elements.</td></tr>
+              <tr><td><strong>Repaint</strong></td><td>Visual changes without layout: color, background, visibility.</td><td>Cheaper than reflow, but still has cost.</td></tr>
+              <tr><td><strong>Composite</strong></td><td>transform, opacity changes (GPU-accelerated).</td><td>Cheapest — happens on GPU, does not trigger reflow or repaint.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>Avoid layout thrashing</strong> — reading a layout property (like <code>offsetWidth</code>) immediately after writing a style forces the browser to flush pending layout changes synchronously. Batch reads together and writes together.
+          </div>
+        </section>
+
+        <section>
+          <h3>DocumentFragment</h3>
+          <div class="card">
+            <p>A <code>DocumentFragment</code> is a lightweight, off-screen container. Build multiple elements inside it, then insert the fragment in one operation — triggering only one reflow instead of one per element.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// ❌ Causes a reflow on every append (slow)</span>
+<span class="kw">const</span> ul = document.<span class="fn">querySelector</span>(<span class="str">"ul"</span>);
+items.<span class="fn">forEach</span>(item => {
+  <span class="kw">const</span> li = document.<span class="fn">createElement</span>(<span class="str">"li"</span>);
+  li.textContent = item;
+  ul.<span class="fn">appendChild</span>(li); <span class="cm">// touches live DOM each time</span>
+});
+
+<span class="cm">// ✅ Build off-screen, then one single insert</span>
+<span class="kw">const</span> fragment = document.<span class="fn">createDocumentFragment</span>();
+items.<span class="fn">forEach</span>(item => {
+  <span class="kw">const</span> li = document.<span class="fn">createElement</span>(<span class="str">"li"</span>);
+  li.textContent = item;
+  fragment.<span class="fn">appendChild</span>(li); <span class="cm">// off-screen — no reflow</span>
+});
+ul.<span class="fn">appendChild</span>(fragment);   <span class="cm">// one reflow here</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>requestAnimationFrame</h3>
+          <div class="card">
+            <p><code>requestAnimationFrame(cb)</code> schedules a callback to run just before the browser's next paint. Use it for animations and any DOM changes that should be visually smooth — it syncs with the display refresh rate (typically 60fps).</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Animate a box moving right</span>
+<span class="kw">let</span> x = <span class="num">0</span>;
+<span class="kw">function</span> <span class="fn">animate</span>() {
+  x += <span class="num">2</span>;
+  box.style.transform = <span class="str">`translateX(${x}px)`</span>;
+  <span class="kw">if</span> (x < <span class="num">300</span>) <span class="fn">requestAnimationFrame</span>(animate); <span class="cm">// continue loop</span>
+}
+<span class="fn">requestAnimationFrame</span>(animate); <span class="cm">// start</span>
+
+<span class="cm">// Cancel if needed</span>
+<span class="kw">const</span> id = <span class="fn">requestAnimationFrame</span>(animate);
+<span class="fn">cancelAnimationFrame</span>(id);</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Prefer CSS transitions/animations</strong> for simple visual effects — the browser can optimise them with the GPU. Use <code>requestAnimationFrame</code> for JavaScript-driven animations that depend on runtime data or physics.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 8 — Forms & User Input
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 8</div>
+        <h2>Forms &amp; User Input</h2>
+
+        <section>
+          <h3>Reading Form Values</h3>
+          <div class="card">
+            <table>
+              <tr><th>Input type</th><th>How to read value</th></tr>
+              <tr><td>text, email, password, number, textarea</td><td><code>input.value</code> — string</td></tr>
+              <tr><td>checkbox</td><td><code>input.checked</code> — boolean</td></tr>
+              <tr><td>radio</td><td>Query the checked one: <code>document.querySelector('input[name="x"]:checked').value</code></td></tr>
+              <tr><td>select (single)</td><td><code>select.value</code></td></tr>
+              <tr><td>select (multiple)</td><td>Iterate <code>select.selectedOptions</code></td></tr>
+              <tr><td>file</td><td><code>input.files</code> — FileList</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> form  = document.<span class="fn">querySelector</span>(<span class="str">"#signup"</span>);
+<span class="kw">const</span> email = form.<span class="fn">querySelector</span>(<span class="str">"#email"</span>);
+<span class="kw">const</span> terms = form.<span class="fn">querySelector</span>(<span class="str">"#terms"</span>);
+
+email.value;   <span class="cm">// "user@example.com"</span>
+terms.checked; <span class="cm">// true / false</span>
+
+<span class="cm">// FormData — collect the whole form at once</span>
+form.<span class="fn">addEventListener</span>(<span class="str">"submit"</span>, (e) => {
+  e.<span class="fn">preventDefault</span>();
+  <span class="kw">const</span> data = <span class="kw">new</span> <span class="fn">FormData</span>(form);
+  data.<span class="fn">get</span>(<span class="str">"email"</span>);        <span class="cm">// value of input[name="email"]</span>
+  data.<span class="fn">getAll</span>(<span class="str">"tags"</span>);     <span class="cm">// array for multi-value fields</span>
+  Object.<span class="fn">fromEntries</span>(data); <span class="cm">// plain object of all fields</span>
+});</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Input Events</h3>
+          <div class="card">
+            <table>
+              <tr><th>Event</th><th>When it fires</th><th>Use for</th></tr>
+              <tr><td><code>input</code></td><td>Every time the value changes (each keystroke, paste, cut).</td><td>Live validation, character count, live search.</td></tr>
+              <tr><td><code>change</code></td><td>When the input loses focus and the value is different from when focus was gained.</td><td>Final validation, select/checkbox/radio changes.</td></tr>
+              <tr><td><code>focus</code> / <code>blur</code></td><td>When element gains / loses keyboard focus.</td><td>Show/hide hints, validate on leave.</td></tr>
+              <tr><td><code>submit</code></td><td>Form is submitted (button click or Enter key in input).</td><td>Always call <code>e.preventDefault()</code> to handle manually.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> search = document.<span class="fn">querySelector</span>(<span class="str">"#search"</span>);
+
+<span class="cm">// Live search on every keystroke</span>
+search.<span class="fn">addEventListener</span>(<span class="str">"input"</span>, (e) => {
+  <span class="fn">filterResults</span>(e.target.value);
+});
+
+<span class="cm">// Validate on blur (when user leaves the field)</span>
+search.<span class="fn">addEventListener</span>(<span class="str">"blur"</span>, (e) => {
+  <span class="kw">if</span> (!e.target.value) {
+    e.target.classList.<span class="fn">add</span>(<span class="str">"error"</span>);
+  }
+});</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 9 — MutationObserver & IntersectionObserver
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 9</div>
+        <h2>Observers</h2>
+
+        <section>
+          <h3>MutationObserver</h3>
+          <div class="card">
+            <p>A <strong>MutationObserver</strong> watches a DOM node for changes and fires a callback whenever the DOM is mutated. It is async — callbacks run as microtasks after the mutations have already happened.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> target = document.<span class="fn">querySelector</span>(<span class="str">"#feed"</span>);
+
+<span class="kw">const</span> observer = <span class="kw">new</span> <span class="fn">MutationObserver</span>((mutations) => {
+  mutations.<span class="fn">forEach</span>(mutation => {
+    <span class="kw">if</span> (mutation.type === <span class="str">"childList"</span>) {
+      <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Children changed:"</span>, mutation.addedNodes);
+    }
+    <span class="kw">if</span> (mutation.type === <span class="str">"attributes"</span>) {
+      <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Attribute changed:"</span>, mutation.attributeName);
+    }
+  });
+});
+
+observer.<span class="fn">observe</span>(target, {
+  childList: <span class="kw">true</span>,    <span class="cm">// watch for added/removed children</span>
+  subtree: <span class="kw">true</span>,      <span class="cm">// watch all descendants, not just direct children</span>
+  attributes: <span class="kw">true</span>,   <span class="cm">// watch attribute changes</span>
+  characterData: <span class="kw">true</span> <span class="cm">// watch text content changes</span>
+});
+
+observer.<span class="fn">disconnect</span>(); <span class="cm">// stop observing</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>IntersectionObserver</h3>
+          <div class="card">
+            <p>An <strong>IntersectionObserver</strong> fires a callback when an element enters or leaves the viewport (or a specified root). It is far more efficient than listening to scroll events for this purpose.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Lazy-load images as they enter the viewport</span>
+<span class="kw">const</span> imgObserver = <span class="kw">new</span> <span class="fn">IntersectionObserver</span>((entries, obs) => {
+  entries.<span class="fn">forEach</span>(entry => {
+    <span class="kw">if</span> (!entry.isIntersecting) <span class="kw">return</span>;
+    <span class="kw">const</span> img = entry.target;
+    img.src = img.dataset.src;      <span class="cm">// swap in the real src</span>
+    obs.<span class="fn">unobserve</span>(img);            <span class="cm">// stop watching once loaded</span>
+  });
+}, {
+  threshold: <span class="num">0.1</span>,   <span class="cm">// fire when 10% of the element is visible</span>
+  rootMargin: <span class="str">"0px 0px -50px 0px"</span> <span class="cm">// shrink detection zone by 50px at bottom</span>
+});
+
+document.<span class="fn">querySelectorAll</span>(<span class="str">"img[data-src]"</span>).<span class="fn">forEach</span>(img => {
+  imgObserver.<span class="fn">observe</span>(img);
+});</div>
+          </div>
+          <div class="highlight-box">
+            <strong>IntersectionObserver vs scroll event:</strong> Scroll listeners fire hundreds of times per second and require manual position calculations. <code>IntersectionObserver</code> callbacks are throttled by the browser and only fire on actual visibility changes — much more efficient.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 10 — Useful Patterns
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 10</div>
+        <h2>Useful Patterns</h2>
+
+        <section>
+          <h3>DOMContentLoaded vs load</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// DOMContentLoaded — HTML parsed, DOM ready. Images may still be loading.</span>
+document.<span class="fn">addEventListener</span>(<span class="str">"DOMContentLoaded"</span>, () => {
+  <span class="fn">initApp</span>(); <span class="cm">// safe to query and manipulate the DOM here</span>
+});
+
+<span class="cm">// load — everything loaded (images, stylesheets, fonts, iframes)</span>
+window.<span class="fn">addEventListener</span>(<span class="str">"load"</span>, () => {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Page fully loaded"</span>);
+});
+
+<span class="cm">// If script has defer attribute, DOMContentLoaded fires after all deferred</span>
+<span class="cm">// scripts run — so initApp() can go directly at the bottom of a deferred script.</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Debounce &amp; Throttle</h3>
+          <div class="card">
+            <p>Two techniques to control how often a handler runs on high-frequency events like <code>scroll</code>, <code>resize</code>, or <code>input</code>:</p>
+            <div class="grid-2">
+              <div class="mini-card">
+                <div class="mc-label">Debounce</div>
+                <p>Wait until the user <em>stops</em> firing the event for N ms, then run once. Good for search inputs — only search after the user pauses typing.</p>
+              </div>
+              <div class="mini-card">
+                <div class="mc-label">Throttle</div>
+                <p>Run at most once every N ms regardless of how many events fire. Good for scroll/resize where you need periodic updates but not every pixel.</p>
+              </div>
+            </div>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Debounce implementation</span>
+<span class="kw">function</span> <span class="fn">debounce</span>(fn, delay) {
+  <span class="kw">let</span> timer;
+  <span class="kw">return</span> (...args) => {
+    <span class="fn">clearTimeout</span>(timer);
+    timer = <span class="fn">setTimeout</span>(() => <span class="fn">fn</span>(...args), delay);
+  };
+}
+
+<span class="cm">// Throttle implementation</span>
+<span class="kw">function</span> <span class="fn">throttle</span>(fn, limit) {
+  <span class="kw">let</span> last = <span class="num">0</span>;
+  <span class="kw">return</span> (...args) => {
+    <span class="kw">const</span> now = Date.<span class="fn">now</span>();
+    <span class="kw">if</span> (now - last >= limit) {
+      last = now;
+      <span class="fn">fn</span>(...args);
+    }
+  };
+}
+
+<span class="cm">// Usage</span>
+search.<span class="fn">addEventListener</span>(<span class="str">"input"</span>, <span class="fn">debounce</span>(<span class="fn">handleSearch</span>, <span class="num">300</span>));
+window.<span class="fn">addEventListener</span>(<span class="str">"scroll"</span>, <span class="fn">throttle</span>(<span class="fn">updateNav</span>, <span class="num">100</span>));</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Custom Events</h3>
+          <div class="card">
+            <p>You can create and dispatch your own events to communicate between components without tight coupling:</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Create a custom event with optional data payload</span>
+<span class="kw">const</span> event = <span class="kw">new</span> <span class="fn">CustomEvent</span>(<span class="str">"cart:updated"</span>, {
+  detail: { itemCount: <span class="num">3</span>, total: <span class="num">49.99</span> },
+  bubbles: <span class="kw">true</span>,    <span class="cm">// let it bubble up the DOM</span>
+  cancelable: <span class="kw">true</span>  <span class="cm">// allow preventDefault()</span>
+});
+
+<span class="cm">// Dispatch it from any element</span>
+document.<span class="fn">querySelector</span>(<span class="str">"#cart"</span>).<span class="fn">dispatchEvent</span>(event);
+
+<span class="cm">// Listen for it anywhere up the tree</span>
+document.<span class="fn">addEventListener</span>(<span class="str">"cart:updated"</span>, (e) => {
+  <span class="fn">updateCartBadge</span>(e.detail.itemCount);
+});</div>
+          </div>
+        </section>
+      </div>
+
+      <footer style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #e0dfd8; font-size: 13px; color: #aaa;">
+        DOM Notes
+      </footer>
+    </div>
+  </body>
+</html>

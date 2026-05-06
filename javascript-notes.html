@@ -1,0 +1,1411 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JavaScript Notes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: #f5f4f0;
+        color: #1a1a18;
+        font-size: 15px;
+        line-height: 1.7;
+        padding: 3rem 1rem;
+      }
+
+      .page {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 2rem;
+        padding-bottom: 0.2rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      .chapter {
+        margin-bottom: 3rem;
+      }
+
+      .chapter-heading {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #1a1a18;
+        color: #f5f4f0;
+        padding: 3px 10px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #1a1a18;
+      }
+
+      section {
+        margin-bottom: 2rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        border-left: 3px solid #1a1a18;
+        padding-left: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: #1a1a18;
+      }
+
+      h4 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #5a5a56;
+        margin-top: 1.25rem;
+        margin-bottom: 0.4rem;
+        padding-left: 1.25rem;
+      }
+
+      p {
+        margin-bottom: 0.6rem;
+        color: #5a5a56;
+        font-size: 14px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 12px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        margin-top: 0.5rem;
+      }
+
+      th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #888;
+        padding: 6px 12px;
+        border-bottom: 1px solid #e0dfd8;
+      }
+
+      td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #f0efe8;
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      td:first-child {
+        color: #5a5a56;
+        font-weight: 500;
+        width: 38%;
+      }
+
+      code {
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        background: #f0efe8;
+        padding: 1px 6px;
+        border-radius: 4px;
+        color: #c0392b;
+      }
+
+      .code-block {
+        background: #1a1a18;
+        color: #e8e6df;
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin: 0.75rem 0;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .code-block .kw  { color: #f7aa44; }
+      .code-block .str { color: #a8e6a3; }
+      .code-block .cm  { color: #777; font-style: italic; }
+      .code-block .fn  { color: #89c4e1; }
+      .code-block .num { color: #d4a0f7; }
+
+      ul {
+        padding-left: 1.25rem;
+        margin-bottom: 0.6rem;
+      }
+
+      ul li {
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .highlight-box {
+        background: #fffbea;
+        border-left: 3px solid #f59e0b;
+        padding: 0.75rem 1rem;
+        border-radius: 0 8px 8px 0;
+        margin: 0.75rem 0;
+        font-size: 14px;
+        color: #78350f;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .mini-card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+      }
+
+      .mini-card .mc-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-bottom: 4px;
+      }
+
+      .mini-card p {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .nav-bar {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .nav-bar .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-right: 0.5rem;
+      }
+
+      .nav-bar a {
+        font-size: 13px;
+        color: #1a1a18;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: background 0.15s ease;
+      }
+
+      .nav-bar a:hover {
+        background: #f0efe8;
+      }
+
+      .nav-bar a.active {
+        background: #1a1a18;
+        color: #f5f4f0;
+      }
+
+      @media (max-width: 560px) {
+        .grid-2 { grid-template-columns: 1fr; }
+        header h1 { font-size: 1.6rem; }
+        .nav-bar { flex-direction: column; align-items: flex-start; }
+        .nav-bar .nav-label { margin-bottom: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>JavaScript Notes</h1>
+      </header>
+
+      <nav class="nav-bar">
+        <span class="nav-label">Notes:</span>
+        <a href="html-notes.html">HTML</a>
+        <a href="css-notes.html">CSS</a>
+        <a href="javascript-notes.html" class="active">JavaScript</a>
+        <a href="dom-notes.html">DOM</a>
+        <a href="react-notes.html">React</a>
+        <a href="react-native-notes.html">React Native</a>
+        <a href="nextjs-notes.html">Next.js</a>
+        <a href="hr-interview-notes.html">HR Interview</a>
+      </nav>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 1 — Introduction
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 1</div>
+        <h2>Introduction to JavaScript</h2>
+
+        <section>
+          <h3>What is JavaScript?</h3>
+          <div class="card">
+            <p><strong>JavaScript</strong> is a high-level, interpreted programming language that runs in the browser (and on servers via Node.js). It adds interactivity, logic, and behaviour to web pages.</p>
+            <ul>
+              <li><strong>Interpreted</strong> — code is executed line-by-line at runtime, not compiled ahead of time.</li>
+              <li><strong>Dynamically typed</strong> — variable types are determined at runtime, not declared in advance.</li>
+              <li><strong>Single-threaded</strong> — runs one operation at a time, but handles async work via the event loop.</li>
+            </ul>
+          </div>
+          <div class="highlight-box">
+            <strong>HTML / CSS / JS roles:</strong> HTML = structure, CSS = presentation, JavaScript = behaviour. JS can read and manipulate both HTML and CSS through the DOM.
+          </div>
+        </section>
+
+        <section>
+          <h3>Adding JavaScript to a Page</h3>
+          <div class="card">
+            <table>
+              <tr><th>Method</th><th>How</th><th>Notes</th></tr>
+              <tr><td>External file</td><td><code>&lt;script src="app.js" defer&gt;&lt;/script&gt;</code></td><td>Best practice. Keep in <code>&lt;head&gt;</code> with <code>defer</code>.</td></tr>
+              <tr><td>Inline <code>&lt;script&gt;</code></td><td><code>&lt;script&gt; // code &lt;/script&gt;</code></td><td>OK for small demos. Avoid for large projects.</td></tr>
+              <tr><td>Inline handler</td><td><code>&lt;button onclick="fn()"&gt;</code></td><td>Avoid — mixes HTML and JS, hard to maintain.</td></tr>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 2 — Variables & Data Types
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 2</div>
+        <h2>Variables &amp; Data Types</h2>
+
+        <section>
+          <h3>Declaring Variables — <code>var</code>, <code>let</code>, <code>const</code></h3>
+          <div class="card">
+            <table>
+              <tr><th>Keyword</th><th>Scope</th><th>Hoisted?</th><th>Re-assignable</th><th>Re-declarable</th></tr>
+              <tr><td><code>var</code></td><td>Function-scoped</td><td>Yes — initialised to <code>undefined</code></td><td>Yes</td><td>Yes — avoid</td></tr>
+              <tr><td><code>let</code></td><td>Block-scoped</td><td>Yes — but in TDZ until declaration</td><td>Yes</td><td>No</td></tr>
+              <tr><td><code>const</code></td><td>Block-scoped</td><td>Yes — but in TDZ until declaration</td><td>No (binding)</td><td>No</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">let</span> count = <span class="num">0</span>;
+count = <span class="num">1</span>;              <span class="cm">// ✅ re-assignable</span>
+
+<span class="kw">const</span> name = <span class="str">"Alice"</span>;
+<span class="cm">// name = "Bob";     ❌ TypeError — const binding cannot change</span>
+
+<span class="kw">const</span> user = { age: <span class="num">25</span> };
+user.age = <span class="num">26</span>;          <span class="cm">// ✅ the object itself can still be mutated</span></div>
+          </div>
+
+          <h4>Hoisting</h4>
+          <div class="card">
+            <p><strong>Hoisting</strong> is JavaScript's behaviour of moving variable and function declarations to the top of their scope during the compilation phase, before code runs.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// var — hoisted and initialised to undefined</span>
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// undefined (no error)</span>
+<span class="kw">var</span> x = <span class="num">5</span>;
+
+<span class="cm">// What the engine actually sees:</span>
+<span class="kw">var</span> x;           <span class="cm">// declaration hoisted</span>
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// undefined</span>
+x = <span class="num">5</span>;           <span class="cm">// assignment stays here</span>
+
+<span class="cm">// Function declaration — fully hoisted (body too)</span>
+<span class="fn">greet</span>();         <span class="cm">// "Hello" — works before definition</span>
+<span class="kw">function</span> <span class="fn">greet</span>() { <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Hello"</span>); }</span>
+
+<span class="cm">// let / const — hoisted but NOT initialised → TDZ</span>
+<span class="fn">console</span>.<span class="fn">log</span>(y); <span class="cm">// ❌ ReferenceError</span>
+<span class="kw">let</span> y = <span class="num">10</span>;</div>
+          </div>
+
+          <h4>Temporal Dead Zone (TDZ)</h4>
+          <div class="card">
+            <p>The <strong>Temporal Dead Zone</strong> is the period between the start of the block scope and the point where <code>let</code> or <code>const</code> is declared. Accessing the variable in this zone throws a <code>ReferenceError</code>.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block">{
+  <span class="cm">// TDZ for `color` starts here ↓</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(color); <span class="cm">// ❌ ReferenceError: Cannot access before init</span>
+  <span class="kw">let</span> color = <span class="str">"red"</span>;   <span class="cm">// TDZ ends here ↑</span>
+  <span class="fn">console</span>.<span class="fn">log</span>(color); <span class="cm">// ✅ "red"</span>
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Why TDZ exists:</strong> It prevents reading a variable before it has a meaningful value — a class of bug that <code>var</code>'s silent <code>undefined</code> hoisting caused. Always declare variables at the top of their block to avoid TDZ issues.<br /><br />
+            <strong>Rule of thumb:</strong> Use <code>const</code> by default. Use <code>let</code> when the value must be reassigned. Never use <code>var</code>.
+          </div>
+        </section>
+
+        <section>
+          <h3>Data Types</h3>
+          <div class="card">
+            <p>JavaScript has <strong>7 primitive types</strong> and <strong>1 object type</strong>. Primitives are immutable and stored by value. Objects are stored by reference.</p>
+            <table>
+              <tr><th>Type</th><th>Example</th><th>Notes</th></tr>
+              <tr><td><code>string</code></td><td><code>"hello"</code>, <code>'hi'</code>, <code>`tmpl`</code></td><td>Immutable sequence of characters. Use template literals for interpolation.</td></tr>
+              <tr><td><code>number</code></td><td><code>42</code>, <code>3.14</code>, <code>NaN</code>, <code>Infinity</code></td><td>One type for all numbers. <code>NaN</code> is "Not a Number" but <code>typeof NaN === "number"</code>.</td></tr>
+              <tr><td><code>boolean</code></td><td><code>true</code>, <code>false</code></td><td>Logical values. Result of comparisons.</td></tr>
+              <tr><td><code>null</code></td><td><code>null</code></td><td>Intentional absence of a value. You set it explicitly. <code>typeof null === "object"</code> is a JS bug.</td></tr>
+              <tr><td><code>undefined</code></td><td><code>undefined</code></td><td>Variable declared but not yet assigned. JS sets it automatically.</td></tr>
+              <tr><td><code>symbol</code></td><td><code>Symbol("id")</code></td><td>Unique, immutable identifier. Every <code>Symbol()</code> call produces a new, unique value.</td></tr>
+              <tr><td><code>bigint</code></td><td><code>9007199254740991n</code></td><td>Integers beyond <code>Number.MAX_SAFE_INTEGER</code>. Append <code>n</code> suffix.</td></tr>
+              <tr><td><code>object</code></td><td><code>{}</code>, <code>[]</code>, functions</td><td>Non-primitive. Arrays, functions, dates are all objects under the hood.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>Primitive vs Reference types:</strong><br />
+            Primitives are copied by value — <code>let b = a</code> gives <code>b</code> its own copy.<br />
+            Objects are copied by reference — <code>let b = a</code> means both <code>a</code> and <code>b</code> point to the same object in memory. Changing <code>b.x</code> also changes <code>a.x</code>.
+          </div>
+        </section>
+
+        <section>
+          <h3>Truthy &amp; Falsy Values</h3>
+          <div class="card">
+            <p>In a boolean context (like an <code>if</code> condition), every value is either <strong>truthy</strong> or <strong>falsy</strong>. There are exactly <strong>6 falsy values</strong> — everything else is truthy.</p>
+            <table>
+              <tr><th>Falsy values</th><th>Notes</th></tr>
+              <tr><td><code>false</code></td><td>The boolean false.</td></tr>
+              <tr><td><code>0</code>, <code>-0</code>, <code>0n</code></td><td>Zero in all numeric forms.</td></tr>
+              <tr><td><code>""</code>, <code>''</code>, <code>``</code></td><td>Empty string.</td></tr>
+              <tr><td><code>null</code></td><td>Intentional absence.</td></tr>
+              <tr><td><code>undefined</code></td><td>Unassigned variable.</td></tr>
+              <tr><td><code>NaN</code></td><td>Not a Number.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Common truthy gotchas</span>
+<span class="kw">if</span> ([])  { } <span class="cm">// ✅ empty array is truthy</span>
+<span class="kw">if</span> ({})  { } <span class="cm">// ✅ empty object is truthy</span>
+<span class="kw">if</span> (<span class="str">"0"</span>) { } <span class="cm">// ✅ non-empty string is truthy</span>
+
+<span class="cm">// Use ?? not || when 0 or "" are valid values</span>
+<span class="kw">const</span> count = userCount || <span class="num">10</span>;  <span class="cm">// ❌ 0 becomes 10</span>
+<span class="kw">const</span> count = userCount ?? <span class="num">10</span>;  <span class="cm">// ✅ 0 stays 0</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Type Coercion &amp; Equality</h3>
+          <div class="card">
+            <p><strong>Type coercion</strong> is JavaScript automatically converting one type to another when an operation requires it.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Implicit coercion examples</span>
+<span class="str">"5"</span> + <span class="num">3</span>    <span class="cm">// "53"  — number coerced to string (+ prefers string)</span>
+<span class="str">"5"</span> - <span class="num">3</span>    <span class="cm">// 2     — string coerced to number (- is numeric only)</span>
+<span class="kw">true</span> + <span class="num">1</span>  <span class="cm">// 2     — true coerced to 1</span>
+<span class="kw">false</span> + <span class="num">1</span> <span class="cm">// 1     — false coerced to 0</span>
+
+<span class="cm">// == loose equality — coerces types before comparing</span>
+<span class="num">0</span> == <span class="str">""</span>            <span class="cm">// true  ← dangerous</span>
+<span class="num">0</span> == <span class="kw">false</span>        <span class="cm">// true</span>
+<span class="kw">null</span> == <span class="kw">undefined</span> <span class="cm">// true  (only these two equal each other loosely)</span>
+<span class="str">"1"</span> == <span class="num">1</span>           <span class="cm">// true</span>
+
+<span class="cm">// === strict equality — checks type AND value, no coercion</span>
+<span class="num">0</span> === <span class="str">""</span>    <span class="cm">// false ✅</span>
+<span class="num">1</span> === <span class="str">"1"</span>  <span class="cm">// false ✅</span></div>
+          </div>
+          <div class="highlight-box">Always use <code>===</code>. The only acceptable use of <code>==</code> is <code>val == null</code> as a shorthand to check for both <code>null</code> and <code>undefined</code> at once.</div>
+        </section>
+
+        <section>
+          <h3>Template Literals</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> name = <span class="str">"Alice"</span>;
+<span class="kw">const</span> age = <span class="num">25</span>;
+
+<span class="cm">// Old way</span>
+<span class="str">"Hello, "</span> + name + <span class="str">". You are "</span> + age + <span class="str">" years old."</span>
+
+<span class="cm">// Template literal — use backticks</span>
+<span class="str">`Hello, ${name}. You are ${age} years old.`</span>
+
+<span class="cm">// Multi-line</span>
+<span class="kw">const</span> html = <span class="str">`
+  &lt;div&gt;
+    &lt;h1&gt;${name}&lt;/h1&gt;
+  &lt;/div&gt;
+`</span>;</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 3 — Operators & Control Flow
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 3</div>
+        <h2>Operators &amp; Control Flow</h2>
+
+        <section>
+          <h3>Operators</h3>
+          <div class="card">
+            <table>
+              <tr><th>Type</th><th>Operators</th><th>Notes</th></tr>
+              <tr><td>Arithmetic</td><td><code>+</code> <code>-</code> <code>*</code> <code>/</code> <code>%</code> <code>**</code></td><td><code>%</code> = remainder, <code>**</code> = exponentiation (<code>2**3 = 8</code>)</td></tr>
+              <tr><td>Assignment</td><td><code>=</code> <code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code></td><td>Shorthand compound assignment: <code>x += 1</code> = <code>x = x + 1</code></td></tr>
+              <tr><td>Comparison</td><td><code>===</code> <code>!==</code> <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code></td><td>Always use <code>===</code>/<code>!==</code> (strict). Never <code>==</code>/<code>!=</code>.</td></tr>
+              <tr><td>Logical</td><td><code>&amp;&amp;</code> <code>||</code> <code>!</code></td><td>AND, OR, NOT. Short-circuit — stop as soon as result is known.</td></tr>
+              <tr><td>Nullish coalescing</td><td><code>??</code></td><td>Returns right side only when left is <code>null</code> or <code>undefined</code> — ignores other falsy values.</td></tr>
+              <tr><td>Optional chaining</td><td><code>?.</code></td><td>Returns <code>undefined</code> instead of throwing if property doesn't exist.</td></tr>
+              <tr><td>Ternary</td><td><code>cond ? a : b</code></td><td>Inline if/else expression. Returns a value.</td></tr>
+              <tr><td>Logical assignment</td><td><code>??=</code> <code>||=</code> <code>&amp;&amp;=</code></td><td>Assign only when the condition is met. <code>a ??= b</code> = assign <code>b</code> if <code>a</code> is nullish.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Short-circuit evaluation</span>
+<span class="kw">true</span>  &amp;&amp; <span class="fn">doSomething</span>(); <span class="cm">// runs doSomething() — left is truthy, evaluates right</span>
+<span class="kw">false</span> &amp;&amp; <span class="fn">doSomething</span>(); <span class="cm">// skips  — left is falsy, short-circuits</span>
+<span class="kw">null</span>  || <span class="str">"default"</span>;    <span class="cm">// "default" — left is falsy, returns right</span>
+<span class="str">"hi"</span>  || <span class="str">"default"</span>;    <span class="cm">// "hi"      — left is truthy, returns left</span>
+
+<span class="kw">const</span> user = <span class="kw">null</span>;
+
+<span class="cm">// Optional chaining — no throw on missing property</span>
+<span class="kw">const</span> city = user?.address?.city;      <span class="cm">// undefined (not TypeError)</span>
+<span class="kw">const</span> role = user?.getRole?.();        <span class="cm">// safe method call too</span>
+
+<span class="cm">// ?? vs ||: difference with falsy values</span>
+<span class="kw">const</span> a = <span class="num">0</span> || <span class="num">10</span>;   <span class="cm">// 10 — 0 is falsy, || replaces it</span>
+<span class="kw">const</span> b = <span class="num">0</span> ?? <span class="num">10</span>;   <span class="cm">// 0  — 0 is not null/undefined, ?? keeps it</span>
+
+<span class="cm">// Logical assignment</span>
+<span class="kw">let</span> name;
+name ??= <span class="str">"Guest"</span>;   <span class="cm">// "Guest" — was undefined</span>
+name ??= <span class="str">"Admin"</span>;   <span class="cm">// "Guest" — already assigned, not nullish</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Conditionals</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// if / else if / else</span>
+<span class="kw">if</span> (score >= <span class="num">90</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"A"</span>);
+} <span class="kw">else if</span> (score >= <span class="num">70</span>) {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"B"</span>);
+} <span class="kw">else</span> {
+  <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"C"</span>);
+}
+
+<span class="cm">// switch</span>
+<span class="kw">switch</span> (day) {
+  <span class="kw">case</span> <span class="str">"Mon"</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Monday"</span>);
+    <span class="kw">break</span>;
+  <span class="kw">default</span>:
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"Other"</span>);
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Loops</h3>
+          <div class="card">
+            <table>
+              <tr><th>Loop</th><th>When to use</th></tr>
+              <tr><td><code>for</code></td><td>When you know the number of iterations.</td></tr>
+              <tr><td><code>while</code></td><td>When you loop until a condition becomes false.</td></tr>
+              <tr><td><code>for...of</code></td><td>Iterate over values of an iterable (array, string, Map, Set).</td></tr>
+              <tr><td><code>for...in</code></td><td>Iterate over keys of an object. Avoid on arrays.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> items = [<span class="str">"a"</span>, <span class="str">"b"</span>, <span class="str">"c"</span>];
+
+<span class="cm">// for...of — preferred for arrays</span>
+<span class="kw">for</span> (<span class="kw">const</span> item <span class="kw">of</span> items) {
+  <span class="fn">console</span>.<span class="fn">log</span>(item);
+}
+
+<span class="cm">// classic for loop</span>
+<span class="kw">for</span> (<span class="kw">let</span> i = <span class="num">0</span>; i &lt; items.length; i++) {
+  <span class="fn">console</span>.<span class="fn">log</span>(items[i]);
+}
+
+<span class="cm">// for...in — object keys</span>
+<span class="kw">const</span> obj = { a: <span class="num">1</span>, b: <span class="num">2</span> };
+<span class="kw">for</span> (<span class="kw">const</span> key <span class="kw">in</span> obj) {
+  <span class="fn">console</span>.<span class="fn">log</span>(key, obj[key]);
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 4 — Functions
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 4</div>
+        <h2>Functions</h2>
+
+        <section>
+          <h3>Function Declaration vs Expression vs Arrow</h3>
+          <div class="card">
+            <table>
+              <tr><th>Type</th><th>Hoisted?</th><th>Own <code>this</code>?</th><th>Use when</th></tr>
+              <tr><td>Declaration</td><td>Yes — fully (name + body)</td><td>Yes</td><td>Top-level utilities, recursion</td></tr>
+              <tr><td>Expression</td><td>No — variable hoisted but not value</td><td>Yes</td><td>Assigned to variables, callbacks</td></tr>
+              <tr><td>Arrow</td><td>No</td><td>No — inherits from outer scope</td><td>Callbacks, short one-liners, anywhere you don't need <code>this</code></td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Declaration — fully hoisted, callable before it appears</span>
+<span class="fn">greet</span>(<span class="str">"Alice"</span>);  <span class="cm">// ✅ works</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="kw">return</span> <span class="str">`Hello, ${name}`</span>;
+}
+
+<span class="cm">// Expression — NOT hoisted (var hoisted as undefined, const/let in TDZ)</span>
+<span class="fn">sayHi</span>();  <span class="cm">// ❌ TypeError — not yet assigned</span>
+<span class="kw">const</span> sayHi = <span class="kw">function</span>() { <span class="kw">return</span> <span class="str">"hi"</span>; };
+
+<span class="cm">// Arrow — concise, no own `this`, implicit return for single expressions</span>
+<span class="kw">const</span> double = n => n * <span class="num">2</span>;              <span class="cm">// single param, no parens needed</span>
+<span class="kw">const</span> add = (a, b) => a + b;            <span class="cm">// two params</span>
+<span class="kw">const</span> makeObj = (x) => ({ value: x });  <span class="cm">// returning an object — wrap in ()</span>
+
+<span class="cm">// Multi-line arrow needs explicit return</span>
+<span class="kw">const</span> greet2 = (name) => {
+  <span class="kw">const</span> msg = <span class="str">`Hello, ${name}`</span>;
+  <span class="kw">return</span> msg;
+};</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Parameters — Defaults, Rest &amp; Spread</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Default parameters — used when arg is undefined (not when 0 or "")</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name = <span class="str">"Guest"</span>) {
+  <span class="kw">return</span> <span class="str">`Hello, ${name}`</span>;
+}
+<span class="fn">greet</span>();           <span class="cm">// "Hello, Guest"</span>
+<span class="fn">greet</span>(<span class="kw">undefined</span>); <span class="cm">// "Hello, Guest" — undefined triggers default</span>
+<span class="fn">greet</span>(<span class="kw">null</span>);      <span class="cm">// "Hello, null"  — null does NOT trigger default</span>
+
+<span class="cm">// Rest (...) — collect all remaining arguments into an array</span>
+<span class="kw">function</span> <span class="fn">sum</span>(...nums) {
+  <span class="kw">return</span> nums.<span class="fn">reduce</span>((a, b) => a + b, <span class="num">0</span>);
+}
+<span class="fn">sum</span>(<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>);  <span class="cm">// 10 — nums = [1, 2, 3, 4]</span>
+
+<span class="cm">// Spread (...) — expand an iterable into individual arguments</span>
+<span class="kw">const</span> nums = [<span class="num">3</span>, <span class="num">1</span>, <span class="num">4</span>, <span class="num">1</span>, <span class="num">5</span>];
+Math.<span class="fn">max</span>(...nums);    <span class="cm">// 5 — same as Math.max(3, 1, 4, 1, 5)</span>
+<span class="kw">const</span> copy = [...nums]; <span class="cm">// shallow copy</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Scope</h3>
+          <div class="card">
+            <p><strong>Scope</strong> defines where variables are accessible. JS has three scope levels:</p>
+            <table>
+              <tr><th>Scope</th><th>Where</th><th>Keywords</th></tr>
+              <tr><td>Global scope</td><td>Outside all functions and blocks — accessible everywhere.</td><td><code>var</code> (becomes a property of <code>window</code>)</td></tr>
+              <tr><td>Function scope</td><td>Inside a function — not accessible outside.</td><td><code>var</code>, <code>let</code>, <code>const</code></td></tr>
+              <tr><td>Block scope</td><td>Inside <code>{ }</code> — an <code>if</code>, <code>for</code>, or any braces.</td><td><code>let</code>, <code>const</code> only (<code>var</code> ignores block scope)</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">var</span> a = <span class="str">"global"</span>;
+
+<span class="kw">function</span> <span class="fn">outer</span>() {
+  <span class="kw">let</span> b = <span class="str">"outer"</span>;
+
+  <span class="kw">function</span> <span class="fn">inner</span>() {
+    <span class="kw">let</span> c = <span class="str">"inner"</span>;
+    <span class="fn">console</span>.<span class="fn">log</span>(a, b, c); <span class="cm">// ✅ can access all — lexical scope chain</span>
+  }
+  <span class="cm">// console.log(c);  ❌ ReferenceError — c is not in scope here</span>
+}
+
+<span class="cm">// var leaks out of blocks (not out of functions)</span>
+<span class="kw">if</span> (<span class="kw">true</span>) {
+  <span class="kw">var</span> x = <span class="num">1</span>;   <span class="cm">// leaks — accessible outside the block</span>
+  <span class="kw">let</span> y = <span class="num">2</span>;   <span class="cm">// block-scoped — stays inside</span>
+}
+<span class="fn">console</span>.<span class="fn">log</span>(x); <span class="cm">// 1 ← var leaked</span>
+<span class="fn">console</span>.<span class="fn">log</span>(y); <span class="cm">// ❌ ReferenceError</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Closures</h3>
+          <div class="card">
+            <p>A <strong>closure</strong> is a function that <em>remembers</em> the variables from its outer (lexical) scope even after that outer function has finished executing. The inner function keeps a live reference — not a copy.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">function</span> <span class="fn">makeCounter</span>() {
+  <span class="kw">let</span> count = <span class="num">0</span>;             <span class="cm">// lives in makeCounter's scope</span>
+  <span class="kw">return</span> {
+    <span class="fn">increment</span>() { count++; },
+    <span class="fn">decrement</span>() { count--; },
+    <span class="fn">value</span>()     { <span class="kw">return</span> count; }
+  };
+}
+
+<span class="kw">const</span> counter = <span class="fn">makeCounter</span>();  <span class="cm">// makeCounter has finished — but count lives on</span>
+counter.<span class="fn">increment</span>();            <span class="cm">// count = 1</span>
+counter.<span class="fn">increment</span>();            <span class="cm">// count = 2</span>
+counter.<span class="fn">value</span>();               <span class="cm">// 2</span>
+
+<span class="cm">// Each call to makeCounter() creates a new independent closure</span>
+<span class="kw">const</span> c2 = <span class="fn">makeCounter</span>();
+c2.<span class="fn">increment</span>();               <span class="cm">// c2's count = 1 (separate from counter)</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>Common use cases for closures:</strong> private variables (as shown above), factory functions, memoization, and event listeners that capture loop variables. Closures are one of the most powerful and frequently-used patterns in JavaScript.
+          </div>
+        </section>
+
+        <section>
+          <h3>The <code>this</code> Keyword</h3>
+          <div class="card">
+            <p><code>this</code> refers to the object that is currently calling the function. Its value is determined by <strong>how</strong> the function is called, not where it is defined — except in arrow functions, which capture <code>this</code> from their surrounding lexical scope.</p>
+            <table>
+              <tr><th>Context</th><th><code>this</code> value</th></tr>
+              <tr><td>Regular function call</td><td><code>undefined</code> (strict mode) or <code>window</code> (non-strict)</td></tr>
+              <tr><td>Method call: <code>obj.fn()</code></td><td>The object before the dot (<code>obj</code>)</td></tr>
+              <tr><td>Arrow function</td><td>Lexically inherited — whatever <code>this</code> was in the enclosing scope</td></tr>
+              <tr><td><code>new Fn()</code></td><td>The newly created object instance</td></tr>
+              <tr><td><code>fn.call(ctx)</code> / <code>fn.apply(ctx)</code> / <code>fn.bind(ctx)</code></td><td>The explicitly passed <code>ctx</code></td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> user = {
+  name: <span class="str">"Alice"</span>,
+  <span class="fn">greet</span>() {
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">this</span>.name); <span class="cm">// "Alice" — this = user (method call)</span>
+  },
+  <span class="fn">greetArrow</span>: () => {
+    <span class="fn">console</span>.<span class="fn">log</span>(<span class="kw">this</span>.name); <span class="cm">// undefined — arrow fn, this = outer scope (not user)</span>
+  }
+};
+
+user.<span class="fn">greet</span>();       <span class="cm">// "Alice"</span>
+user.<span class="fn">greetArrow</span>(); <span class="cm">// undefined</span>
+
+<span class="cm">// Losing this — common bug</span>
+<span class="kw">const</span> fn = user.greet;
+<span class="fn">fn</span>();               <span class="cm">// undefined — called as plain function, not as method</span>
+
+<span class="cm">// Fix with bind</span>
+<span class="kw">const</span> boundFn = user.greet.<span class="fn">bind</span>(user);
+<span class="fn">boundFn</span>();          <span class="cm">// "Alice"</span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 5 — Arrays
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 5</div>
+        <h2>Arrays</h2>
+
+        <section>
+          <h3>Array Basics</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"cherry"</span>];
+
+fruits[<span class="num">0</span>];          <span class="cm">// "apple"</span>
+fruits.<span class="fn">length</span>;      <span class="cm">// 3</span>
+fruits[fruits.length - <span class="num">1</span>]; <span class="cm">// "cherry" (last item)</span>
+fruits.<span class="fn">at</span>(-<span class="num">1</span>);      <span class="cm">// "cherry" — modern shorthand</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Mutating Methods</h3>
+          <div class="card">
+            <table>
+              <tr><th>Method</th><th>What it does</th></tr>
+              <tr><td><code>push(val)</code></td><td>Add to end. Returns new length.</td></tr>
+              <tr><td><code>pop()</code></td><td>Remove last item. Returns removed item.</td></tr>
+              <tr><td><code>unshift(val)</code></td><td>Add to start.</td></tr>
+              <tr><td><code>shift()</code></td><td>Remove first item.</td></tr>
+              <tr><td><code>splice(i, n)</code></td><td>Remove <code>n</code> items at index <code>i</code>. Can also insert.</td></tr>
+              <tr><td><code>reverse()</code></td><td>Reverses array in place.</td></tr>
+              <tr><td><code>sort(fn)</code></td><td>Sorts in place. Provide a comparator for numbers.</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Non-mutating / Functional Methods</h3>
+          <div class="card">
+            <table>
+              <tr><th>Method</th><th>Returns</th><th>What it does</th></tr>
+              <tr><td><code>map(fn)</code></td><td>New array</td><td>Transform every item.</td></tr>
+              <tr><td><code>filter(fn)</code></td><td>New array</td><td>Keep items where <code>fn</code> returns <code>true</code>.</td></tr>
+              <tr><td><code>reduce(fn, init)</code></td><td>Single value</td><td>Accumulate items into one result.</td></tr>
+              <tr><td><code>find(fn)</code></td><td>Item or <code>undefined</code></td><td>First item where <code>fn</code> returns <code>true</code>.</td></tr>
+              <tr><td><code>findIndex(fn)</code></td><td>Index or <code>-1</code></td><td>Index of first match.</td></tr>
+              <tr><td><code>some(fn)</code></td><td><code>boolean</code></td><td><code>true</code> if at least one item passes.</td></tr>
+              <tr><td><code>every(fn)</code></td><td><code>boolean</code></td><td><code>true</code> if all items pass.</td></tr>
+              <tr><td><code>includes(val)</code></td><td><code>boolean</code></td><td>Whether array contains the value.</td></tr>
+              <tr><td><code>flat(depth)</code></td><td>New array</td><td>Flattens nested arrays.</td></tr>
+              <tr><td><code>flatMap(fn)</code></td><td>New array</td><td>Map then flat(1) in one pass.</td></tr>
+              <tr><td><code>slice(start, end)</code></td><td>New array</td><td>Copy a section. Does not mutate.</td></tr>
+              <tr><td><code>concat(arr)</code></td><td>New array</td><td>Merge arrays without mutation.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> nums = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>, <span class="num">5</span>];
+
+nums.<span class="fn">map</span>(n => n * <span class="num">2</span>);          <span class="cm">// [2, 4, 6, 8, 10]</span>
+nums.<span class="fn">filter</span>(n => n % <span class="num">2</span> === <span class="num">0</span>); <span class="cm">// [2, 4]</span>
+nums.<span class="fn">reduce</span>((acc, n) => acc + n, <span class="num">0</span>); <span class="cm">// 15</span>
+nums.<span class="fn">find</span>(n => n > <span class="num">3</span>);          <span class="cm">// 4</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Destructuring &amp; Spread</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Array destructuring</span>
+<span class="kw">const</span> [first, second, ...rest] = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>];
+<span class="cm">// first = 1, second = 2, rest = [3, 4]</span>
+
+<span class="cm">// Swap variables</span>
+<span class="kw">let</span> a = <span class="num">1</span>, b = <span class="num">2</span>;
+[a, b] = [b, a];
+
+<span class="cm">// Copy array with spread</span>
+<span class="kw">const</span> copy = [...nums];
+
+<span class="cm">// Merge arrays</span>
+<span class="kw">const</span> merged = [...arr1, ...arr2];</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 6 — Objects
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 6</div>
+        <h2>Objects</h2>
+
+        <section>
+          <h3>Object Basics</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> user = {
+  name: <span class="str">"Alice"</span>,
+  age: <span class="num">25</span>,
+  <span class="fn">greet</span>() {
+    <span class="kw">return</span> <span class="str">`Hi, I'm ${<span class="kw">this</span>.name}`</span>;
+  }
+};
+
+user.name;          <span class="cm">// "Alice" — dot notation</span>
+user[<span class="str">"age"</span>];         <span class="cm">// 25 — bracket notation (use for dynamic keys)</span>
+user.greet();       <span class="cm">// "Hi, I'm Alice"</span>
+
+<span class="cm">// Add / update / delete</span>
+user.email = <span class="str">"a@b.com"</span>;
+user.age = <span class="num">26</span>;
+<span class="kw">delete</span> user.age;</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Destructuring, Spread &amp; Shorthand</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Object destructuring</span>
+<span class="kw">const</span> { name, age } = user;
+
+<span class="cm">// Rename while destructuring</span>
+<span class="kw">const</span> { name: userName } = user;
+
+<span class="cm">// Default value</span>
+<span class="kw">const</span> { role = <span class="str">"guest"</span> } = user;
+
+<span class="cm">// Shorthand property names</span>
+<span class="kw">const</span> name = <span class="str">"Bob"</span>;
+<span class="kw">const</span> age = <span class="num">30</span>;
+<span class="kw">const</span> person = { name, age };  <span class="cm">// same as { name: name, age: age }</span>
+
+<span class="cm">// Spread — shallow copy / merge</span>
+<span class="kw">const</span> updated = { ...user, age: <span class="num">26</span> };</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Useful Object Methods</h3>
+          <div class="card">
+            <table>
+              <tr><th>Method</th><th>Returns</th><th>Description</th></tr>
+              <tr><td><code>Object.keys(obj)</code></td><td>Array of strings</td><td>All own enumerable property keys.</td></tr>
+              <tr><td><code>Object.values(obj)</code></td><td>Array</td><td>All own enumerable property values.</td></tr>
+              <tr><td><code>Object.entries(obj)</code></td><td>Array of <code>[key, val]</code> pairs</td><td>Useful for iterating.</td></tr>
+              <tr><td><code>Object.assign(target, src)</code></td><td>target</td><td>Shallow copy properties. Mutates target.</td></tr>
+              <tr><td><code>Object.freeze(obj)</code></td><td>obj</td><td>Prevents adding, deleting, or modifying properties.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> obj = { a: <span class="num">1</span>, b: <span class="num">2</span>, c: <span class="num">3</span> };
+
+Object.<span class="fn">keys</span>(obj);    <span class="cm">// ["a", "b", "c"]</span>
+Object.<span class="fn">values</span>(obj);  <span class="cm">// [1, 2, 3]</span>
+Object.<span class="fn">entries</span>(obj); <span class="cm">// [["a",1], ["b",2], ["c",3]]</span>
+
+<span class="cm">// Iterate over object</span>
+<span class="kw">for</span> (<span class="kw">const</span> [key, val] <span class="kw">of</span> Object.<span class="fn">entries</span>(obj)) {
+  <span class="fn">console</span>.<span class="fn">log</span>(key, val);
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 7 — Async JavaScript
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 7</div>
+        <h2>Async JavaScript</h2>
+
+        <section>
+          <h3>The Event Loop</h3>
+          <div class="card">
+            <p>JavaScript is <strong>single-threaded</strong> — it runs one operation at a time. The <strong>event loop</strong> is what allows it to handle async work (timers, network) without blocking.</p>
+            <table>
+              <tr><th>Component</th><th>What it does</th></tr>
+              <tr><td><strong>Call stack</strong></td><td>Where synchronous code executes. One frame per function call. LIFO.</td></tr>
+              <tr><td><strong>Web APIs</strong></td><td>Browser-provided async capabilities: <code>setTimeout</code>, <code>fetch</code>, DOM events. Run outside the JS thread.</td></tr>
+              <tr><td><strong>Microtask queue</strong></td><td>Holds resolved Promise callbacks (<code>.then</code>, <code>await</code>, <code>queueMicrotask</code>). <strong>Drains completely</strong> before the next task.</td></tr>
+              <tr><td><strong>Task queue (macrotask)</strong></td><td>Holds <code>setTimeout</code>, <code>setInterval</code>, I/O callbacks. One task per event loop tick.</td></tr>
+              <tr><td><strong>Event loop</strong></td><td>Checks: if call stack is empty → drain microtask queue → pick one macrotask → repeat.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"1"</span>);                          <span class="cm">// sync — runs first</span>
+
+<span class="fn">setTimeout</span>(() => <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"2"</span>), <span class="num">0</span>);  <span class="cm">// macrotask — runs last</span>
+
+Promise.<span class="fn">resolve</span>().<span class="fn">then</span>(() => <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"3"</span>)); <span class="cm">// microtask — before macrotask</span>
+
+<span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"4"</span>);                          <span class="cm">// sync — runs second</span>
+
+<span class="cm">// Output: 1, 4, 3, 2</span>
+<span class="cm">// Microtasks (Promise) always run before macrotasks (setTimeout)</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>Microtasks before macrotasks:</strong> Promise callbacks are microtasks and always run before <code>setTimeout</code>/<code>setInterval</code> callbacks, even if the timer delay is 0. The microtask queue is fully drained after every task before the next macrotask starts.
+          </div>
+        </section>
+
+        <section>
+          <h3>Promises</h3>
+          <div class="card">
+            <p>A <strong>Promise</strong> is an object representing an asynchronous operation. It is in one of three states:</p>
+            <table>
+              <tr><th>State</th><th>Meaning</th><th>Transitions to</th></tr>
+              <tr><td><code>pending</code></td><td>Initial state — neither fulfilled nor rejected.</td><td><code>fulfilled</code> or <code>rejected</code></td></tr>
+              <tr><td><code>fulfilled</code></td><td>Operation succeeded. <code>resolve(value)</code> was called.</td><td>Final (settled)</td></tr>
+              <tr><td><code>rejected</code></td><td>Operation failed. <code>reject(reason)</code> was called.</td><td>Final (settled)</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Creating a promise</span>
+<span class="kw">const</span> p = <span class="kw">new</span> <span class="fn">Promise</span>((resolve, reject) => {
+  <span class="kw">const</span> ok = <span class="kw">true</span>;
+  <span class="kw">if</span> (ok) <span class="fn">resolve</span>(<span class="str">"data"</span>);
+  <span class="kw">else</span>    <span class="fn">reject</span>(<span class="kw">new</span> <span class="fn">Error</span>(<span class="str">"failed"</span>));
+});
+
+<span class="cm">// Consuming with .then / .catch / .finally</span>
+p
+  .<span class="fn">then</span>(data  => <span class="fn">console</span>.<span class="fn">log</span>(data))   <span class="cm">// runs on fulfil</span>
+  .<span class="fn">catch</span>(err  => <span class="fn">console</span>.<span class="fn">error</span>(err))  <span class="cm">// runs on reject</span>
+  .<span class="fn">finally</span>(() => <span class="fn">console</span>.<span class="fn">log</span>(<span class="str">"done"</span>)); <span class="cm">// always runs</span>
+
+<span class="cm">// .then returns a new promise — chains are possible</span>
+<span class="fn">fetch</span>(<span class="str">"/api"</span>)
+  .<span class="fn">then</span>(res  => res.<span class="fn">json</span>())
+  .<span class="fn">then</span>(data => <span class="fn">console</span>.<span class="fn">log</span>(data))
+  .<span class="fn">catch</span>(err => <span class="fn">console</span>.<span class="fn">error</span>(err));</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Promise Combinators</h3>
+          <div class="card">
+            <p>When you need to run <em>multiple</em> async operations together:</p>
+            <table>
+              <tr><th>Method</th><th>Resolves when</th><th>Rejects when</th><th>Use for</th></tr>
+              <tr><td><code>Promise.all(arr)</code></td><td>All resolve</td><td>Any one rejects (fast-fail)</td><td>Parallel tasks where all must succeed</td></tr>
+              <tr><td><code>Promise.allSettled(arr)</code></td><td>All settle (any outcome)</td><td>Never</td><td>Run all, collect all results regardless of failure</td></tr>
+              <tr><td><code>Promise.race(arr)</code></td><td>First to settle (win or fail)</td><td>First to reject</td><td>Timeout patterns</td></tr>
+              <tr><td><code>Promise.any(arr)</code></td><td>First to fulfil</td><td>All reject</td><td>First success wins</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Promise.all — parallel, fast-fail</span>
+<span class="kw">const</span> [user, posts] = <span class="kw">await</span> Promise.<span class="fn">all</span>([
+  <span class="fn">fetch</span>(<span class="str">"/api/user"</span>).<span class="fn">then</span>(r => r.<span class="fn">json</span>()),
+  <span class="fn">fetch</span>(<span class="str">"/api/posts"</span>).<span class="fn">then</span>(r => r.<span class="fn">json</span>()),
+]);
+
+<span class="cm">// Promise.allSettled — get all results even if some fail</span>
+<span class="kw">const</span> results = <span class="kw">await</span> Promise.<span class="fn">allSettled</span>([p1, p2, p3]);
+results.<span class="fn">forEach</span>(r => {
+  <span class="kw">if</span> (r.status === <span class="str">"fulfilled"</span>) <span class="fn">console</span>.<span class="fn">log</span>(r.value);
+  <span class="kw">if</span> (r.status === <span class="str">"rejected"</span>)  <span class="fn">console</span>.<span class="fn">error</span>(r.reason);
+});</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>async / await</h3>
+          <div class="card">
+            <p><code>async/await</code> is syntactic sugar over Promises. <code>async</code> makes a function always return a Promise. <code>await</code> pauses execution <em>inside the async function</em> until the Promise settles — the rest of the program continues unblocked.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">async function</span> <span class="fn">getUser</span>(id) {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">`/api/users/${id}`</span>); <span class="cm">// pauses here</span>
+    <span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">`HTTP ${res.status}`</span>);
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();                 <span class="cm">// pauses again</span>
+    <span class="kw">return</span> data;
+  } <span class="kw">catch</span> (err) {
+    <span class="fn">console</span>.<span class="fn">error</span>(err);
+    <span class="kw">throw</span> err;  <span class="cm">// re-throw so caller knows it failed</span>
+  }
+}
+
+<span class="cm">// await in parallel — don't await sequentially if not needed</span>
+<span class="cm">// ❌ Sequential (slow — waits for each before starting next)</span>
+<span class="kw">const</span> a = <span class="kw">await</span> <span class="fn">fetchA</span>();
+<span class="kw">const</span> b = <span class="kw">await</span> <span class="fn">fetchB</span>();
+
+<span class="cm">// ✅ Parallel (fast — both start at the same time)</span>
+<span class="kw">const</span> [a, b] = <span class="kw">await</span> Promise.<span class="fn">all</span>([<span class="fn">fetchA</span>(), <span class="fn">fetchB</span>()]);</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Always use try/catch with await</strong> — unhandled rejected promises cause runtime errors. An <code>async</code> function always returns a Promise, so the caller can also chain <code>.catch()</code> on it. Re-throw errors if the caller needs to know about them.
+          </div>
+        </section>
+
+        <section>
+          <h3>Fetch API</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// GET request</span>
+<span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">"https://api.example.com/data"</span>);
+<span class="kw">if</span> (!res.ok) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">`Error: ${res.status}`</span>);
+<span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+
+<span class="cm">// POST request</span>
+<span class="kw">const</span> res2 = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">"/api/users"</span>, {
+  method: <span class="str">"POST"</span>,
+  headers: { <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span> },
+  body: JSON.<span class="fn">stringify</span>({ name: <span class="str">"Alice"</span> })
+});
+<span class="kw">const</span> created = <span class="kw">await</span> res2.<span class="fn">json</span>();</div>
+          </div>
+          <div class="highlight-box">
+            <strong>fetch only rejects on network errors</strong> (e.g. no internet). A 404 or 500 HTTP response still <em>resolves</em> the promise — it does NOT trigger <code>.catch</code>. Always check <code>res.ok</code> (true for 200–299) or <code>res.status</code> to handle HTTP-level errors explicitly.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 8 — Classes & Prototypes
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 8</div>
+        <h2>Classes &amp; Prototypes</h2>
+
+        <section>
+          <h3>Prototype Chain</h3>
+          <div class="card">
+            <p>Every JavaScript object has an internal link to another object called its <strong>prototype</strong>. When you access a property, JS looks on the object first, then walks up the prototype chain until it finds it or reaches <code>null</code>.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Every object inherits from Object.prototype</span>
+<span class="kw">const</span> arr = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>];
+
+<span class="cm">// arr → Array.prototype → Object.prototype → null</span>
+arr.<span class="fn">push</span>   <span class="cm">// found on Array.prototype</span>
+arr.<span class="fn">toString</span> <span class="cm">// found on Object.prototype (walked up the chain)</span>
+
+<span class="cm">// Object.getPrototypeOf() reveals the chain</span>
+Object.<span class="fn">getPrototypeOf</span>(arr) === Array.prototype; <span class="cm">// true</span>
+
+<span class="cm">// hasOwnProperty — checks only the object itself, not the chain</span>
+arr.<span class="fn">hasOwnProperty</span>(<span class="str">"length"</span>); <span class="cm">// true  — own property</span>
+arr.<span class="fn">hasOwnProperty</span>(<span class="str">"push"</span>);   <span class="cm">// false — inherited from Array.prototype</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>Classes are syntactic sugar over prototypes.</strong> When you write <code>class Dog extends Animal</code>, JS sets <code>Dog.prototype</code>'s prototype to <code>Animal.prototype</code>. Methods defined in a class body are placed on the prototype — not on each instance — so they're shared and memory-efficient.
+          </div>
+        </section>
+
+        <section>
+          <h3>Classes</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">class</span> <span class="fn">Animal</span> {
+  <span class="fn">constructor</span>(name, sound) {
+    <span class="kw">this</span>.name  = name;   <span class="cm">// instance property — on each object</span>
+    <span class="kw">this</span>.sound = sound;
+  }
+
+  <span class="fn">speak</span>() {             <span class="cm">// prototype method — shared across all instances</span>
+    <span class="kw">return</span> <span class="str">`${<span class="kw">this</span>.name} says ${<span class="kw">this</span>.sound}.`</span>;
+  }
+}
+
+<span class="kw">class</span> <span class="fn">Dog</span> <span class="kw">extends</span> <span class="fn">Animal</span> {
+  <span class="fn">constructor</span>(name) {
+    <span class="kw">super</span>(name, <span class="str">"woof"</span>); <span class="cm">// must call super() before using this</span>
+    <span class="kw">this</span>.tricks = [];
+  }
+
+  <span class="fn">learn</span>(trick) {
+    <span class="kw">this</span>.tricks.<span class="fn">push</span>(trick);
+  }
+
+  <span class="fn">speak</span>() {
+    <span class="kw">return</span> <span class="str">`${<span class="kw">super</span>.speak()} Knows: ${<span class="kw">this</span>.tricks.<span class="fn">join</span>(<span class="str">", "</span>)}`</span>;
+  }
+}
+
+<span class="kw">const</span> d = <span class="kw">new</span> <span class="fn">Dog</span>(<span class="str">"Rex"</span>);
+d.<span class="fn">learn</span>(<span class="str">"sit"</span>);
+d.<span class="fn">speak</span>();  <span class="cm">// "Rex says woof. Knows: sit"</span>
+
+d <span class="kw">instanceof</span> Dog;    <span class="cm">// true</span>
+d <span class="kw">instanceof</span> Animal; <span class="cm">// true — inherited</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Static, Private &amp; Getters/Setters</h3>
+          <div class="card">
+            <table>
+              <tr><th>Feature</th><th>Syntax</th><th>Description</th></tr>
+              <tr><td>Private field</td><td><code>#field = value</code></td><td>Only accessible inside the class. External access throws.</td></tr>
+              <tr><td>Static method/field</td><td><code>static fn()</code></td><td>Belongs to the class itself, not instances. Called as <code>ClassName.fn()</code>.</td></tr>
+              <tr><td>Getter</td><td><code>get prop() { }</code></td><td>Access like a property but computed. <code>obj.prop</code> calls the function.</td></tr>
+              <tr><td>Setter</td><td><code>set prop(v) { }</code></td><td>Intercept property assignment. <code>obj.prop = x</code> calls the function.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">class</span> <span class="fn">Temperature</span> {
+  #celsius;                        <span class="cm">// private</span>
+
+  <span class="fn">constructor</span>(c) { <span class="kw">this</span>.#celsius = c; }
+
+  <span class="kw">get</span> <span class="fn">fahrenheit</span>() {               <span class="cm">// getter — read as property</span>
+    <span class="kw">return</span> <span class="kw">this</span>.#celsius * <span class="num">9</span> / <span class="num">5</span> + <span class="num">32</span>;
+  }
+
+  <span class="kw">set</span> <span class="fn">fahrenheit</span>(f) {              <span class="cm">// setter — intercept assignment</span>
+    <span class="kw">this</span>.#celsius = (f - <span class="num">32</span>) * <span class="num">5</span> / <span class="num">9</span>;
+  }
+
+  <span class="kw">static</span> <span class="fn">freezing</span>() {             <span class="cm">// static factory</span>
+    <span class="kw">return new</span> <span class="fn">Temperature</span>(<span class="num">0</span>);
+  }
+}
+
+<span class="kw">const</span> t = <span class="fn">Temperature</span>.<span class="fn">freezing</span>(); <span class="cm">// static — no new needed here</span>
+t.fahrenheit;         <span class="cm">// 32 — getter called</span>
+t.fahrenheit = <span class="num">212</span>;  <span class="cm">// setter called — updates #celsius to 100</span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 9 — Modules
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 9</div>
+        <h2>Modules (ES Modules)</h2>
+
+        <section>
+          <h3>Export &amp; Import</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// utils.js — named exports</span>
+<span class="kw">export const</span> PI = <span class="num">3.14</span>;
+<span class="kw">export function</span> <span class="fn">add</span>(a, b) { <span class="kw">return</span> a + b; }
+
+<span class="cm">// default export — one per file</span>
+<span class="kw">export default function</span> <span class="fn">greet</span>(name) { <span class="kw">return</span> <span class="str">`Hi ${name}`</span>; }
+
+<span class="cm">// main.js — importing</span>
+<span class="kw">import</span> greet <span class="kw">from</span> <span class="str">"./utils.js"</span>;          <span class="cm">// default import</span>
+<span class="kw">import</span> { PI, add } <span class="kw">from</span> <span class="str">"./utils.js"</span>;    <span class="cm">// named imports</span>
+<span class="kw">import</span> * <span class="kw">as</span> utils <span class="kw">from</span> <span class="str">"./utils.js"</span>;   <span class="cm">// namespace import</span></div>
+          </div>
+          <div class="highlight-box">
+            Modules require <code>type="module"</code> on the <code>&lt;script&gt;</code> tag in HTML, or a bundler (Vite, Webpack). Module scripts are deferred by default.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 10 — Error Handling
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 10</div>
+        <h2>Error Handling</h2>
+
+        <section>
+          <h3>try / catch / finally</h3>
+          <div class="card">
+            <p><code>try</code> wraps code that may throw. <code>catch</code> receives the thrown value (always an <code>Error</code> by convention). <code>finally</code> runs regardless of success or failure — ideal for cleanup.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">try</span> {
+  <span class="kw">const</span> data = JSON.<span class="fn">parse</span>(badJson);  <span class="cm">// throws SyntaxError on bad input</span>
+  <span class="fn">processData</span>(data);
+} <span class="kw">catch</span> (err) {
+  <span class="cm">// err.name    — type of error e.g. "SyntaxError"</span>
+  <span class="cm">// err.message — human-readable description</span>
+  <span class="cm">// err.stack   — stack trace (helpful for debugging)</span>
+  <span class="fn">console</span>.<span class="fn">error</span>(err.name, err.message);
+} <span class="kw">finally</span> {
+  <span class="fn">closeConnection</span>();  <span class="cm">// always runs — even if try returns or throws</span>
+}
+
+<span class="cm">// Catch specific error types</span>
+<span class="kw">try</span> {
+  <span class="fn">riskyOp</span>();
+} <span class="kw">catch</span> (err) {
+  <span class="kw">if</span> (err <span class="kw">instanceof</span> <span class="fn">TypeError</span>) {
+    <span class="fn">console</span>.<span class="fn">error</span>(<span class="str">"Type problem:"</span>, err.message);
+  } <span class="kw">else</span> {
+    <span class="kw">throw</span> err;  <span class="cm">// re-throw anything you can't handle</span>
+  }
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Built-in Error Types</h3>
+          <div class="card">
+            <table>
+              <tr><th>Error type</th><th>When it's thrown</th></tr>
+              <tr><td><code>Error</code></td><td>Generic base error. Use for custom messages.</td></tr>
+              <tr><td><code>SyntaxError</code></td><td>Invalid JavaScript syntax. Thrown by <code>JSON.parse</code> on bad input.</td></tr>
+              <tr><td><code>TypeError</code></td><td>Wrong type of value used — e.g. calling a non-function, accessing property on <code>null</code>.</td></tr>
+              <tr><td><code>ReferenceError</code></td><td>Accessing an undeclared variable, or a variable in the TDZ.</td></tr>
+              <tr><td><code>RangeError</code></td><td>Value outside allowed range — e.g. invalid array length.</td></tr>
+              <tr><td><code>URIError</code></td><td>Malformed URI passed to <code>encodeURI</code> / <code>decodeURI</code>.</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Custom Errors &amp; Throwing</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Always throw Error objects (never plain strings)</span>
+<span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">"Something went wrong"</span>);  <span class="cm">// ✅</span>
+<span class="kw">throw</span> <span class="str">"bad input"</span>;                         <span class="cm">// ❌ — no stack trace</span>
+
+<span class="cm">// Custom error with extra properties</span>
+<span class="kw">class</span> <span class="fn">ApiError</span> <span class="kw">extends</span> <span class="fn">Error</span> {
+  <span class="fn">constructor</span>(message, statusCode) {
+    <span class="kw">super</span>(message);
+    <span class="kw">this</span>.name = <span class="str">"ApiError"</span>;
+    <span class="kw">this</span>.statusCode = statusCode;
+  }
+}
+
+<span class="kw">throw new</span> <span class="fn">ApiError</span>(<span class="str">"Not found"</span>, <span class="num">404</span>);
+
+<span class="cm">// Catching specific custom errors</span>
+<span class="kw">try</span> {
+  <span class="kw">await</span> <span class="fn">getUser</span>(<span class="num">123</span>);
+} <span class="kw">catch</span> (err) {
+  <span class="kw">if</span> (err <span class="kw">instanceof</span> <span class="fn">ApiError</span> && err.statusCode === <span class="num">404</span>) {
+    <span class="fn">showNotFound</span>();
+  } <span class="kw">else</span> {
+    <span class="kw">throw</span> err;
+  }
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 11 — Modern JS (ES6+)
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 11</div>
+        <h2>Modern JS — ES6+ Features</h2>
+
+        <section>
+          <h3>Shorthand &amp; Computed Properties</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> name = <span class="str">"Alice"</span>;
+<span class="kw">const</span> age  = <span class="num">30</span>;
+
+<span class="cm">// Shorthand — when key and variable name match</span>
+<span class="kw">const</span> user = { name, age };           <span class="cm">// { name: "Alice", age: 30 }</span>
+
+<span class="cm">// Computed property keys — dynamic key names</span>
+<span class="kw">const</span> field = <span class="str">"score"</span>;
+<span class="kw">const</span> obj = { [field]: <span class="num">100</span> };         <span class="cm">// { score: 100 }</span>
+
+<span class="cm">// Useful for building objects from variables dynamically</span>
+<span class="kw">const</span> <span class="fn">makeConfig</span> = (env) => ({
+  [`${env}_HOST`]: <span class="str">"localhost"</span>,
+  [`${env}_PORT`]: <span class="num">3000</span>,
+});
+<span class="fn">makeConfig</span>(<span class="str">"DEV"</span>); <span class="cm">// { DEV_HOST: "localhost", DEV_PORT: 3000 }</span>
+
+<span class="cm">// Shorthand methods</span>
+<span class="kw">const</span> api = {
+  <span class="fn">get</span>()  { <span class="kw">return</span> <span class="fn">fetch</span>(<span class="str">"/data"</span>); },  <span class="cm">// shorthand method</span>
+  <span class="kw">async</span> <span class="fn">post</span>(body) { <span class="kw">return</span> <span class="fn">fetch</span>(<span class="str">"/data"</span>, { method: <span class="str">"POST"</span>, body }); }
+};</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Destructuring in Depth</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Nested object destructuring</span>
+<span class="kw">const</span> { address: { city, zip } } = user;
+
+<span class="cm">// Destructuring in function parameters</span>
+<span class="kw">function</span> <span class="fn">render</span>({ name, age = <span class="num">0</span>, role = <span class="str">"guest"</span> }) {
+  <span class="kw">return</span> <span class="str">`${name} (${role}, ${age})`</span>;
+}
+
+<span class="cm">// Destructuring with rename + default</span>
+<span class="kw">const</span> { name: userName = <span class="str">"Anonymous"</span> } = {};  <span class="cm">// userName = "Anonymous"</span>
+
+<span class="cm">// Array destructuring — skip elements with commas</span>
+<span class="kw">const</span> [, second, , fourth] = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>]; <span class="cm">// second=2, fourth=4</span>
+
+<span class="cm">// Swap without temp variable</span>
+<span class="kw">let</span> a = <span class="num">1</span>, b = <span class="num">2</span>;
+[a, b] = [b, a]; <span class="cm">// a=2, b=1</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Map &amp; Set</h3>
+          <div class="card">
+            <div class="grid-2">
+              <div class="mini-card">
+                <div class="mc-label">Map</div>
+                <p>Key-value pairs. Keys can be <em>any type</em> (objects, functions, primitives). Maintains insertion order. Better than plain objects for dynamic key collections.</p>
+              </div>
+              <div class="mini-card">
+                <div class="mc-label">Set</div>
+                <p>Collection of <em>unique</em> values. Deduplicates automatically. Maintains insertion order. Has <code>O(1)</code> lookup via <code>.has()</code>.</p>
+              </div>
+            </div>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Map — any key type, no prototype pollution risk</span>
+<span class="kw">const</span> map = <span class="kw">new</span> <span class="fn">Map</span>();
+map.<span class="fn">set</span>(<span class="str">"name"</span>, <span class="str">"Alice"</span>);
+map.<span class="fn">set</span>(userObj, <span class="str">"admin"</span>); <span class="cm">// object as key — impossible with plain obj</span>
+map.<span class="fn">get</span>(<span class="str">"name"</span>);            <span class="cm">// "Alice"</span>
+map.<span class="fn">has</span>(<span class="str">"name"</span>);            <span class="cm">// true</span>
+map.size;                  <span class="cm">// 2</span>
+map.<span class="fn">delete</span>(<span class="str">"name"</span>);
+<span class="kw">for</span> (<span class="kw">const</span> [k, v] <span class="kw">of</span> map) { <span class="fn">console</span>.<span class="fn">log</span>(k, v); }
+
+<span class="cm">// Set — unique values</span>
+<span class="kw">const</span> set = <span class="kw">new</span> <span class="fn">Set</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>]);  <span class="cm">// {1, 2, 3}</span>
+set.<span class="fn">add</span>(<span class="num">4</span>);
+set.<span class="fn">has</span>(<span class="num">2</span>);   <span class="cm">// true</span>
+set.<span class="fn">delete</span>(<span class="num">1</span>);
+set.size;     <span class="cm">// 3</span>
+
+<span class="cm">// Remove duplicates from array — classic use case</span>
+<span class="kw">const</span> unique = [...<span class="kw">new</span> <span class="fn">Set</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">2</span>, <span class="num">3</span>, <span class="num">3</span>])]; <span class="cm">// [1, 2, 3]</span>
+
+<span class="cm">// Set intersection, union, difference</span>
+<span class="kw">const</span> a = <span class="kw">new</span> <span class="fn">Set</span>([<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>]);
+<span class="kw">const</span> b = <span class="kw">new</span> <span class="fn">Set</span>([<span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>]);
+<span class="kw">const</span> union        = <span class="kw">new</span> <span class="fn">Set</span>([...a, ...b]);          <span class="cm">// {1,2,3,4}</span>
+<span class="kw">const</span> intersection = <span class="kw">new</span> <span class="fn">Set</span>([...a].<span class="fn">filter</span>(x => b.<span class="fn">has</span>(x))); <span class="cm">// {2,3}</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>Map vs Object:</strong> Use <code>Map</code> when keys are dynamic, non-string, or when key count needs to be tracked easily via <code>.size</code>. Objects are fine for static, string-keyed data structures.
+          </div>
+        </section>
+
+        <section>
+          <h3>Symbols</h3>
+          <div class="card">
+            <p>A <code>Symbol</code> is a guaranteed-unique, immutable primitive value. Two symbols created with the same description are never equal. Symbols are commonly used as unique property keys that won't clash with other code.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> id1 = Symbol(<span class="str">"id"</span>);
+<span class="kw">const</span> id2 = Symbol(<span class="str">"id"</span>);
+id1 === id2; <span class="cm">// false — always unique</span>
+
+<span class="cm">// As object key — won't clash with other property names</span>
+<span class="kw">const</span> SECRET = Symbol(<span class="str">"secret"</span>);
+<span class="kw">const</span> obj = { [SECRET]: <span class="num">42</span>, name: <span class="str">"Alice"</span> };
+obj[SECRET];    <span class="cm">// 42</span>
+Object.<span class="fn">keys</span>(obj); <span class="cm">// ["name"] — Symbol keys are hidden from enumeration</span>
+
+<span class="cm">// Well-known symbols — customise built-in behaviour</span>
+<span class="kw">class</span> <span class="fn">Range</span> {
+  [Symbol.iterator]() {   <span class="cm">// makes the object iterable with for...of</span>
+    <span class="kw">let</span> i = <span class="num">0</span>;
+    <span class="kw">return</span> { <span class="fn">next</span>: () => ({ value: i++, done: i > <span class="num">3</span> }) };
+  }
+}
+[...<span class="kw">new</span> <span class="fn">Range</span>()]; <span class="cm">// [0, 1, 2]</span></div>
+          </div>
+        </section>
+      </div>
+
+      <footer style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #e0dfd8; font-size: 13px; color: #aaa;">
+        JavaScript Notes
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Native Notes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: #f5f4f0;
+        color: #1a1a18;
+        font-size: 15px;
+        line-height: 1.7;
+        padding: 3rem 1rem;
+      }
+
+      .page {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 2rem;
+        padding-bottom: 0.2rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      .chapter {
+        margin-bottom: 3rem;
+      }
+
+      .chapter-heading {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #1a1a18;
+        color: #f5f4f0;
+        padding: 3px 10px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #1a1a18;
+      }
+
+      section {
+        margin-bottom: 2rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        border-left: 3px solid #1a1a18;
+        padding-left: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: #1a1a18;
+      }
+
+      h4 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #5a5a56;
+        margin-top: 1.25rem;
+        margin-bottom: 0.4rem;
+        padding-left: 1.25rem;
+      }
+
+      p {
+        margin-bottom: 0.6rem;
+        color: #5a5a56;
+        font-size: 14px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 12px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        margin-top: 0.5rem;
+      }
+
+      th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #888;
+        padding: 6px 12px;
+        border-bottom: 1px solid #e0dfd8;
+      }
+
+      td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #f0efe8;
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      td:first-child {
+        color: #5a5a56;
+        font-weight: 500;
+        width: 38%;
+      }
+
+      code {
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        background: #f0efe8;
+        padding: 1px 6px;
+        border-radius: 4px;
+        color: #c0392b;
+      }
+
+      .code-block {
+        background: #1a1a18;
+        color: #e8e6df;
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin: 0.75rem 0;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .code-block .kw  { color: #f7aa44; }
+      .code-block .str { color: #a8e6a3; }
+      .code-block .cm  { color: #777; font-style: italic; }
+      .code-block .fn  { color: #89c4e1; }
+      .code-block .num { color: #d4a0f7; }
+      .code-block .tag { color: #f7aa44; }
+      .code-block .atr { color: #89c4e1; }
+
+      ul {
+        padding-left: 1.25rem;
+        margin-bottom: 0.6rem;
+      }
+
+      ul li {
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .highlight-box {
+        background: #fffbea;
+        border-left: 3px solid #f59e0b;
+        padding: 0.75rem 1rem;
+        border-radius: 0 8px 8px 0;
+        margin: 0.75rem 0;
+        font-size: 14px;
+        color: #78350f;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .mini-card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+      }
+
+      .mini-card .mc-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-bottom: 4px;
+      }
+
+      .mini-card p {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .nav-bar {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .nav-bar .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-right: 0.5rem;
+      }
+
+      .nav-bar a {
+        font-size: 13px;
+        color: #1a1a18;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: background 0.15s ease;
+      }
+
+      .nav-bar a:hover {
+        background: #f0efe8;
+      }
+
+      .nav-bar a.active {
+        background: #1a1a18;
+        color: #f5f4f0;
+      }
+
+      @media (max-width: 560px) {
+        .grid-2 { grid-template-columns: 1fr; }
+        header h1 { font-size: 1.6rem; }
+        .nav-bar { flex-direction: column; align-items: flex-start; }
+        .nav-bar .nav-label { margin-bottom: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>React Native Notes</h1>
+      </header>
+
+      <nav class="nav-bar">
+        <span class="nav-label">Notes:</span>
+        <a href="html-notes.html">HTML</a>
+        <a href="css-notes.html">CSS</a>
+        <a href="javascript-notes.html">JavaScript</a>
+        <a href="dom-notes.html">DOM</a>
+        <a href="react-notes.html">React</a>
+        <a href="react-native-notes.html" class="active">React Native</a>
+        <a href="nextjs-notes.html">Next.js</a>
+        <a href="hr-interview-notes.html">HR Interview</a>
+      </nav>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 1 — Introduction
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 1</div>
+        <h2>Introduction to React Native</h2>
+
+        <section>
+          <h3>What is React Native?</h3>
+          <div class="card">
+            <p><strong>React Native</strong> is an open-source framework by Meta for building <strong>native mobile apps</strong> (iOS and Android) using React and JavaScript. Unlike a web view wrapper, React Native maps React components to real native UI controls — you get genuine native performance and look-and-feel, not a browser inside an app.</p>
+            <table>
+              <tr><th>Feature</th><th>Detail</th></tr>
+              <tr><td>Languages</td><td>JavaScript / TypeScript</td></tr>
+              <tr><td>UI output</td><td>Real native widgets (not HTML/CSS)</td></tr>
+              <tr><td>Platforms</td><td>iOS, Android, Web (via React Native Web), Windows, macOS</td></tr>
+              <tr><td>Logic thread</td><td>JS runs on a separate thread; UI thread stays free</td></tr>
+              <tr><td>Tooling</td><td>Expo (managed) or React Native CLI (bare)</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>React vs React Native</h3>
+          <div class="card">
+            <table>
+              <tr><th></th><th>React (Web)</th><th>React Native</th></tr>
+              <tr><td>Renders to</td><td>DOM (HTML elements)</td><td>Native views (UIView, View)</td></tr>
+              <tr><td>Styling</td><td>CSS / Tailwind</td><td>StyleSheet API (JS objects)</td></tr>
+              <tr><td>Layout</td><td>CSS Flexbox + Grid</td><td>Flexbox only (column default)</td></tr>
+              <tr><td>Navigation</td><td>React Router, Next.js</td><td>React Navigation, Expo Router</td></tr>
+              <tr><td>Basic elements</td><td><code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;img&gt;</code></td><td><code>&lt;View&gt;</code>, <code>&lt;Text&gt;</code>, <code>&lt;Image&gt;</code></td></tr>
+              <tr><td>Hooks / State</td><td>Same React API</td><td>Same React API</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            All React concepts — components, props, state, hooks, context — work identically in React Native. The only difference is the <strong>host environment</strong>: native views instead of the DOM.
+          </div>
+        </section>
+
+        <section>
+          <h3>How React Native Works</h3>
+          <div class="card">
+            <p>React Native uses a <strong>bridge</strong> (old architecture) or <strong>JSI</strong> (new architecture, React Native 0.71+) to communicate between the JavaScript thread and the native UI thread.</p>
+            <table>
+              <tr><th>Thread</th><th>Responsibility</th></tr>
+              <tr><td>JS Thread</td><td>Runs your React/JS code — component logic, state, hooks, business rules.</td></tr>
+              <tr><td>Native / UI Thread</td><td>Renders native views, handles gestures and animations.</td></tr>
+              <tr><td>Shadow Thread</td><td>Calculates layout using Yoga (a C++ Flexbox engine) before applying to native.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            The <strong>New Architecture</strong> (Fabric + JSI + TurboModules) removes the async bridge bottleneck, enabling synchronous JS ↔ native calls and faster rendering. Enabled by default from React Native 0.76.
+          </div>
+        </section>
+
+        <section>
+          <h3>Expo vs React Native CLI</h3>
+          <div class="card">
+            <table>
+              <tr><th></th><th>Expo (Managed)</th><th>React Native CLI (Bare)</th></tr>
+              <tr><td>Setup</td><td>Zero native config — no Xcode/Android Studio needed to start</td><td>Full native project — requires Xcode + Android Studio</td></tr>
+              <tr><td>Native modules</td><td>Pre-built Expo SDK modules</td><td>Any npm package; write custom native code</td></tr>
+              <tr><td>OTA updates</td><td>Built-in via EAS Update</td><td>Manual setup</td></tr>
+              <tr><td>Ejecting</td><td>Can eject to bare workflow anytime</td><td>N/A — already bare</td></tr>
+              <tr><td>Best for</td><td>Most apps, rapid prototyping</td><td>Apps needing custom native modules</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Common Libraries — Expo vs CLI</h3>
+          <div class="card">
+            <p>Most libraries work in both workflows. The difference is that Expo provides its own SDK modules with zero native config, while CLI uses community packages that may require native linking.</p>
+            <table>
+              <tr><th>Category</th><th>Expo</th><th>React Native CLI</th></tr>
+              <tr><td>Navigation</td><td><code>expo-router</code></td><td><code>@react-navigation/native</code> + <code>@react-navigation/native-stack</code></td></tr>
+              <tr><td>Storage (plain)</td><td><code>expo-sqlite</code> / <code>@react-native-async-storage/async-storage</code></td><td><code>@react-native-async-storage/async-storage</code></td></tr>
+              <tr><td>Storage (secure)</td><td><code>expo-secure-store</code></td><td><code>react-native-keychain</code></td></tr>
+              <tr><td>HTTP requests</td><td><code>axios</code> or native <code>fetch</code></td><td><code>axios</code> or native <code>fetch</code></td></tr>
+              <tr><td>State management</td><td><code>zustand</code> / <code>@reduxjs/toolkit</code> + <code>react-redux</code></td><td><code>zustand</code> / <code>@reduxjs/toolkit</code> + <code>react-redux</code></td></tr>
+              <tr><td>Server state / caching</td><td><code>@tanstack/react-query</code></td><td><code>@tanstack/react-query</code></td></tr>
+              <tr><td>Forms</td><td><code>react-hook-form</code> + <code>zod</code></td><td><code>react-hook-form</code> + <code>zod</code></td></tr>
+              <tr><td>Animations</td><td><code>expo-reanimated</code> (via <code>react-native-reanimated</code>)</td><td><code>react-native-reanimated</code> + <code>react-native-gesture-handler</code></td></tr>
+              <tr><td>Images</td><td><code>expo-image</code></td><td><code>@d11/react-native-fast-image</code></td></tr>
+              <tr><td>Icons</td><td><code>@expo/vector-icons</code></td><td><code>react-native-vector-icons</code></td></tr>
+              <tr><td>Camera</td><td><code>expo-camera</code></td><td><code>react-native-vision-camera</code></td></tr>
+              <tr><td>Maps</td><td><code>react-native-maps</code></td><td><code>react-native-maps</code></td></tr>
+              <tr><td>Push notifications</td><td><code>expo-notifications</code></td><td><code>@notifee/react-native</code> + <code>@react-native-firebase/messaging</code></td></tr>
+              <tr><td>Splash screen</td><td><code>expo-splash-screen</code></td><td><code>react-native-splash-screen</code></td></tr>
+              <tr><td>Device info</td><td><code>expo-device</code> + <code>expo-constants</code></td><td><code>react-native-device-info</code></td></tr>
+              <tr><td>Bottom sheet</td><td><code>@gorhom/bottom-sheet</code></td><td><code>@gorhom/bottom-sheet</code></td></tr>
+              <tr><td>Calendar</td><td><code>react-native-calendars</code></td><td><code>react-native-calendars</code></td></tr>
+              <tr><td>Date / time picker</td><td><code>@react-native-community/datetimepicker</code></td><td><code>@react-native-community/datetimepicker</code></td></tr>
+              <tr><td>Permissions</td><td><code>expo-location</code> / <code>expo-media-library</code> (per feature)</td><td><code>react-native-permissions</code></td></tr>
+              <tr><td>File system</td><td><code>expo-file-system</code></td><td><code>react-native-fs</code></td></tr>
+              <tr><td>Clipboard</td><td><code>expo-clipboard</code></td><td><code>@react-native-clipboard/clipboard</code></td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>CLI only:</strong> after installing a library with native code run <code>npx pod-install</code> (iOS) and rebuild — <code>npx react-native run-ios</code> / <code>run-android</code>. Auto-linking handles most packages from RN 0.60+. Expo managed workflow handles all of this automatically.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 2 — Core Components
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 2</div>
+        <h2>Core Components</h2>
+
+        <section>
+          <h3>View &amp; Text</h3>
+          <div class="card">
+            <p><code>View</code> is the fundamental building block — equivalent to a <code>&lt;div&gt;</code>. It supports layout, style, and touch handling. <strong>All text must be inside a <code>Text</code> component</strong> — you cannot render a string directly inside a <code>View</code>.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { View, Text, StyleSheet } <span class="kw">from</span> <span class="str">"react-native"</span>;
+
+<span class="kw">function</span> <span class="fn">Card</span>({ title, subtitle }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;View</span> <span class="atr">style</span>={styles.card}<span class="tag">&gt;</span>
+      <span class="tag">&lt;Text</span> <span class="atr">style</span>={styles.title}<span class="tag">&gt;</span>{title}<span class="tag">&lt;/Text&gt;</span>
+      <span class="tag">&lt;Text</span> <span class="atr">style</span>={styles.subtitle}<span class="tag">&gt;</span>{subtitle}<span class="tag">&lt;/Text&gt;</span>
+    <span class="tag">&lt;/View&gt;</span>
+  );
+}
+
+<span class="kw">const</span> styles = StyleSheet.<span class="fn">create</span>({
+  card:     { padding: <span class="num">16</span>, backgroundColor: <span class="str">"#fff"</span>, borderRadius: <span class="num">12</span> },
+  title:    { fontSize: <span class="num">18</span>, fontWeight: <span class="str">"600"</span>, color: <span class="str">"#1a1a18"</span> },
+  subtitle: { fontSize: <span class="num">14</span>, color: <span class="str">"#888"</span>, marginTop: <span class="num">4</span> },
+});</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Image</h3>
+          <div class="card">
+            <p><code>Image</code> renders local or remote images. You must always specify <code>width</code> and <code>height</code> — unlike the web, images have no intrinsic size in React Native.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { Image } <span class="kw">from</span> <span class="str">"react-native"</span>;
+
+<span class="cm">// Local asset</span>
+<span class="tag">&lt;Image</span> <span class="atr">source</span>={<span class="fn">require</span>(<span class="str">"./assets/logo.png"</span>)} <span class="atr">style</span>={{ width: <span class="num">100</span>, height: <span class="num">100</span> }} <span class="tag">/&gt;</span>
+
+<span class="cm">// Remote URL</span>
+<span class="tag">&lt;Image</span>
+  <span class="atr">source</span>={{ uri: <span class="str">"https://example.com/avatar.jpg"</span> }}
+  <span class="atr">style</span>={{ width: <span class="num">64</span>, height: <span class="num">64</span>, borderRadius: <span class="num">32</span> }}
+  <span class="atr">resizeMode</span>=<span class="str">"cover"</span>
+<span class="tag">/&gt;</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>TextInput</h3>
+          <div class="card">
+            <p><code>TextInput</code> is the native text input. Use <code>value</code> + <code>onChangeText</code> for controlled inputs. Common props: <code>placeholder</code>, <code>keyboardType</code>, <code>secureTextEntry</code>, <code>multiline</code>, <code>autoCapitalize</code>.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { TextInput, useState } <span class="kw">from</span> <span class="str">"react-native"</span>;
+
+<span class="kw">function</span> <span class="fn">SearchBar</span>() {
+  <span class="kw">const</span> [query, setQuery] = <span class="fn">useState</span>(<span class="str">""</span>);
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;TextInput</span>
+      <span class="atr">value</span>={query}
+      <span class="atr">onChangeText</span>={<span class="fn">setQuery</span>}
+      <span class="atr">placeholder</span>=<span class="str">"Search…"</span>
+      <span class="atr">keyboardType</span>=<span class="str">"default"</span>
+      <span class="atr">autoCapitalize</span>=<span class="str">"none"</span>
+      <span class="atr">style</span>={{ borderWidth: <span class="num">1</span>, borderRadius: <span class="num">8</span>, padding: <span class="num">10</span> }}
+    <span class="tag">/&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>TouchableOpacity &amp; Pressable</h3>
+          <div class="card">
+            <p>React Native has no <code>onClick</code> on <code>View</code>. Use <code>Pressable</code> (recommended, flexible) or <code>TouchableOpacity</code> (dims on press) to make anything tappable.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { Pressable, TouchableOpacity, Text } <span class="kw">from</span> <span class="str">"react-native"</span>;
+
+<span class="cm">// Pressable — fine-grained pressed/hovered/focused states</span>
+<span class="tag">&lt;Pressable</span>
+  <span class="atr">onPress</span>={() => <span class="fn">handleSubmit</span>()}
+  <span class="atr">style</span>={({ pressed }) => ({ opacity: pressed ? <span class="num">0.7</span> : <span class="num">1</span> })}
+<span class="tag">&gt;</span>
+  <span class="tag">&lt;Text&gt;</span>Submit<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/Pressable&gt;</span>
+
+<span class="cm">// TouchableOpacity — simple opacity feedback</span>
+<span class="tag">&lt;TouchableOpacity</span> <span class="atr">onPress</span>={() => <span class="fn">handlePress</span>()} <span class="atr">activeOpacity</span>={<span class="num">0.7</span>}<span class="tag">&gt;</span>
+  <span class="tag">&lt;Text&gt;</span>Tap me<span class="tag">&lt;/Text&gt;</span>
+<span class="tag">&lt;/TouchableOpacity&gt;</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>ScrollView &amp; FlatList</h3>
+          <div class="card">
+            <p><code>ScrollView</code> renders all children at once — fine for small lists. <code>FlatList</code> lazily renders only visible items and is the right choice for any list that can grow.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { FlatList, Text, View } <span class="kw">from</span> <span class="str">"react-native"</span>;
+
+<span class="kw">function</span> <span class="fn">UserList</span>({ users }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;FlatList</span>
+      <span class="atr">data</span>={users}
+      <span class="atr">keyExtractor</span>={item => item.id.<span class="fn">toString</span>()}
+      <span class="atr">renderItem</span>={({ item }) => (
+        <span class="tag">&lt;View&gt;</span>
+          <span class="tag">&lt;Text&gt;</span>{item.name}<span class="tag">&lt;/Text&gt;</span>
+        <span class="tag">&lt;/View&gt;</span>
+      )}
+      <span class="atr">ItemSeparatorComponent</span>={() => <span class="tag">&lt;View</span> <span class="atr">style</span>={{ height: <span class="num">1</span>, backgroundColor: <span class="str">"#eee"</span> }} <span class="tag">/&gt;</span>}
+    <span class="tag">/&gt;</span>
+  );
+}</div>
+          </div>
+          <div class="highlight-box">
+            Use <strong><code>FlatList</code> for any dynamic list</strong>. Use <code>SectionList</code> for grouped lists (e.g. contacts A–Z). Never put a <code>FlatList</code> inside a <code>ScrollView</code> — their scroll conflicts.
+          </div>
+        </section>
+
+        <section>
+          <h3>Modal &amp; SafeAreaView</h3>
+          <div class="card">
+            <p><code>Modal</code> renders content above everything else. <code>SafeAreaView</code> automatically insets content to avoid the notch, home bar, and status bar on iOS and Android.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { SafeAreaView, Modal, View, Text } <span class="kw">from</span> <span class="str">"react-native"</span>;
+
+<span class="cm">// SafeAreaView — always wrap root screen content</span>
+<span class="tag">&lt;SafeAreaView</span> <span class="atr">style</span>={{ flex: <span class="num">1</span> }}<span class="tag">&gt;</span>
+  <span class="tag">&lt;YourScreen /&gt;</span>
+<span class="tag">&lt;/SafeAreaView&gt;</span>
+
+<span class="cm">// Modal</span>
+<span class="tag">&lt;Modal</span> <span class="atr">visible</span>={isOpen} <span class="atr">animationType</span>=<span class="str">"slide"</span> <span class="atr">onRequestClose</span>={() => <span class="fn">setIsOpen</span>(<span class="kw">false</span>)}<span class="tag">&gt;</span>
+  <span class="tag">&lt;View&gt;</span><span class="tag">&lt;Text&gt;</span>Modal content<span class="tag">&lt;/Text&gt;</span><span class="tag">&lt;/View&gt;</span>
+<span class="tag">&lt;/Modal&gt;</span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 3 — Styling
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 3</div>
+        <h2>Styling</h2>
+
+        <section>
+          <h3>StyleSheet API</h3>
+          <div class="card">
+            <p>Styles in React Native are JavaScript objects — there is no CSS. <code>StyleSheet.create()</code> validates your styles at dev time and optimises them by sending style IDs over the bridge instead of full objects.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { StyleSheet, View, Text } <span class="kw">from</span> <span class="str">"react-native"</span>;
+
+<span class="kw">const</span> styles = StyleSheet.<span class="fn">create</span>({
+  container: {
+    flex: <span class="num">1</span>,
+    backgroundColor: <span class="str">"#f5f4f0"</span>,
+    padding: <span class="num">16</span>,
+  },
+  heading: {
+    fontSize: <span class="num">24</span>,
+    fontWeight: <span class="str">"700"</span>,
+    color: <span class="str">"#1a1a18"</span>,
+    marginBottom: <span class="num">8</span>,
+  },
+});
+
+<span class="kw">function</span> <span class="fn">Screen</span>() {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;View</span> <span class="atr">style</span>={styles.container}<span class="tag">&gt;</span>
+      <span class="tag">&lt;Text</span> <span class="atr">style</span>={styles.heading}<span class="tag">&gt;</span>Hello<span class="tag">&lt;/Text&gt;</span>
+    <span class="tag">&lt;/View&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Flexbox in React Native</h3>
+          <div class="card">
+            <p>React Native uses Flexbox for layout — but with <strong>two key differences</strong> from the web: <code>flexDirection</code> defaults to <code>column</code> (not row), and <code>flex: 1</code> means "take all remaining space in the parent".</p>
+            <table>
+              <tr><th>Property</th><th>Web default</th><th>React Native default</th></tr>
+              <tr><td><code>flexDirection</code></td><td><code>row</code></td><td><code>column</code></td></tr>
+              <tr><td><code>alignContent</code></td><td><code>stretch</code></td><td><code>flex-start</code></td></tr>
+              <tr><td><code>flexShrink</code></td><td><code>1</code></td><td><code>0</code></td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Fill screen, center content</span>
+<span class="kw">const</span> styles = StyleSheet.<span class="fn">create</span>({
+  screen: { flex: <span class="num">1</span>, justifyContent: <span class="str">"center"</span>, alignItems: <span class="str">"center"</span> },
+  row:    { flexDirection: <span class="str">"row"</span>, gap: <span class="num">8</span> },
+});</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Dynamic &amp; Conditional Styles</h3>
+          <div class="card">
+            <p>Pass an array to <code>style</code> to merge multiple style objects. Later entries override earlier ones — useful for conditional or variant styles.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Array syntax — merged left to right</span>
+<span class="tag">&lt;View</span> <span class="atr">style</span>={[styles.base, isActive &amp;&amp; styles.active, { marginTop: <span class="num">8</span> }]}<span class="tag">&gt;</span>
+
+<span class="cm">// Platform-specific values</span>
+<span class="kw">import</span> { Platform } <span class="kw">from</span> <span class="str">"react-native"</span>;
+
+<span class="kw">const</span> shadow = Platform.<span class="fn">select</span>({
+  ios:     { shadowColor: <span class="str">"#000"</span>, shadowOpacity: <span class="num">0.1</span>, shadowRadius: <span class="num">4</span> },
+  android: { elevation: <span class="num">4</span> },
+});</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 4 — Navigation
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 4</div>
+        <h2>Navigation</h2>
+
+        <section>
+          <h3>React Navigation</h3>
+          <div class="card">
+            <p><strong>React Navigation</strong> is the standard navigation library for React Native. It provides Stack, Tab, and Drawer navigators that map to native navigation patterns on each platform.</p>
+            <table>
+              <tr><th>Navigator</th><th>Use case</th></tr>
+              <tr><td><code>Stack</code></td><td>Screen-by-screen navigation with a back stack (e.g. list → detail).</td></tr>
+              <tr><td><code>BottomTab</code></td><td>Tab bar at the bottom — main app sections (Home, Search, Profile).</td></tr>
+              <tr><td><code>Drawer</code></td><td>Slide-out sidebar menu.</td></tr>
+              <tr><td><code>NativeStack</code></td><td>Uses native OS navigation stack — better performance than JS Stack.</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Stack Navigator Setup</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { NavigationContainer } <span class="kw">from</span> <span class="str">"@react-navigation/native"</span>;
+<span class="kw">import</span> { createNativeStackNavigator } <span class="kw">from</span> <span class="str">"@react-navigation/native-stack"</span>;
+
+<span class="kw">const</span> Stack = <span class="fn">createNativeStackNavigator</span>();
+
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;NavigationContainer&gt;</span>
+      <span class="tag">&lt;Stack.Navigator</span> <span class="atr">initialRouteName</span>=<span class="str">"Home"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;Stack.Screen</span> <span class="atr">name</span>=<span class="str">"Home"</span>   <span class="atr">component</span>={<span class="fn">HomeScreen</span>} <span class="tag">/&gt;</span>
+        <span class="tag">&lt;Stack.Screen</span> <span class="atr">name</span>=<span class="str">"Detail"</span> <span class="atr">component</span>={<span class="fn">DetailScreen</span>} <span class="tag">/&gt;</span>
+      <span class="tag">&lt;/Stack.Navigator&gt;</span>
+    <span class="tag">&lt;/NavigationContainer&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Navigating &amp; Passing Params</h3>
+          <div class="card">
+            <p>Every screen receives a <code>navigation</code> prop. Use <code>navigation.navigate()</code> to go to a screen, <code>navigation.goBack()</code> to go back, and pass data via <code>params</code>.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Navigate and pass params</span>
+<span class="kw">function</span> <span class="fn">HomeScreen</span>({ navigation }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;Pressable</span> <span class="atr">onPress</span>={() =>
+      navigation.<span class="fn">navigate</span>(<span class="str">"Detail"</span>, { userId: <span class="str">"42"</span>, name: <span class="str">"Alice"</span> })
+    }<span class="tag">&gt;</span>
+      <span class="tag">&lt;Text&gt;</span>Go to Detail<span class="tag">&lt;/Text&gt;</span>
+    <span class="tag">&lt;/Pressable&gt;</span>
+  );
+}
+
+<span class="cm">// Read params in destination screen</span>
+<span class="kw">function</span> <span class="fn">DetailScreen</span>({ route }) {
+  <span class="kw">const</span> { userId, name } = route.params;
+  <span class="kw">return</span> <span class="tag">&lt;Text&gt;</span>{name} — {userId}<span class="tag">&lt;/Text&gt;</span>;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Expo Router</h3>
+          <div class="card">
+            <p><strong>Expo Router</strong> is a file-based routing system (like Next.js) built on top of React Navigation. Each file in the <code>app/</code> directory becomes a route automatically.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// app/index.tsx → "/" (home screen)</span>
+<span class="cm">// app/profile.tsx → "/profile"</span>
+<span class="cm">// app/posts/[id].tsx → "/posts/:id" (dynamic route)</span>
+
+<span class="cm">// Navigate programmatically</span>
+<span class="kw">import</span> { router } <span class="kw">from</span> <span class="str">"expo-router"</span>;
+
+router.<span class="fn">push</span>(<span class="str">"/profile"</span>);
+router.<span class="fn">push</span>({ pathname: <span class="str">"/posts/[id]"</span>, params: { id: <span class="str">"42"</span> } });
+router.<span class="fn">back</span>();</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 5 — Platform APIs & Device Features
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 5</div>
+        <h2>Platform APIs &amp; Device Features</h2>
+
+        <section>
+          <h3>Platform Module</h3>
+          <div class="card">
+            <p>Use <code>Platform.OS</code> to detect the current platform and write platform-specific code without separate files.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { Platform } <span class="kw">from</span> <span class="str">"react-native"</span>;
+
+<span class="cm">// Conditional logic</span>
+<span class="kw">const</span> isIOS = Platform.OS === <span class="str">"ios"</span>;
+<span class="kw">const</span> isAndroid = Platform.OS === <span class="str">"android"</span>;
+
+<span class="cm">// Platform.select — returns the matching value</span>
+<span class="kw">const</span> fontSize = Platform.<span class="fn">select</span>({ ios: <span class="num">16</span>, android: <span class="num">14</span>, default: <span class="num">15</span> });
+
+<span class="cm">// Platform-specific file — Button.ios.tsx / Button.android.tsx</span>
+<span class="cm">// React Native auto-picks the right file based on platform</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Secure Storage</h3>
+          <div class="card">
+            <p><code>expo-secure-store</code> encrypts data using the device's secure enclave (iOS Keychain / Android Keystore). Use it for sensitive values — auth tokens, passwords, API keys. Values are tied to the app and the device; uninstalling the app deletes them.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> * <span class="kw">as</span> SecureStore <span class="kw">from</span> <span class="str">"expo-secure-store"</span>;
+
+<span class="cm">// Write — value must be a string</span>
+<span class="kw">await</span> SecureStore.<span class="fn">setItemAsync</span>(<span class="str">"auth_token"</span>, token);
+
+<span class="cm">// Write an object — serialise first</span>
+<span class="kw">await</span> SecureStore.<span class="fn">setItemAsync</span>(<span class="str">"user"</span>, JSON.<span class="fn">stringify</span>({ id: <span class="str">"42"</span>, role: <span class="str">"admin"</span> }));
+
+<span class="cm">// Read</span>
+<span class="kw">const</span> raw = <span class="kw">await</span> SecureStore.<span class="fn">getItemAsync</span>(<span class="str">"user"</span>);
+<span class="kw">const</span> user = raw ? JSON.<span class="fn">parse</span>(raw) : <span class="kw">null</span>;
+
+<span class="cm">// Delete</span>
+<span class="kw">await</span> SecureStore.<span class="fn">deleteItemAsync</span>(<span class="str">"auth_token"</span>);</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Never store sensitive data in AsyncStorage</strong> — it is unencrypted plain text on the device file system. Use <code>expo-secure-store</code> for tokens, credentials, and anything that should not be readable if the device is compromised.
+          </div>
+        </section>
+
+        <section>
+          <h3>Permissions</h3>
+          <div class="card">
+            <p>Accessing device features (camera, location, notifications) requires runtime permissions on both iOS and Android. Use the <code>expo-permissions</code> or <code>react-native-permissions</code> library to request them.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> * <span class="kw">as</span> Location <span class="kw">from</span> <span class="str">"expo-location"</span>;
+
+<span class="kw">async function</span> <span class="fn">getLocation</span>() {
+  <span class="kw">const</span> { status } = <span class="kw">await</span> Location.<span class="fn">requestForegroundPermissionsAsync</span>();
+  <span class="kw">if</span> (status !== <span class="str">"granted"</span>) {
+    <span class="fn">alert</span>(<span class="str">"Permission denied"</span>);
+    <span class="kw">return</span>;
+  }
+  <span class="kw">const</span> location = <span class="kw">await</span> Location.<span class="fn">getCurrentPositionAsync</span>({});
+  <span class="kw">return</span> location.coords;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Animations with Animated API</h3>
+          <div class="card">
+            <p>The built-in <code>Animated</code> API drives smooth, performant animations by running them on the native thread via <code>useNativeDriver: true</code>. For complex animations, use <strong>Reanimated 3</strong>.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { Animated, useRef, useEffect } <span class="kw">from</span> <span class="str">"react-native"</span>;
+
+<span class="kw">function</span> <span class="fn">FadeIn</span>({ children }) {
+  <span class="kw">const</span> opacity = <span class="fn">useRef</span>(<span class="kw">new</span> Animated.<span class="fn">Value</span>(<span class="num">0</span>)).current;
+
+  <span class="fn">useEffect</span>(() => {
+    Animated.<span class="fn">timing</span>(opacity, {
+      toValue: <span class="num">1</span>,
+      duration: <span class="num">400</span>,
+      useNativeDriver: <span class="kw">true</span>,   <span class="cm">// runs on UI thread — no JS overhead</span>
+    }).<span class="fn">start</span>();
+  }, []);
+
+  <span class="kw">return</span> <span class="tag">&lt;Animated.View</span> <span class="atr">style</span>={{ opacity }}<span class="tag">&gt;</span>{children}<span class="tag">&lt;/Animated.View&gt;</span>;
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 6 — Project Structure & Best Practices
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 6</div>
+        <h2>Project Structure &amp; Best Practices</h2>
+
+        <section>
+          <h3>Recommended Folder Structure</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block">src/
+├── app/              <span class="cm"># Expo Router screens (or screens/ for React Navigation)</span>
+├── components/       <span class="cm"># Reusable UI components</span>
+├── hooks/            <span class="cm"># Custom hooks (useAuth, useFetch…)</span>
+├── services/         <span class="cm"># API calls, third-party integrations</span>
+├── store/            <span class="cm"># Global state (Zustand, Redux Toolkit)</span>
+├── utils/            <span class="cm"># Pure helper functions</span>
+├── constants/        <span class="cm"># Colors, spacing tokens, config</span>
+└── types/            <span class="cm"># TypeScript types and interfaces</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Key Differences to Keep in Mind</h3>
+          <div class="card">
+            <table>
+              <tr><th>Web habit</th><th>React Native equivalent</th></tr>
+              <tr><td><code>&lt;div&gt;</code></td><td><code>&lt;View&gt;</code></td></tr>
+              <tr><td><code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;h1&gt;</code></td><td><code>&lt;Text&gt;</code> (all text)</td></tr>
+              <tr><td><code>&lt;img&gt;</code></td><td><code>&lt;Image&gt;</code> (must set width/height)</td></tr>
+              <tr><td><code>&lt;input&gt;</code></td><td><code>&lt;TextInput&gt;</code></td></tr>
+              <tr><td><code>&lt;button&gt;</code></td><td><code>&lt;Pressable&gt;</code> or <code>&lt;TouchableOpacity&gt;</code></td></tr>
+              <tr><td><code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code></td><td><code>&lt;FlatList&gt;</code> or <code>&lt;SectionList&gt;</code></td></tr>
+              <tr><td>CSS classes</td><td><code>StyleSheet.create()</code> objects</td></tr>
+              <tr><td><code>onClick</code></td><td><code>onPress</code></td></tr>
+              <tr><td>window / document</td><td>Not available — use RN APIs</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Performance Tips</h3>
+          <div class="card">
+            <table>
+              <tr><th>Tip</th><th>Why it matters</th></tr>
+              <tr><td>Use <code>FlatList</code> over <code>ScrollView</code> for lists</td><td>Only renders visible items — avoids memory spikes</td></tr>
+              <tr><td>Always set <code>keyExtractor</code></td><td>Stable keys let React reconcile list changes efficiently</td></tr>
+              <tr><td><code>useNativeDriver: true</code> for animations</td><td>Runs animation on UI thread — no JS bridge overhead</td></tr>
+              <tr><td>Use <code>React.memo</code> on list item components</td><td>Prevents every item re-rendering on list state change</td></tr>
+              <tr><td>Avoid inline style objects</td><td>New object reference every render — use <code>StyleSheet.create</code></td></tr>
+              <tr><td>Use Hermes engine</td><td>Faster startup, lower memory usage — enabled by default in new projects</td></tr>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <footer style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #e0dfd8; font-size: 13px; color: #aaa;">
+        React Native Notes
+      </footer>
+    </div>
+  </body>
+</html>

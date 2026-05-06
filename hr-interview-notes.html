@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HR Interview Notes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: #f5f4f0;
+        color: #1a1a18;
+        font-size: 15px;
+        line-height: 1.7;
+        padding: 3rem 1rem;
+      }
+
+      .page {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 2rem;
+        padding-bottom: 0.2rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      .chapter {
+        margin-bottom: 3rem;
+      }
+
+      .chapter-heading {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #1a1a18;
+        color: #f5f4f0;
+        padding: 3px 10px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #1a1a18;
+      }
+
+      section {
+        margin-bottom: 2rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.1rem;
+        color: #1a1a18;
+      }
+
+      .section-header {
+        border-left: 3px solid #1a1a18;
+        padding-left: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        margin-bottom: 0.6rem;
+        color: #5a5a56;
+        font-size: 14px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 12px;
+      }
+
+      .question {
+        font-size: 14px;
+        font-weight: 600;
+        color: #1a1a18;
+        margin-bottom: 0.5rem;
+      }
+
+      .answer {
+        font-size: 14px;
+        color: #5a5a56;
+        padding-left: 1rem;
+        border-left: 2px solid #e0dfd8;
+      }
+
+      .answer br + strong {
+        margin-top: 0.4rem;
+      }
+
+      .coming-soon {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: #f0efe8;
+        color: #aaa;
+        padding: 2px 8px;
+        border-radius: 4px;
+      }
+
+      .highlight-box {
+        background: #fffbea;
+        border-left: 3px solid #f59e0b;
+        padding: 0.75rem 1rem;
+        border-radius: 0 8px 8px 0;
+        margin: 0.75rem 0;
+        font-size: 14px;
+        color: #78350f;
+      }
+
+      ul {
+        padding-left: 1.25rem;
+        margin-bottom: 0.6rem;
+      }
+
+      ul li {
+        margin-bottom: 4px;
+        font-size: 14px;
+        color: #5a5a56;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        margin-top: 0.5rem;
+      }
+
+      th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #888;
+        padding: 6px 12px;
+        border-bottom: 1px solid #e0dfd8;
+      }
+
+      td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #f0efe8;
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      td:first-child {
+        color: #5a5a56;
+        font-weight: 500;
+        width: 38%;
+      }
+
+      .nav-bar {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .nav-bar .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-right: 0.5rem;
+      }
+
+      .nav-bar a {
+        font-size: 13px;
+        color: #1a1a18;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: background 0.15s ease;
+      }
+
+      .nav-bar a:hover {
+        background: #f0efe8;
+      }
+
+      .nav-bar a.active {
+        background: #1a1a18;
+        color: #f5f4f0;
+      }
+
+      @media (max-width: 560px) {
+        header h1 { font-size: 1.6rem; }
+        .nav-bar { flex-direction: column; align-items: flex-start; }
+        .nav-bar .nav-label { margin-bottom: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>HR Interview Notes</h1>
+      </header>
+
+      <nav class="nav-bar">
+        <span class="nav-label">Notes:</span>
+        <a href="html-notes.html">HTML</a>
+        <a href="css-notes.html">CSS</a>
+        <a href="javascript-notes.html">JavaScript</a>
+        <a href="dom-notes.html">DOM</a>
+        <a href="react-notes.html">React</a>
+        <a href="react-native-notes.html">React Native</a>
+        <a href="nextjs-notes.html">Next.js</a>
+        <a href="hr-interview-notes.html" class="active">HR Interview</a>
+      </nav>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 1 — About Yourself
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 1</div>
+        <h2>About Yourself</h2>
+
+        <section>
+          <h3>Tell me about yourself</h3>
+          <div class="card">
+            <div class="question">Q: Tell me about yourself.</div>
+            <div class="answer">I'm Santhosh, a React Native developer with 2+ years of experience building production-grade mobile apps. Currently at Whiztek Corp, I've been leading the development of MyBibleIQ — a gamified learning platform with real-time multiplayer, complex animations, and 80+ screens. I own the full lifecycle: architecture, performance, CI/CD, and delivery. Before moving into development, I spent two years in US IT recruitment, which gave me strong communication and stakeholder skills. I'm now fully focused on mobile and frontend engineering and looking to take on bigger challenges.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Walk me through your resume.</div>
+            <div class="answer">I graduated with a B.Tech in Mechanical Engineering in 2019. I started my career at WNS Global Services in operations, then moved into US IT recruitment at Whiztek Corp for two years — which sharpened my communication and client-handling skills. In May 2024 I transitioned fully into development at the same company, where I've been building MyBibleIQ as a React Native developer. I've taken the app from early architecture decisions to a scalable, production-shipped product — handling performance, animations, CI/CD, and the web version with Next.js.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: How would you describe yourself in three words?</div>
+            <div class="answer">Ownership-driven, detail-oriented, and performance-focused. I care deeply about shipping things that actually work well — not just things that work.</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Background &amp; Experience</h3>
+          <div class="card">
+            <div class="question">Q: What is your educational background?</div>
+            <div class="answer">I hold a B.Tech in Mechanical Engineering from NSRIT, graduating in 2019. While my degree isn't in computer science, I transitioned into software development through self-learning and hands-on work — and I've been building production applications professionally for over 2 years now.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: How many years of experience do you have?</div>
+            <div class="answer">I have 2+ years of hands-on development experience, working as a React Native and Next.js developer at Whiztek Corp since May 2024. Prior to that, I have 2 years of professional experience in IT recruitment, which involved a lot of technical requirement analysis and stakeholder communication.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What have you been working on recently?</div>
+            <div class="answer">I've been leading the development of MyBibleIQ — a gamified Bible learning app built with React Native. Most recently I've been working on the real-time multiplayer battle system, optimising list and media rendering for mid-range devices, and setting up automated CI/CD pipelines with Fastlane and GitHub Actions to speed up our release cycle.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What are your key technical skills?</div>
+            <div class="answer">My core stack is React Native with TypeScript — including Reanimated for animations, Skia for graphics, React Navigation, Zustand for state, and TanStack Query for server state. On the web side I work with Next.js and React. For DevOps I've set up CI/CD using Fastlane and GitHub Actions. I also have experience with Firebase (FCM, Crashlytics), secure storage with Keychain, and push notifications with Notifee.</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 2 — Motivation & Goals
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 2</div>
+        <h2>Motivation &amp; Goals</h2>
+
+        <section>
+          <h3>Why This Role</h3>
+          <div class="card">
+            <div class="question">Q: Why do you want to work here?</div>
+            <div class="answer">I'm looking for a company where I can build meaningful products at scale and grow as an engineer. What attracts me here is [mention specific product/mission/tech]. I want to be in an environment that values ownership and engineering quality — both of which are central to how I work.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Why are you interested in this role?</div>
+            <div class="answer">This role aligns strongly with what I've been doing — building production React Native apps with a focus on performance, architecture, and user experience. I'm excited about the opportunity to bring that experience to a new product and team, and to grow beyond what a single-product environment can offer.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What do you know about our company?</div>
+            <div class="answer">I've researched [company name] and I know that [mention product, mission, or recent news]. What stood out to me is [specific detail]. I appreciate companies that are [fast-moving / user-focused / engineering-driven] and that seems to be reflected in how you operate.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Why are you leaving your current job?</div>
+            <div class="answer">I've had a great experience at Whiztek — I built an entire product from the ground up and learned a lot. But I've reached a point where I want to work on a larger-scale product, collaborate with a bigger engineering team, and face new technical challenges. I'm looking for growth that my current role can't offer at this stage.</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Career Goals</h3>
+          <div class="card">
+            <div class="question">Q: Where do you see yourself in 5 years?</div>
+            <div class="answer">In 5 years I see myself as a senior or lead engineer — someone who not only builds great products but also helps shape architecture decisions and mentors junior developers. I want to deepen my expertise in mobile performance and systems, and eventually contribute to engineering strategy at a product level.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What are your short-term and long-term career goals?</div>
+            <div class="answer">Short-term: join a strong engineering team, contribute meaningfully from day one, and expand my experience with larger-scale systems and codebases. Long-term: grow into a senior or lead role where I can drive technical decisions, mentor others, and build products that impact a lot of users.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What does success look like to you?</div>
+            <div class="answer">Success to me is shipping something users love and that holds up technically — fast, stable, and maintainable. On a personal level, it's constantly improving and knowing that my work had a real impact on the product and the team around me.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What motivates you in your work?</div>
+            <div class="answer">I'm most motivated when I can see the direct impact of what I build. When a performance improvement makes the app noticeably faster, or when a feature ships and users engage with it — that's what drives me. I also get a lot of satisfaction from solving hard technical problems cleanly.</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 3 — Strengths & Weaknesses
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 3</div>
+        <h2>Strengths &amp; Weaknesses</h2>
+
+        <section>
+          <h3>Strengths</h3>
+          <div class="card">
+            <div class="question">Q: What are your greatest strengths?</div>
+            <div class="answer">My biggest strength is end-to-end ownership. I don't just write code — I think about architecture, performance, delivery, and the user experience holistically. I reduced bundle size by 24% and image load times by 70% not because someone asked me to, but because I noticed the problem and fixed it. I'm also strong at translating ambiguous requirements into structured, working features.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What makes you the best candidate for this role?</div>
+            <div class="answer">I've done this at a production scale already — built and shipped a full React Native app with complex features like real-time multiplayer, gesture-driven animations, and CI/CD pipelines, mostly independently. I bring both the technical depth and the ownership mindset that a growing product team needs. And having worked in client-facing roles before, I communicate well beyond just engineering.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What is your greatest professional achievement?</div>
+            <div class="answer">Designing and shipping the MyBibleIQ app from scratch. I built the full feature-based architecture supporting 10+ modules, implemented real-time multiplayer, reduced the app bundle by 24% and image load times by ~70%, and set up the entire CI/CD pipeline. Seeing a product I architected go into production and be used by real people is the achievement I'm most proud of.</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Weaknesses</h3>
+          <div class="card">
+            <div class="question">Q: What is your greatest weakness?</div>
+            <div class="answer">I tend to be a perfectionist with code quality — I can sometimes spend more time than needed on getting architecture or performance exactly right. I've been learning to balance quality with pragmatism, shipping fast when needed and refining later, rather than holding back a feature waiting for the perfect solution.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What areas are you currently working to improve?</div>
+            <div class="answer">I'm actively improving in two areas: system design for large-scale distributed systems, and deepening my knowledge of the React Native New Architecture (Fabric + JSI + TurboModules). I'm also working on my ability to delegate and review rather than always building things myself — an important shift as I grow toward a lead role.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Tell me about a time you failed. What did you learn?</div>
+            <div class="answer">Early in the project I built a navigation structure that became hard to scale as new modules were added. It wasn't a crash — but it slowed down feature development. I refactored it mid-project into a cleaner structure, but the lesson was clear: invest in architecture decisions upfront. Since then I always map out navigation and state flows before writing a single screen.</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 4 — Behavioural Questions (STAR)
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 4</div>
+        <h2>Behavioural Questions (STAR)</h2>
+
+        <div class="highlight-box">
+          <strong>STAR Method:</strong> Structure every behavioural answer as <strong>S</strong>ituation → <strong>T</strong>ask → <strong>A</strong>ction → <strong>R</strong>esult. Keep it concise — 2 minutes max per answer.
+        </div>
+
+        <section>
+          <h3>Teamwork &amp; Collaboration</h3>
+          <div class="card">
+            <div class="question">Q: Tell me about a time you worked effectively in a team.</div>
+            <div class="answer"><strong>S:</strong> At Whiztek, we were building MyBibleIQ with a small cross-functional team — myself on mobile, a backend developer, and a designer.<br><strong>T:</strong> We needed to ship the multiplayer feature within a tight deadline while the backend APIs were still being defined.<br><strong>A:</strong> I proactively coordinated daily syncs, mocked the API contracts on my side so I could build in parallel, and flagged blockers early so the backend dev could prioritise.<br><strong>R:</strong> We shipped the feature on time and the parallel workflow became our standard practice for future features.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Describe a situation where you had a conflict with a colleague. How did you resolve it?</div>
+            <div class="answer"><strong>S:</strong> There was a disagreement with the backend developer on how data should be structured for the leaderboard API — their approach would have required complex client-side transformations on every render.<br><strong>T:</strong> I needed to advocate for a better contract without creating friction.<br><strong>A:</strong> I put together a quick comparison showing the performance cost of each approach and brought it to a sync rather than pushing back directly.<br><strong>R:</strong> We landed on a revised structure that worked for both sides, and it became a habit for us to align on API contracts early.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Tell me about a time you helped a teammate who was struggling.</div>
+            <div class="answer"><strong>S:</strong> A junior developer who joined the project was struggling to understand our state management setup with Zustand and TanStack Query.<br><strong>T:</strong> I needed to get them productive quickly without slowing down my own work.<br><strong>A:</strong> I scheduled a focused 45-minute walkthrough, created a short internal doc explaining the patterns we used, and reviewed their first few PRs closely with detailed comments.<br><strong>R:</strong> Within two weeks they were shipping features independently and the doc became a reference for anyone new joining the project.</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Problem Solving &amp; Pressure</h3>
+          <div class="card">
+            <div class="question">Q: Tell me about a challenging problem you solved.</div>
+            <div class="answer"><strong>S:</strong> Our app bundle had grown to 50MB which was causing install drop-offs and slow startup times.<br><strong>T:</strong> I needed to reduce size without breaking any functionality.<br><strong>A:</strong> I audited every dependency, removed unused packages, replaced heavy ones with lighter alternatives, optimised all image assets, and split code where possible.<br><strong>R:</strong> Bundle size dropped from 50MB to 38MB — a 24% reduction — and startup time improved measurably.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Describe a time you worked under pressure or a tight deadline.</div>
+            <div class="answer"><strong>S:</strong> We had a client demo scheduled and three screens were incomplete two days before.<br><strong>T:</strong> I had to ship functional, polished screens without compromising quality.<br><strong>A:</strong> I broke the work into the smallest possible tasks, focused on what was visible in the demo flow, and deferred non-visible polish to after the demo. I communicated the scope clearly to the client before the demo.<br><strong>R:</strong> The demo went well, the client approved the direction, and the remaining polish was shipped within the following week.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Tell me about a time you had to learn something quickly.</div>
+            <div class="answer"><strong>S:</strong> We needed to implement high-performance SVG path animations for a gamified progress screen. I had never used React Native Skia before.<br><strong>T:</strong> The feature was on the critical path with a one-week window.<br><strong>A:</strong> I spent two focused days going through the Skia docs and examples, built isolated prototypes to understand the rendering model, then integrated it into the feature.<br><strong>R:</strong> The animation shipped on schedule and became one of the most visually distinctive parts of the app.</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Leadership &amp; Initiative</h3>
+          <div class="card">
+            <div class="question">Q: Tell me about a time you took initiative without being asked.</div>
+            <div class="answer"><strong>S:</strong> We had no automated build or release process — every release was manual and error-prone.<br><strong>T:</strong> This wasn't on the roadmap but it was costing us time every cycle.<br><strong>A:</strong> I set up Fastlane and GitHub Actions pipelines for both iOS and Android on my own time, including automated versioning, signing, and staged rollout support.<br><strong>R:</strong> Release time dropped significantly and we eliminated manual signing errors entirely. It was then adopted as our standard delivery process.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Describe a time you led a project or a team.</div>
+            <div class="answer"><strong>S:</strong> From day one at Whiztek I was the sole mobile developer on MyBibleIQ.<br><strong>T:</strong> I had to make all architectural decisions, manage feature delivery, and coordinate with the backend team and client — while building 80+ screens.<br><strong>A:</strong> I established a feature-based folder structure, defined API contracts collaboratively, ran weekly client demos, and owned the full release pipeline.<br><strong>R:</strong> The app shipped to production on schedule with a scalable codebase that supports 10+ modules today.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Tell me about a time you influenced someone to change their mind.</div>
+            <div class="answer"><strong>S:</strong> The client initially wanted to use Redux for state management because it was familiar to them.<br><strong>T:</strong> I believed Zustand was a better fit for our app's scale and team size.<br><strong>A:</strong> I prepared a short comparison showing bundle size impact, boilerplate overhead, and migration cost for our specific use case. I presented it during a planning call with clear trade-offs rather than just pushing my preference.<br><strong>R:</strong> The client agreed to go with Zustand and it's been a solid choice — the store layer is clean, lightweight, and easy to extend.</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Adaptability &amp; Change</h3>
+          <div class="card">
+            <div class="question">Q: Tell me about a time you adapted to a major change at work.</div>
+            <div class="answer"><strong>S:</strong> Midway through the project, the client shifted a significant part of the product scope — a planned offline-first feature was deprioritised and replaced with a real-time multiplayer system, which was far more complex.<br><strong>T:</strong> I had to pivot the architecture I'd planned and learn WebSocket-based real-time patterns quickly.<br><strong>A:</strong> I re-evaluated the state management approach, researched real-time patterns in React Native, and rebuilt the affected module with the new scope.<br><strong>R:</strong> The multiplayer feature shipped and is now one of the core engagement drivers in the app.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Describe a time you received critical feedback. How did you respond?</div>
+            <div class="answer"><strong>S:</strong> After a client demo, I received feedback that the onboarding flow felt cluttered and confusing, even though I'd followed the original design spec closely.<br><strong>T:</strong> I had to separate my own attachment to what I'd built and genuinely understand the user concern.<br><strong>A:</strong> I went back, reviewed the flow with fresh eyes, simplified the screen count, and improved the visual hierarchy. I also started validating UI decisions with the designer earlier in the process.<br><strong>R:</strong> The revised flow was approved in the very next demo and the client called it a significant improvement.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Tell me about a time priorities shifted mid-project. What did you do?</div>
+            <div class="answer"><strong>S:</strong> We were mid-sprint on the social features when a critical performance issue was reported on the quiz module affecting mid-range devices.<br><strong>T:</strong> I had to pause planned work and triage an unplanned but urgent issue.<br><strong>A:</strong> I used the React Native DevTools profiler to identify the rendering bottleneck — a large FlatList with unoptimised item components. I applied memoisation and optimised the list rendering, then communicated the revised sprint plan to the client.<br><strong>R:</strong> The issue was resolved within a day, performance was restored, and we adjusted the sprint timeline with minimal impact to the overall delivery.</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 5 — Work Style & Culture Fit
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 5</div>
+        <h2>Work Style &amp; Culture Fit</h2>
+
+        <section>
+          <h3>Work Preferences</h3>
+          <div class="card">
+            <div class="question">Q: Do you prefer working independently or in a team?</div>
+            <div class="answer">Both, depending on the context. I'm comfortable working independently — I've led an entire mobile product solo — but I genuinely enjoy collaborating with a team. Code reviews, architecture discussions, and a second set of eyes on hard problems make the output better. I thrive in environments where there's a good mix of autonomy and collaboration.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: How do you prioritise tasks when you have multiple deadlines?</div>
+            <div class="answer">I prioritise by impact and dependency. I ask: what is blocking someone else, what is client-visible, and what has the highest risk if delayed. I use a simple written list to track in-progress tasks and flag when something needs renegotiating. I'd rather be transparent about what's slipping than silently miss a deadline.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: How do you handle working on multiple projects simultaneously?</div>
+            <div class="answer">I time-box and context-switch deliberately rather than juggling everything at once. I block focus time per project, keep notes on where I left off to reduce ramp-up time, and communicate timelines proactively so no one is surprised by delays. At Whiztek I managed both the mobile app and the Next.js web version in parallel using this approach.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What kind of work environment do you thrive in?</div>
+            <div class="answer">I thrive in environments with high ownership, clear goals, and a strong engineering culture. I like when teams care about quality — code reviews, good architecture decisions, and clean delivery — but also move fast. I've worked fully remote for 2+ years and am comfortable with async communication and self-direction.</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Communication &amp; Feedback</h3>
+          <div class="card">
+            <div class="question">Q: How do you communicate progress to your team or manager?</div>
+            <div class="answer">I provide regular updates without waiting to be asked. At Whiztek I ran weekly client demos to showcase progress and used async messages to flag blockers the moment they appeared. I believe bad news shared early is always better than bad news shared late — it gives the team time to adapt.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: How do you handle disagreements with your manager?</div>
+            <div class="answer">I voice my perspective clearly and back it up with reasoning — not just opinion. If I disagree on a technical decision I'll put together a quick comparison or example to make the discussion concrete. But once a decision is made I commit to it fully. I'd rather disagree and commit than silently resist.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: How do you give and receive feedback?</div>
+            <div class="answer">I give feedback that's specific and actionable — I focus on the decision or the code, not the person. When receiving feedback I try to separate my ego from my work. If someone points out a better way to do something, that's a good thing. I've learned some of my best practices from code review comments.</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 6 — Salary & Logistics
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 6</div>
+        <h2>Salary &amp; Logistics</h2>
+
+        <section>
+          <h3>Compensation</h3>
+          <div class="card">
+            <div class="question">Q: What are your salary expectations?</div>
+            <div class="answer">I'm looking for a compensation that reflects my 2+ years of production experience and the scope of what I've delivered. I'm open to discussing a range based on the role and the overall package. Could you share the budgeted range for this position?</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: What is your current CTC and expected CTC?</div>
+            <div class="answer">My current CTC is [X LPA]. Given my experience, the scope of work I've handled, and the market rate for React Native developers, I'm expecting [Y LPA]. I'm flexible depending on the overall package — growth opportunities, benefits, and the role itself matter to me as much as the number.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Are you currently in conversation with other companies?</div>
+            <div class="answer">Yes, I'm actively exploring opportunities. I'm being selective and looking for the right fit rather than the fastest offer. This role stood out to me which is why I'm here.</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Availability &amp; Logistics</h3>
+          <div class="card">
+            <div class="question">Q: What is your notice period?</div>
+            <div class="answer">My notice period is [X days/weeks]. I can discuss early release with my current employer depending on the situation, but I want to ensure a proper handover.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Are you open to relocation?</div>
+            <div class="answer">I'm currently based in Visakhapatnam. I'm open to relocation for the right opportunity, though I'd prefer to discuss the specifics depending on the location and role requirements.</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Are you comfortable with the work timings / shift requirements?</div>
+            <div class="answer">Yes, I've been working remotely in a flexible environment and I'm comfortable adapting to the team's working hours. Could you share more about the expected timings so I can confirm?</div>
+          </div>
+          <div class="card">
+            <div class="question">Q: Are you open to remote / hybrid / on-site work?</div>
+            <div class="answer">I've worked fully remote for 2+ years and I'm very comfortable with it. I'm also open to hybrid setups. I'm productive either way — the work and the team matter more to me than the format.</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 7 — Questions to Ask the Interviewer
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 7</div>
+        <h2>Questions to Ask the Interviewer</h2>
+
+        <div class="highlight-box">
+          Tailor your questions to <strong>who you're speaking with</strong>. Ask a recruiter about process and culture, ask engineers about the tech stack and day-to-day, ask a hiring manager about expectations and growth. Always prepare 3–5 questions per round.
+        </div>
+
+        <section>
+          <div class="section-header">
+            <h3>HR / Recruiter Screening</h3>
+            <p>You're speaking with HR or a talent partner. Focus on the process, the role overview, and logistics.</p>
+          </div>
+          <div class="card">
+            <ul>
+              <li>Can you walk me through the interview process and how many rounds are there?</li>
+              <li>What is the expected timeline for making a hiring decision?</li>
+              <li>What does the team structure look like for this role?</li>
+              <li>What are the most important qualities you're looking for in this hire?</li>
+              <li>Is this a new position or a backfill?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-header">
+            <h3>Technical Round 1 (DSA / Coding)</h3>
+            <p>You're speaking with an engineer. Focus on the tech stack, coding practices, and day-to-day work.</p>
+          </div>
+          <div class="card">
+            <ul>
+              <li>What does the tech stack look like for this team?</li>
+              <li>How does the team approach code reviews?</li>
+              <li>What does a typical sprint or iteration look like?</li>
+              <li>What kind of problems will I be solving day-to-day?</li>
+              <li>How much ownership do engineers have over their features end-to-end?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-header">
+            <h3>Technical Round 2 (System Design / Deep Dive)</h3>
+            <p>Typically a senior engineer or tech lead. Go deeper on architecture, scale, and engineering culture.</p>
+          </div>
+          <div class="card">
+            <ul>
+              <li>What are the biggest technical challenges the team is currently facing?</li>
+              <li>How does the team handle technical debt?</li>
+              <li>How are architectural or technology decisions made on the team?</li>
+              <li>What does the on-call or incident response process look like?</li>
+              <li>What does the testing and deployment pipeline look like?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-header">
+            <h3>Hiring Manager Round</h3>
+            <p>You're speaking with the direct manager. Focus on expectations, team dynamics, growth, and your fit.</p>
+          </div>
+          <div class="card">
+            <ul>
+              <li>What does success look like in this role after 3 months and after 1 year?</li>
+              <li>What are the biggest challenges the person in this role would face early on?</li>
+              <li>How do you support the growth and development of your team members?</li>
+              <li>How does the team handle disagreements or differing technical opinions?</li>
+              <li>What do you enjoy most about working here?</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <div class="section-header">
+            <h3>Final / HR Closure Round</h3>
+            <p>Often a final culture-fit or offer discussion with HR. Focus on logistics, compensation, and next steps.</p>
+          </div>
+          <div class="card">
+            <ul>
+              <li>What does the onboarding process look like for new engineers?</li>
+              <li>What learning and development opportunities does the company offer?</li>
+              <li>Is there anything from our conversations today that gives you pause about my fit for this role?</li>
+              <li>What are the next steps and when can I expect to hear back?</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <footer style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #e0dfd8; font-size: 13px; color: #aaa;">
+        HR Interview Notes
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1446 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Notes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: #f5f4f0;
+        color: #1a1a18;
+        font-size: 15px;
+        line-height: 1.7;
+        padding: 3rem 1rem;
+      }
+
+      .page {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 2rem;
+        padding-bottom: 0.2rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      .chapter {
+        margin-bottom: 3rem;
+      }
+
+      .chapter-heading {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #1a1a18;
+        color: #f5f4f0;
+        padding: 3px 10px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #1a1a18;
+      }
+
+      section {
+        margin-bottom: 2rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        border-left: 3px solid #1a1a18;
+        padding-left: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: #1a1a18;
+      }
+
+      h4 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #5a5a56;
+        margin-top: 1.25rem;
+        margin-bottom: 0.4rem;
+        padding-left: 1.25rem;
+      }
+
+      p {
+        margin-bottom: 0.6rem;
+        color: #5a5a56;
+        font-size: 14px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 12px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        margin-top: 0.5rem;
+      }
+
+      th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #888;
+        padding: 6px 12px;
+        border-bottom: 1px solid #e0dfd8;
+      }
+
+      td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #f0efe8;
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      td:first-child {
+        color: #5a5a56;
+        font-weight: 500;
+        width: 38%;
+      }
+
+      code {
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        background: #f0efe8;
+        padding: 1px 6px;
+        border-radius: 4px;
+        color: #c0392b;
+      }
+
+      .code-block {
+        background: #1a1a18;
+        color: #e8e6df;
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin: 0.75rem 0;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .code-block .kw  { color: #f7aa44; }
+      .code-block .str { color: #a8e6a3; }
+      .code-block .cm  { color: #777; font-style: italic; }
+      .code-block .fn  { color: #89c4e1; }
+      .code-block .num { color: #d4a0f7; }
+      .code-block .tag { color: #f7aa44; }
+      .code-block .atr { color: #89c4e1; }
+
+      ul {
+        padding-left: 1.25rem;
+        margin-bottom: 0.6rem;
+      }
+
+      ul li {
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .highlight-box {
+        background: #fffbea;
+        border-left: 3px solid #f59e0b;
+        padding: 0.75rem 1rem;
+        border-radius: 0 8px 8px 0;
+        margin: 0.75rem 0;
+        font-size: 14px;
+        color: #78350f;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .mini-card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+      }
+
+      .mini-card .mc-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-bottom: 4px;
+      }
+
+      .mini-card p {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .nav-bar {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .nav-bar .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-right: 0.5rem;
+      }
+
+      .nav-bar a {
+        font-size: 13px;
+        color: #1a1a18;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: background 0.15s ease;
+      }
+
+      .nav-bar a:hover {
+        background: #f0efe8;
+      }
+
+      .nav-bar a.active {
+        background: #1a1a18;
+        color: #f5f4f0;
+      }
+
+      @media (max-width: 560px) {
+        .grid-2 { grid-template-columns: 1fr; }
+        header h1 { font-size: 1.6rem; }
+        .nav-bar { flex-direction: column; align-items: flex-start; }
+        .nav-bar .nav-label { margin-bottom: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>React Notes</h1>
+      </header>
+
+      <nav class="nav-bar">
+        <span class="nav-label">Notes:</span>
+        <a href="html-notes.html">HTML</a>
+        <a href="css-notes.html">CSS</a>
+        <a href="javascript-notes.html">JavaScript</a>
+        <a href="dom-notes.html">DOM</a>
+        <a href="react-notes.html" class="active">React</a>
+        <a href="react-native-notes.html">React Native</a>
+        <a href="nextjs-notes.html">Next.js</a>
+        <a href="hr-interview-notes.html">HR Interview</a>
+      </nav>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 1 — Introduction
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 1</div>
+        <h2>Introduction to React</h2>
+
+        <section>
+          <h3>What is React?</h3>
+          <div class="card">
+            <p><strong>React</strong> is a JavaScript library for building user interfaces. It was created by Facebook (Meta) and is component-based — you build small, reusable pieces of UI that compose together into complex applications.</p>
+            <ul>
+              <li><strong>Declarative</strong> — describe <em>what</em> the UI should look like for a given state, not <em>how</em> to update it. React figures out the DOM changes.</li>
+              <li><strong>Component-based</strong> — UI is split into self-contained components, each managing its own logic and appearance.</li>
+              <li><strong>Unidirectional data flow</strong> — data flows down from parent to child via props. Events flow up via callbacks.</li>
+              <li><strong>Virtual DOM</strong> — React keeps a lightweight copy of the DOM in memory. On state changes it diffs the virtual DOM and applies only the minimal real DOM updates.</li>
+            </ul>
+          </div>
+          <div class="highlight-box">
+            <strong>React is a library, not a framework.</strong> It only handles the view layer. Routing, data fetching, and state management are handled by additional libraries (React Router, TanStack Query, Zustand, etc.) or a meta-framework like Next.js.
+          </div>
+        </section>
+
+        <section>
+          <h3>How React Works — The Layers</h3>
+          <div class="card">
+            <p>When you write React, your code passes through several layers before anything appears on screen:</p>
+            <table>
+              <tr><th>Layer</th><th>What it does</th></tr>
+              <tr><td><strong>Your components</strong></td><td>Plain JS functions returning JSX — describe the UI for a given state.</td></tr>
+              <tr><td><strong>React (reconciler)</strong></td><td>Calls your components, builds a virtual tree, diffs it against the previous tree, decides what changed.</td></tr>
+              <tr><td><strong>react-dom (renderer)</strong></td><td>Takes the reconciler's diff output and applies the minimal changes to the real browser DOM.</td></tr>
+              <tr><td><strong>Browser DOM</strong></td><td>The actual HTML elements the user sees. React manages this for you.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong><code>react</code> and <code>react-dom</code> are separate packages on purpose.</strong> <code>react</code> is the platform-agnostic reconciler. <code>react-dom</code> is just one renderer — the same reconciler also powers <code>react-native</code> (iOS/Android), <code>react-three-fiber</code> (3D/WebGL), and more.
+          </div>
+        </section>
+
+        <section>
+          <h3>Virtual DOM</h3>
+          <div class="card">
+            <p>The <strong>Virtual DOM</strong> is a lightweight in-memory JavaScript object tree that mirrors the real DOM. When your component returns JSX, React creates plain JS objects (Virtual DOM nodes). On every state change React builds a <em>new</em> virtual tree, diffs it against the previous one, and applies only the necessary real DOM operations — avoiding redundant browser reflows.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// JSX you write</span>
+<span class="tag">&lt;div</span> <span class="atr">className</span>=<span class="str">"card"</span><span class="tag">&gt;</span><span class="tag">&lt;p&gt;</span>Hello<span class="tag">&lt;/p&gt;</span><span class="tag">&lt;/div&gt;</span>
+
+<span class="cm">// Babel compiles it to React.createElement calls</span>
+React.<span class="fn">createElement</span>(<span class="str">"div"</span>, { className: <span class="str">"card"</span> },
+  React.<span class="fn">createElement</span>(<span class="str">"p"</span>, <span class="kw">null</span>, <span class="str">"Hello"</span>)
+)
+
+<span class="cm">// Which produces a plain JS object — the Virtual DOM node</span>
+{ type: <span class="str">"div"</span>, props: { className: <span class="str">"card"</span> }, children: [{ type: <span class="str">"p"</span>, ... }] }</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Fiber &amp; the Render / Commit Phases</h3>
+          <div class="card">
+            <p><strong>Fiber</strong> is React's internal reconciler engine (since React 16). It represents every component as a Fiber node — a linked-list unit of work — so React can process the tree incrementally and pause mid-way to handle higher-priority updates (e.g. a keystroke interrupting a slow list render).</p>
+            <p>Every update goes through two phases:</p>
+            <table>
+              <tr><th>Phase</th><th>What happens</th><th>Key rule</th></tr>
+              <tr><td><strong>Render phase</strong></td><td>React calls your components, builds the new Fiber tree, diffs it, produces an effects list. <strong>No DOM is touched yet.</strong></td><td>Must be pure — can be paused or restarted in Concurrent Mode.</td></tr>
+              <tr><td><strong>Commit phase</strong></td><td>React applies all DOM mutations in one synchronous pass, attaches refs, then fires <code>useLayoutEffect</code> and schedules <code>useEffect</code>.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Full timeline for one state update:</span>
+
+<span class="fn">setCount</span>(c => c + <span class="num">1</span>);          <span class="cm">// 1. you call setState</span>
+                                   <span class="cm">// 2. React schedules work (batches with other updates)</span>
+<span class="cm">// 3. Render phase  — component re-runs (pure, no DOM changes yet)</span>
+<span class="cm">// 4. Reconciliation — diff: "text in &lt;p&gt; changed from 0 → 1"</span>
+<span class="cm">// 5. Commit phase  — p.textContent = "1"  (real DOM updated)</span>
+<span class="cm">// 6. Browser paints</span>
+<span class="cm">// 7. useLayoutEffect fires  (sync, before paint is visible)</span>
+<span class="cm">// 8. useEffect fires        (async, after paint)</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>State Batching &amp; Concurrent Mode</h3>
+          <div class="card">
+            <p><strong>Batching</strong> — React groups multiple state updates that happen together into a single re-render. In React 18 this is automatic everywhere (including inside <code>setTimeout</code> and <code>fetch</code> callbacks).</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">function</span> <span class="fn">handleClick</span>() {
+  <span class="fn">setCount</span>(c => c + <span class="num">1</span>); <span class="cm">// ─┐</span>
+  <span class="fn">setName</span>(<span class="str">"Alice"</span>);      <span class="cm">//  ├── one re-render, not three</span>
+  <span class="fn">setLoading</span>(<span class="kw">false</span>);    <span class="cm">// ─┘</span>
+}</div>
+          </div>
+          <div class="card">
+            <p><strong>Concurrent Mode</strong> (React 18+) lets React prepare multiple versions of the UI at once and interrupt low-priority work for urgent updates — keeping the UI responsive without you changing your component code.</p>
+            <table>
+              <tr><th>API</th><th>What it does</th></tr>
+              <tr><td><code>useTransition</code></td><td>Mark a state update as non-urgent. React keeps the current UI while building the next one in the background.</td></tr>
+              <tr><td><code>useDeferredValue</code></td><td>Defer re-rendering a slow part of the UI while fast parts update immediately.</td></tr>
+              <tr><td><code>Suspense</code></td><td>Show a fallback while async content (data, lazy components) is loading, then swap it in when ready.</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Reconciliation &amp; Keys</h3>
+          <div class="card">
+            <p>React's <strong>reconciliation</strong> algorithm compares the old and new virtual DOM trees. It uses element <strong>type</strong> and <strong>position</strong> to decide whether to reuse a DOM node or recreate it.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Type change — React destroys and recreates (loses state)</span>
+{isEditing ? <span class="tag">&lt;input /&gt;</span> : <span class="tag">&lt;p&gt;</span>Text<span class="tag">&lt;/p&gt;</span>}
+
+<span class="cm">// Same type, same position — React REUSES the DOM node and updates props</span>
+{isActive ? <span class="tag">&lt;Button</span> <span class="atr">color</span>=<span class="str">"green"</span> <span class="tag">/&gt;</span> : <span class="tag">&lt;Button</span> <span class="atr">color</span>=<span class="str">"red"</span> <span class="tag">/&gt;</span>}
+
+<span class="cm">// Force a fresh mount by changing the key</span>
+<span class="tag">&lt;EmailInput</span> <span class="atr">key</span>={userId} <span class="tag">/&gt;</span>  <span class="cm">{/* new key = new instance = reset state */}</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>Triggers for re-render:</strong> (1) <code>setState</code> / <code>dispatch</code> called, (2) a context value the component consumes changes, (3) the parent re-renders and passes new props. React re-renders the component and all its descendants by default — use <code>React.memo</code> to opt out.
+          </div>
+        </section>
+
+        <section>
+          <h3>Strict Mode</h3>
+          <div class="card">
+            <p><code>&lt;React.StrictMode&gt;</code> wraps your app (or part of it) to enable additional development-only checks. It intentionally double-invokes render functions and effects to help detect side effects in the render phase.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { StrictMode } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="fn">createRoot</span>(document.<span class="fn">getElementById</span>(<span class="str">"root"</span>)).<span class="fn">render</span>(
+  <span class="tag">&lt;StrictMode&gt;</span>
+    <span class="tag">&lt;App /&gt;</span>
+  <span class="tag">&lt;/StrictMode&gt;</span>
+);</div>
+          </div>
+          <div class="highlight-box">
+            In development, Strict Mode mounts every component <em>twice</em> to expose effects that aren't properly cleaned up. If you see effects running twice, make sure your <code>useEffect</code> returns a cleanup function. This double-invoke does <strong>not</strong> happen in production.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 2 — Core Concepts
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 2</div>
+        <h2>Core Concepts</h2>
+
+        <section>
+          <h3>JSX</h3>
+          <div class="card">
+            <p><strong>JSX</strong> (JavaScript XML) is a syntax extension that lets you write HTML-like markup inside JavaScript. Babel/bundlers transform JSX into <code>React.createElement()</code> calls at build time — it is not a separate template language, just syntactic sugar over plain JS function calls.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// JSX — what you write</span>
+<span class="kw">const</span> el = <span class="tag">&lt;h1</span> <span class="atr">className</span>=<span class="str">"title"</span><span class="tag">&gt;</span>Hello, {name}<span class="tag">&lt;/h1&gt;</span>;
+
+<span class="cm">// What Babel compiles it to</span>
+<span class="kw">const</span> el = React.<span class="fn">createElement</span>(<span class="str">"h1"</span>, { className: <span class="str">"title"</span> }, <span class="str">`Hello, ${name}`</span>);</div>
+          </div>
+
+          <h4>JSX Rules</h4>
+          <div class="card">
+            <table>
+              <tr><th>Rule</th><th>Example</th></tr>
+              <tr><td>Return one root element</td><td>Wrap siblings in <code>&lt;div&gt;</code> or <code>&lt;&gt;…&lt;/&gt;</code> (Fragment)</td></tr>
+              <tr><td>Use <code>className</code>, not <code>class</code></td><td><code>&lt;div className="box"&gt;</code></td></tr>
+              <tr><td>Self-close void elements</td><td><code>&lt;img /&gt;</code>, <code>&lt;input /&gt;</code>, <code>&lt;br /&gt;</code></td></tr>
+              <tr><td>JavaScript expressions in <code>{ }</code></td><td><code>{count + 1}</code>, <code>{isOpen ? "yes" : "no"}</code></td></tr>
+              <tr><td>No statements in <code>{ }</code></td><td>Can't use <code>if</code>, <code>for</code> — use ternary or <code>&amp;&amp;</code> instead</td></tr>
+              <tr><td>camelCase event handlers</td><td><code>onClick</code>, <code>onChange</code>, <code>onSubmit</code></td></tr>
+              <tr><td>Inline style is an object</td><td><code>style={{ color: "red", fontSize: 16 }}</code></td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">function</span> <span class="fn">Card</span>({ title, count, isNew }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;&gt;</span>                               <span class="cm">{/* Fragment — no extra DOM node */}</span>
+      <span class="tag">&lt;h2</span> <span class="atr">className</span>=<span class="str">"card-title"</span><span class="tag">&gt;</span>{title}<span class="tag">&lt;/h2&gt;</span>
+      {isNew &amp;&amp; <span class="tag">&lt;span</span> <span class="atr">className</span>=<span class="str">"badge"</span><span class="tag">&gt;</span>New<span class="tag">&lt;/span&gt;</span>}  <span class="cm">{/* conditional render */}</span>
+      <span class="tag">&lt;p&gt;</span>Count: {count * <span class="num">2</span>}<span class="tag">&lt;/p&gt;</span>          <span class="cm">{/* expression */}</span>
+      <span class="tag">&lt;input</span> <span class="atr">type</span>=<span class="str">"text"</span> <span class="tag">/&gt;</span>             <span class="cm">{/* self-closing */}</span>
+    <span class="tag">&lt;/&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Function Components</h3>
+          <div class="card">
+            <p>A <strong>component</strong> is a JavaScript function that accepts <strong>props</strong> as its argument and returns JSX. Component names must start with a capital letter — React uses this to distinguish components from native HTML elements.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Simplest component</span>
+<span class="kw">function</span> <span class="fn">Hello</span>() {
+  <span class="kw">return</span> <span class="tag">&lt;h1&gt;</span>Hello, world<span class="tag">&lt;/h1&gt;</span>;
+}
+
+<span class="cm">// Component with props</span>
+<span class="kw">function</span> <span class="fn">Button</span>({ label, onClick, disabled = <span class="kw">false</span> }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;button</span> <span class="atr">onClick</span>={onClick} <span class="atr">disabled</span>={disabled}<span class="tag">&gt;</span>
+      {label}
+    <span class="tag">&lt;/button&gt;</span>
+  );
+}
+
+<span class="cm">// Usage — JSX looks like HTML attributes</span>
+<span class="tag">&lt;Button</span> <span class="atr">label</span>=<span class="str">"Save"</span> <span class="atr">onClick</span>={<span class="fn">handleSave</span>} <span class="tag">/&gt;</span>
+<span class="tag">&lt;Button</span> <span class="atr">label</span>=<span class="str">"Delete"</span> <span class="atr">disabled</span> <span class="tag">/&gt;</span>  <span class="cm">{/* boolean prop — just the name = true */}</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>State</h3>
+          <div class="card">
+            <p><strong>State</strong> is data owned by the component that can change over time. When state changes, React re-renders the component and its children. Unlike props (which come from outside and are read-only), state is internal and mutable via its setter function.</p>
+            <table>
+              <tr><th></th><th>Props</th><th>State</th></tr>
+              <tr><td>Owned by</td><td>Parent</td><td>The component itself</td></tr>
+              <tr><td>Mutable?</td><td>No — read-only</td><td>Yes — via setter</td></tr>
+              <tr><td>Triggers re-render?</td><td>Yes, when parent re-renders</td><td>Yes, when setter is called</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Props</h3>
+          <div class="card">
+            <p><strong>Props</strong> (properties) are the inputs to a component — data passed from parent to child. Props are <strong>read-only</strong>; a component must never modify its own props.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Parent passes data down</span>
+<span class="kw">function</span> <span class="fn">UserCard</span>({ name, avatar, role = <span class="str">"member"</span> }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;div</span> <span class="atr">className</span>=<span class="str">"user-card"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;img</span> <span class="atr">src</span>={avatar} <span class="atr">alt</span>={name} <span class="tag">/&gt;</span>
+      <span class="tag">&lt;h3&gt;</span>{name}<span class="tag">&lt;/h3&gt;</span>
+      <span class="tag">&lt;p&gt;</span>{role}<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  );
+}
+
+<span class="cm">// Pass anything as a prop — strings, numbers, objects, functions, JSX</span>
+<span class="tag">&lt;UserCard</span> <span class="atr">name</span>=<span class="str">"Alice"</span> <span class="atr">avatar</span>=<span class="str">"/img/alice.jpg"</span> <span class="atr">role</span>=<span class="str">"admin"</span> <span class="tag">/&gt;</span>
+
+<span class="cm">// Spread an object as props</span>
+<span class="kw">const</span> user = { name: <span class="str">"Bob"</span>, avatar: <span class="str">"/bob.jpg"</span> };
+<span class="tag">&lt;UserCard</span> {...user} <span class="tag">/&gt;</span></div>
+          </div>
+
+          <h4>children prop</h4>
+          <div class="card">
+            <p>Whatever JSX is placed <em>between</em> a component's opening and closing tags is passed as the special <code>children</code> prop. This lets you build wrapper/layout components.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">function</span> <span class="fn">Card</span>({ children, className = <span class="str">""</span> }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;div</span> <span class="atr">className</span>={<span class="str">`card ${className}`</span>}<span class="tag">&gt;</span>
+      {children}
+    <span class="tag">&lt;/div&gt;</span>
+  );
+}
+
+<span class="cm">// Usage — anything between the tags becomes children</span>
+<span class="tag">&lt;Card</span> <span class="atr">className</span>=<span class="str">"featured"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;h2&gt;</span>Title<span class="tag">&lt;/h2&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Some content here.<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/Card&gt;</span></div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 3 — Hooks
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 3</div>
+        <h2>Hooks</h2>
+
+        <section>
+          <h3>Rules of Hooks</h3>
+          <div class="card">
+            <ul>
+              <li><strong>Only call hooks at the top level</strong> — never inside loops, conditions, or nested functions. This ensures React calls hooks in the same order on every render.</li>
+              <li><strong>Only call hooks from React functions</strong> — function components or custom hooks. Not from regular JS functions, class components, or event handlers.</li>
+            </ul>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// ❌ Conditional hook — breaks ordering</span>
+<span class="kw">if</span> (condition) {
+  <span class="kw">const</span> [x, setX] = <span class="fn">useState</span>(<span class="num">0</span>); <span class="cm">// never do this</span>
+}
+
+<span class="cm">// ✅ Hook always called — condition inside</span>
+<span class="kw">const</span> [x, setX] = <span class="fn">useState</span>(<span class="num">0</span>);
+<span class="kw">if</span> (condition) { <span class="fn">setX</span>(<span class="num">1</span>); }</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>useState</h3>
+          <div class="card">
+            <p><code>useState</code> returns a pair: the current state value and a setter function. The setter triggers a re-render with the new value.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useState } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">function</span> <span class="fn">Counter</span>() {
+  <span class="kw">const</span> [count, setCount] = <span class="fn">useState</span>(<span class="num">0</span>); <span class="cm">// 0 is the initial value</span>
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;div&gt;</span>
+      <span class="tag">&lt;p&gt;</span>Count: {count}<span class="tag">&lt;/p&gt;</span>
+      <span class="tag">&lt;button</span> <span class="atr">onClick</span>={() => <span class="fn">setCount</span>(count + <span class="num">1</span>)}<span class="tag">&gt;</span>+<span class="tag">&lt;/button&gt;</span>
+      <span class="tag">&lt;button</span> <span class="atr">onClick</span>={() => <span class="fn">setCount</span>(count - <span class="num">1</span>)}<span class="tag">&gt;</span>-<span class="tag">&lt;/button&gt;</span>
+      <span class="tag">&lt;button</span> <span class="atr">onClick</span>={() => <span class="fn">setCount</span>(<span class="num">0</span>)}<span class="tag">&gt;</span>Reset<span class="tag">&lt;/button&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  );
+}</div>
+          </div>
+
+          <h4>Functional Updater Form</h4>
+          <div class="card">
+            <p>When the new state depends on the previous state, use the <strong>functional updater</strong>: pass a function to the setter instead of a value. This guarantees you get the latest state — important when updates are batched or happen in async code.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// ❌ May use stale state if called multiple times quickly</span>
+<span class="fn">setCount</span>(count + <span class="num">1</span>);
+<span class="fn">setCount</span>(count + <span class="num">1</span>); <span class="cm">// both see the same `count` — only increments by 1</span>
+
+<span class="cm">// ✅ Functional updater — always receives latest state</span>
+<span class="fn">setCount</span>(prev => prev + <span class="num">1</span>);
+<span class="fn">setCount</span>(prev => prev + <span class="num">1</span>); <span class="cm">// correctly increments by 2</span></div>
+          </div>
+
+          <h4>State with Objects &amp; Arrays</h4>
+          <div class="card">
+            <p>State must be treated as <strong>immutable</strong>. Never mutate state directly — always create a new object or array and pass that to the setter. React uses shallow comparison to detect changes.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">const</span> [user, setUser] = <span class="fn">useState</span>({ name: <span class="str">"Alice"</span>, age: <span class="num">25</span> });
+
+<span class="cm">// ❌ Direct mutation — React won't detect the change</span>
+user.age = <span class="num">26</span>;
+<span class="fn">setUser</span>(user);  <span class="cm">// same reference — no re-render</span>
+
+<span class="cm">// ✅ Spread to create new object</span>
+<span class="fn">setUser</span>({ ...user, age: <span class="num">26</span> });
+
+<span class="cm">// Arrays — use non-mutating methods</span>
+<span class="kw">const</span> [items, setItems] = <span class="fn">useState</span>([<span class="str">"a"</span>, <span class="str">"b"</span>]);
+
+<span class="fn">setItems</span>([...items, <span class="str">"c"</span>]);              <span class="cm">// add</span>
+<span class="fn">setItems</span>(items.<span class="fn">filter</span>(i => i !== <span class="str">"a"</span>)); <span class="cm">// remove</span>
+<span class="fn">setItems</span>(items.<span class="fn">map</span>(i => i === <span class="str">"b"</span> ? <span class="str">"B"</span> : i)); <span class="cm">// update</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>useEffect</h3>
+          <div class="card">
+            <p><code>useEffect</code> lets you run <strong>side effects</strong> after a component renders. Side effects are anything that reaches outside React's rendering — fetching data, setting up subscriptions, timers, manually updating the DOM, etc.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useEffect } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="cm">// Runs after every render</span>
+<span class="fn">useEffect</span>(() => {
+  document.title = <span class="str">`Count: ${count}`</span>;
+});
+
+<span class="cm">// Runs once on mount (empty dependency array)</span>
+<span class="fn">useEffect</span>(() => {
+  <span class="fn">fetchUser</span>();
+}, []);
+
+<span class="cm">// Runs when `userId` changes (and on mount)</span>
+<span class="fn">useEffect</span>(() => {
+  <span class="fn">fetchUser</span>(userId);
+}, [userId]);
+
+<span class="cm">// With cleanup — returned function runs before next effect &amp; on unmount</span>
+<span class="fn">useEffect</span>(() => {
+  <span class="kw">const</span> id = <span class="fn">setInterval</span>(() => <span class="fn">tick</span>(), <span class="num">1000</span>);
+  <span class="kw">return</span> () => <span class="fn">clearInterval</span>(id);  <span class="cm">// cleanup</span>
+}, []);</div>
+          </div>
+          <div class="highlight-box">
+            <strong>The dependency array controls when the effect runs:</strong><br />
+            — No array → runs after every render.<br />
+            — <code>[]</code> → runs once on mount, cleanup on unmount.<br />
+            — <code>[a, b]</code> → runs when <code>a</code> or <code>b</code> changes (and on mount).<br /><br />
+            Always include every reactive value used inside the effect in the dependency array. ESLint's <code>exhaustive-deps</code> rule enforces this.
+          </div>
+        </section>
+
+        <section>
+          <h3>Fetching Data with useEffect</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">function</span> <span class="fn">UserProfile</span>({ userId }) {
+  <span class="kw">const</span> [user, setUser]       = <span class="fn">useState</span>(<span class="kw">null</span>);
+  <span class="kw">const</span> [loading, setLoading] = <span class="fn">useState</span>(<span class="kw">true</span>);
+  <span class="kw">const</span> [error, setError]     = <span class="fn">useState</span>(<span class="kw">null</span>);
+
+  <span class="fn">useEffect</span>(() => {
+    <span class="kw">let</span> cancelled = <span class="kw">false</span>;  <span class="cm">// prevent stale response on fast prop changes</span>
+
+    <span class="fn">setLoading</span>(<span class="kw">true</span>);
+    <span class="fn">fetch</span>(<span class="str">`/api/users/${userId}`</span>)
+      .<span class="fn">then</span>(r => r.<span class="fn">json</span>())
+      .<span class="fn">then</span>(data => { <span class="kw">if</span> (!cancelled) <span class="fn">setUser</span>(data); })
+      .<span class="fn">catch</span>(err  => { <span class="kw">if</span> (!cancelled) <span class="fn">setError</span>(err); })
+      .<span class="fn">finally</span>(()  => { <span class="kw">if</span> (!cancelled) <span class="fn">setLoading</span>(<span class="kw">false</span>); });
+
+    <span class="kw">return</span> () => { cancelled = <span class="kw">true</span>; }; <span class="cm">// cleanup on userId change or unmount</span>
+  }, [userId]);
+
+  <span class="kw">if</span> (loading) <span class="kw">return</span> <span class="tag">&lt;p&gt;</span>Loading…<span class="tag">&lt;/p&gt;</span>;
+  <span class="kw">if</span> (error)   <span class="kw">return</span> <span class="tag">&lt;p&gt;</span>Error: {error.message}<span class="tag">&lt;/p&gt;</span>;
+  <span class="kw">return</span> <span class="tag">&lt;h2&gt;</span>{user.name}<span class="tag">&lt;/h2&gt;</span>;
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>In real projects, prefer a data-fetching library</strong> (TanStack Query, SWR) over raw <code>useEffect</code> for data fetching. They handle caching, deduplication, loading/error states, and refetching automatically.
+          </div>
+        </section>
+
+        <section>
+          <h3>useRef</h3>
+          <div class="card">
+            <p><code>useRef</code> returns a mutable ref object whose <code>.current</code> property persists across renders. It has two main uses:</p>
+            <div class="grid-2">
+              <div class="mini-card">
+                <div class="mc-label">DOM access</div>
+                <p>Attach to a JSX element with <code>ref={myRef}</code> to get a direct reference to the DOM node. Available after mount.</p>
+              </div>
+              <div class="mini-card">
+                <div class="mc-label">Mutable value</div>
+                <p>Store any value that should persist across renders <em>without</em> triggering a re-render when changed. Unlike state, updating <code>.current</code> is silent.</p>
+              </div>
+            </div>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useRef } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="cm">// DOM reference</span>
+<span class="kw">function</span> <span class="fn">FocusInput</span>() {
+  <span class="kw">const</span> inputRef = <span class="fn">useRef</span>(<span class="kw">null</span>);
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;&gt;</span>
+      <span class="tag">&lt;input</span> <span class="atr">ref</span>={inputRef} <span class="tag">/&gt;</span>
+      <span class="tag">&lt;button</span> <span class="atr">onClick</span>={() => inputRef.current.<span class="fn">focus</span>()}<span class="tag">&gt;</span>Focus<span class="tag">&lt;/button&gt;</span>
+    <span class="tag">&lt;/&gt;</span>
+  );
+}
+
+<span class="cm">// Mutable value — tracking previous state without re-render</span>
+<span class="kw">function</span> <span class="fn">Timer</span>() {
+  <span class="kw">const</span> intervalRef = <span class="fn">useRef</span>(<span class="kw">null</span>);
+
+  <span class="kw">const</span> <span class="fn">start</span> = () => {
+    intervalRef.current = <span class="fn">setInterval</span>(<span class="fn">tick</span>, <span class="num">1000</span>);
+  };
+  <span class="kw">const</span> <span class="fn">stop</span> = () => {
+    <span class="fn">clearInterval</span>(intervalRef.current);
+  };
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>useMemo</h3>
+          <div class="card">
+            <p><code>useMemo</code> caches (memoizes) the result of an expensive computation. It only recalculates when one of its dependencies changes. Use it to avoid repeating heavy work on every render.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useMemo } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">function</span> <span class="fn">ProductList</span>({ products, searchTerm }) {
+  <span class="cm">// Only re-filters when products or searchTerm changes</span>
+  <span class="kw">const</span> filtered = <span class="fn">useMemo</span>(
+    () => products.<span class="fn">filter</span>(p => p.name.<span class="fn">includes</span>(searchTerm)),
+    [products, searchTerm]
+  );
+
+  <span class="kw">return</span> filtered.<span class="fn">map</span>(p => <span class="tag">&lt;ProductCard</span> <span class="atr">key</span>={p.id} {...p} <span class="tag">/&gt;</span>);
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Don't overuse useMemo.</strong> Memoization itself has a cost. Only use it when you have a genuinely expensive computation or when referential stability of the value matters (e.g. passing it to a child wrapped in <code>React.memo</code>).
+          </div>
+        </section>
+
+        <section>
+          <h3>useCallback</h3>
+          <div class="card">
+            <p><code>useCallback</code> returns a memoized version of a callback function. The function is only recreated when its dependencies change. Without it, a new function reference is created on every render, which can cause children to re-render unnecessarily.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useCallback } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">function</span> <span class="fn">Parent</span>() {
+  <span class="kw">const</span> [count, setCount] = <span class="fn">useState</span>(<span class="num">0</span>);
+
+  <span class="cm">// Without useCallback — new function on every render</span>
+  <span class="kw">const</span> handleClick = () => <span class="fn">setCount</span>(c => c + <span class="num">1</span>);
+
+  <span class="cm">// With useCallback — same reference across renders (deps don't change)</span>
+  <span class="kw">const</span> handleClick = <span class="fn">useCallback</span>(
+    () => <span class="fn">setCount</span>(c => c + <span class="num">1</span>),
+    []  <span class="cm">// no deps — function never changes</span>
+  );
+
+  <span class="kw">return</span> <span class="tag">&lt;Child</span> <span class="atr">onClick</span>={handleClick} <span class="tag">/&gt;</span>;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>useContext</h3>
+          <div class="card">
+            <p><code>useContext</code> reads the value from a React context. Context lets you pass data deep into the component tree without passing props manually at every level (<strong>prop drilling</strong>).</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { createContext, useContext, useState } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="cm">// 1. Create context with a default value</span>
+<span class="kw">const</span> ThemeContext = <span class="fn">createContext</span>(<span class="str">"light"</span>);
+
+<span class="cm">// 2. Provide the value at the top of the tree</span>
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">const</span> [theme, setTheme] = <span class="fn">useState</span>(<span class="str">"dark"</span>);
+  <span class="kw">return</span> (
+    <span class="tag">&lt;ThemeContext.Provider</span> <span class="atr">value</span>={theme}<span class="tag">&gt;</span>
+      <span class="tag">&lt;Page /&gt;</span>
+    <span class="tag">&lt;/ThemeContext.Provider&gt;</span>
+  );
+}
+
+<span class="cm">// 3. Consume anywhere in the tree — no prop drilling needed</span>
+<span class="kw">function</span> <span class="fn">Button</span>() {
+  <span class="kw">const</span> theme = <span class="fn">useContext</span>(ThemeContext);
+  <span class="kw">return</span> <span class="tag">&lt;button</span> <span class="atr">className</span>={theme}<span class="tag">&gt;</span>Click<span class="tag">&lt;/button&gt;</span>;
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Context re-renders all consumers</strong> when the value changes. For frequently updating values (e.g. mouse position), context can be a performance problem. Use it for slowly-changing globals: theme, locale, auth user, feature flags.
+          </div>
+        </section>
+
+        <section>
+          <h3>useReducer</h3>
+          <div class="card">
+            <p><code>useReducer</code> is an alternative to <code>useState</code> for complex state that involves multiple sub-values or where the next state depends on the previous in non-trivial ways. It uses a <strong>reducer function</strong> — a pure function of <code>(state, action) => newState</code>.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useReducer } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">function</span> <span class="fn">reducer</span>(state, action) {
+  <span class="kw">switch</span> (action.type) {
+    <span class="kw">case</span> <span class="str">"increment"</span>: <span class="kw">return</span> { ...state, count: state.count + <span class="num">1</span> };
+    <span class="kw">case</span> <span class="str">"decrement"</span>: <span class="kw">return</span> { ...state, count: state.count - <span class="num">1</span> };
+    <span class="kw">case</span> <span class="str">"reset"</span>:     <span class="kw">return</span> { count: <span class="num">0</span> };
+    <span class="kw">default</span>: <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">`Unknown action: ${action.type}`</span>);
+  }
+}
+
+<span class="kw">function</span> <span class="fn">Counter</span>() {
+  <span class="kw">const</span> [state, dispatch] = <span class="fn">useReducer</span>(reducer, { count: <span class="num">0</span> });
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;&gt;</span>
+      <span class="tag">&lt;p&gt;</span>{state.count}<span class="tag">&lt;/p&gt;</span>
+      <span class="tag">&lt;button</span> <span class="atr">onClick</span>={() => <span class="fn">dispatch</span>({ type: <span class="str">"increment"</span> })}<span class="tag">&gt;</span>+<span class="tag">&lt;/button&gt;</span>
+      <span class="tag">&lt;button</span> <span class="atr">onClick</span>={() => <span class="fn">dispatch</span>({ type: <span class="str">"reset"</span> })}<span class="tag">&gt;</span>Reset<span class="tag">&lt;/button&gt;</span>
+    <span class="tag">&lt;/&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>useLayoutEffect</h3>
+          <div class="card">
+            <p><code>useLayoutEffect</code> has the same signature as <code>useEffect</code> but fires <strong>synchronously after all DOM mutations and before the browser paints</strong>. Use it when you need to read layout (e.g. element dimensions) and synchronously re-render before the user sees anything — avoids the flicker that <code>useEffect</code> would cause.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useLayoutEffect, useRef, useState } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">function</span> <span class="fn">Tooltip</span>({ children }) {
+  <span class="kw">const</span> ref = <span class="fn">useRef</span>(<span class="kw">null</span>);
+  <span class="kw">const</span> [height, setHeight] = <span class="fn">useState</span>(<span class="num">0</span>);
+
+  <span class="cm">// Runs after DOM update but BEFORE browser paint — no flicker</span>
+  <span class="fn">useLayoutEffect</span>(() => {
+    <span class="fn">setHeight</span>(ref.current.<span class="fn">getBoundingClientRect</span>().height);
+  }, []);
+
+  <span class="kw">return</span> <span class="tag">&lt;div</span> <span class="atr">ref</span>={ref}<span class="tag">&gt;</span>{children}<span class="tag">&lt;/div&gt;</span>;
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Prefer <code>useEffect</code> by default.</strong> <code>useLayoutEffect</code> blocks the browser from painting — use it only when you need to measure the DOM before the user sees the render.
+          </div>
+        </section>
+
+        <section>
+          <h3>useId</h3>
+          <div class="card">
+            <p><code>useId()</code> generates a <strong>stable, unique ID</strong> that is consistent between server and client renders. Use it for accessibility attributes like <code>htmlFor</code>, <code>aria-labelledby</code>, and <code>aria-describedby</code> — never for list keys.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useId } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">function</span> <span class="fn">EmailField</span>() {
+  <span class="kw">const</span> id = <span class="fn">useId</span>();  <span class="cm">// e.g. ":r1:"</span>
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;&gt;</span>
+      <span class="tag">&lt;label</span> <span class="atr">htmlFor</span>={id}<span class="tag">&gt;</span>Email<span class="tag">&lt;/label&gt;</span>
+      <span class="tag">&lt;input</span> <span class="atr">id</span>={id} <span class="atr">type</span>=<span class="str">"email"</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>useTransition</h3>
+          <div class="card">
+            <p><code>useTransition()</code> returns <code>[isPending, startTransition]</code>. Wrap a state update in <code>startTransition</code> to mark it as <strong>non-urgent</strong> — React will keep the current UI responsive and process the transition in the background. <code>isPending</code> is <code>true</code> while the transition is in progress.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useTransition, useState } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">function</span> <span class="fn">SearchPage</span>() {
+  <span class="kw">const</span> [query, setQuery]     = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">const</span> [results, setResults] = <span class="fn">useState</span>([]);
+  <span class="kw">const</span> [isPending, startTransition] = <span class="fn">useTransition</span>();
+
+  <span class="kw">function</span> <span class="fn">handleChange</span>(e) {
+    setQuery(e.target.value);           <span class="cm">// urgent — updates input immediately</span>
+    <span class="fn">startTransition</span>(() => {
+      <span class="fn">setResults</span>(<span class="fn">search</span>(e.target.value)); <span class="cm">// non-urgent — can be deferred</span>
+    });
+  }
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;&gt;</span>
+      <span class="tag">&lt;input</span> <span class="atr">value</span>={query} <span class="atr">onChange</span>={handleChange} <span class="tag">/&gt;</span>
+      {isPending ? <span class="tag">&lt;p&gt;</span>Searching…<span class="tag">&lt;/p&gt;</span> : <span class="tag">&lt;ResultList</span> <span class="atr">items</span>={results} <span class="tag">/&gt;</span>}
+    <span class="tag">&lt;/&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>useDeferredValue</h3>
+          <div class="card">
+            <p><code>useDeferredValue(value)</code> returns a <strong>deferred copy</strong> of the value that lags behind the real value during high-priority updates. React updates the deferred value in the background after urgent updates (like typing) are processed. Useful for keeping a fast input while a slow list re-renders.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useDeferredValue, useState } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">function</span> <span class="fn">FilteredList</span>({ items }) {
+  <span class="kw">const</span> [query, setQuery] = <span class="fn">useState</span>(<span class="str">""</span>);
+  <span class="kw">const</span> deferredQuery = <span class="fn">useDeferredValue</span>(query); <span class="cm">// lags behind query</span>
+
+  <span class="cm">// Re-renders with deferredQuery — won't block the input</span>
+  <span class="kw">const</span> filtered = items.<span class="fn">filter</span>(i => i.<span class="fn">includes</span>(deferredQuery));
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;&gt;</span>
+      <span class="tag">&lt;input</span> <span class="atr">value</span>={query} <span class="atr">onChange</span>={e => <span class="fn">setQuery</span>(e.target.value)} <span class="tag">/&gt;</span>
+      <span class="tag">&lt;ul&gt;</span>{filtered.<span class="fn">map</span>(i => <span class="tag">&lt;li</span> <span class="atr">key</span>={i}<span class="tag">&gt;</span>{i}<span class="tag">&lt;/li&gt;</span>)}<span class="tag">&lt;/ul&gt;</span>
+    <span class="tag">&lt;/&gt;</span>
+  );
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong><code>useTransition</code> vs <code>useDeferredValue</code>:</strong> Use <code>useTransition</code> when you control the state update (you own the setter). Use <code>useDeferredValue</code> when you receive a value as a prop or can't wrap the setter.
+          </div>
+        </section>
+
+        <section>
+          <h3>useImperativeHandle</h3>
+          <div class="card">
+            <p><code>useImperativeHandle(ref, createHandle, deps)</code> lets a child component <strong>customise what a parent sees</strong> when it accesses the child's ref. Instead of exposing the entire DOM node, you expose only specific methods. Use it with <code>forwardRef</code>.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useImperativeHandle, useRef, forwardRef } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">const</span> FancyInput = <span class="fn">forwardRef</span>(<span class="kw">function</span> <span class="fn">FancyInput</span>(props, ref) {
+  <span class="kw">const</span> inputRef = <span class="fn">useRef</span>(<span class="kw">null</span>);
+
+  <span class="fn">useImperativeHandle</span>(ref, () => ({
+    <span class="cm">// Parent can call ref.current.focus() and ref.current.clear()</span>
+    <span class="fn">focus</span>: () => inputRef.current.<span class="fn">focus</span>(),
+    <span class="fn">clear</span>: () => { inputRef.current.value = <span class="str">""</span>; },
+  }));
+
+  <span class="kw">return</span> <span class="tag">&lt;input</span> <span class="atr">ref</span>={inputRef} {...props} <span class="tag">/&gt;</span>;
+});
+
+<span class="cm">// Parent — can only call focus() and clear(), nothing else</span>
+<span class="kw">function</span> <span class="fn">Form</span>() {
+  <span class="kw">const</span> ref = <span class="fn">useRef</span>(<span class="kw">null</span>);
+  <span class="kw">return</span> (
+    <span class="tag">&lt;&gt;</span>
+      <span class="tag">&lt;FancyInput</span> <span class="atr">ref</span>={ref} <span class="tag">/&gt;</span>
+      <span class="tag">&lt;button</span> <span class="atr">onClick</span>={() => ref.current.<span class="fn">clear</span>()}<span class="tag">&gt;</span>Clear<span class="tag">&lt;/button&gt;</span>
+    <span class="tag">&lt;/&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>useDebugValue</h3>
+          <div class="card">
+            <p><code>useDebugValue(value)</code> displays a label for a custom hook in <strong>React DevTools</strong>. It has no effect on behaviour — it's purely for debugging. Only use it inside custom hooks, not in components directly.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useDebugValue, useState } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">function</span> <span class="fn">useOnlineStatus</span>() {
+  <span class="kw">const</span> [isOnline, setIsOnline] = <span class="fn">useState</span>(<span class="kw">true</span>);
+
+  <span class="cm">// Shows "Online" or "Offline" in React DevTools for this hook</span>
+  <span class="fn">useDebugValue</span>(isOnline ? <span class="str">"Online"</span> : <span class="str">"Offline"</span>);
+
+  <span class="kw">return</span> isOnline;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>use (React 19)</h3>
+          <div class="card">
+            <p><code>use(resource)</code> lets you read the value of a Promise or Context directly inside a component. If passed a Promise, the component <strong>suspends</strong> until it resolves (requires a <code>&lt;Suspense&gt;</code> boundary above). Unlike every other hook, <code>use</code> can be called inside conditionals and loops.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { use, Suspense } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="cm">// Server or parent creates the promise and passes it as a prop</span>
+<span class="kw">function</span> <span class="fn">UserName</span>({ userPromise }) {
+  <span class="kw">const</span> user = <span class="fn">use</span>(userPromise); <span class="cm">// suspends until resolved</span>
+  <span class="kw">return</span> <span class="tag">&lt;p&gt;</span>{user.name}<span class="tag">&lt;/p&gt;</span>;
+}
+
+<span class="cm">// Wrap in Suspense so React knows what to show while waiting</span>
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">const</span> promise = <span class="fn">fetchUser</span>(<span class="num">1</span>);
+  <span class="kw">return</span> (
+    <span class="tag">&lt;Suspense</span> <span class="atr">fallback</span>={<span class="tag">&lt;p&gt;</span>Loading…<span class="tag">&lt;/p&gt;</span>}<span class="tag">&gt;</span>
+      <span class="tag">&lt;UserName</span> <span class="atr">userPromise</span>={promise} <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/Suspense&gt;</span>
+  );
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Create the promise outside the component</strong> (or with <code>useMemo</code>) — not inline in JSX. Creating it during render causes a new Promise every render, which re-suspends forever.
+          </div>
+        </section>
+
+        <section>
+          <h3>useActionState (React 19)</h3>
+          <div class="card">
+            <p><code>useActionState(action, initialState)</code> manages state and the pending status of an async action in one hook. It returns <code>[state, dispatch, isPending]</code>. Every time <code>dispatch</code> is called with a value, the action runs and the returned state is updated — replacing the common <code>useState + useEffect</code> pattern for form submissions and mutations.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useActionState } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">async function</span> <span class="fn">submitForm</span>(prevState, formData) {
+  <span class="kw">const</span> name = formData.<span class="fn">get</span>(<span class="str">"name"</span>);
+  <span class="kw">await</span> <span class="fn">saveName</span>(name);
+  <span class="kw">return</span> { message: <span class="str">`Saved: ${name}`</span> };
+}
+
+<span class="kw">function</span> <span class="fn">NameForm</span>() {
+  <span class="kw">const</span> [state, dispatch, isPending] = <span class="fn">useActionState</span>(submitForm, { message: <span class="str">""</span> });
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;form</span> <span class="atr">action</span>={dispatch}<span class="tag">&gt;</span>
+      <span class="tag">&lt;input</span> <span class="atr">name</span>=<span class="str">"name"</span> <span class="tag">/&gt;</span>
+      <span class="tag">&lt;button</span> <span class="atr">disabled</span>={isPending}<span class="tag">&gt;</span>{isPending ? <span class="str">"Saving…"</span> : <span class="str">"Save"</span>}<span class="tag">&lt;/button&gt;</span>
+      {state.message &amp;&amp; <span class="tag">&lt;p&gt;</span>{state.message}<span class="tag">&lt;/p&gt;</span>}
+    <span class="tag">&lt;/form&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>useFormStatus (React 19)</h3>
+          <div class="card">
+            <p><code>useFormStatus()</code> returns the submission status of the nearest parent <code>&lt;form&gt;</code>. Use it inside a child component (e.g. a submit button) to read <code>pending</code> without prop drilling. It must be called from a component that is <em>inside</em> the form, not the form component itself.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useFormStatus } <span class="kw">from</span> <span class="str">"react-dom"</span>;
+
+<span class="cm">// Child component — knows when the parent form is submitting</span>
+<span class="kw">function</span> <span class="fn">SubmitButton</span>() {
+  <span class="kw">const</span> { pending } = <span class="fn">useFormStatus</span>();
+  <span class="kw">return</span> <span class="tag">&lt;button</span> <span class="atr">disabled</span>={pending}<span class="tag">&gt;</span>{pending ? <span class="str">"Submitting…"</span> : <span class="str">"Submit"</span>}<span class="tag">&lt;/button&gt;</span>;
+}
+
+<span class="cm">// Parent form — no need to pass isPending as a prop</span>
+<span class="kw">function</span> <span class="fn">LoginForm</span>() {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;form</span> <span class="atr">action</span>={<span class="fn">loginAction</span>}<span class="tag">&gt;</span>
+      <span class="tag">&lt;input</span> <span class="atr">name</span>=<span class="str">"email"</span> <span class="tag">/&gt;</span>
+      <span class="tag">&lt;SubmitButton /&gt;</span>  <span class="cm">{/* reads pending automatically */}</span>
+    <span class="tag">&lt;/form&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>useOptimistic (React 19)</h3>
+          <div class="card">
+            <p><code>useOptimistic(state, updateFn)</code> lets you show an <strong>immediate optimistic update</strong> to the UI while an async action (e.g. a server request) is still in flight. When the action completes, React automatically reconciles the real state. If the action fails, the optimistic value is rolled back.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { useOptimistic } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">function</span> <span class="fn">LikeButton</span>({ post }) {
+  <span class="cm">// optimisticLikes shows +1 immediately; reverts if save fails</span>
+  <span class="kw">const</span> [optimisticLikes, addOptimisticLike] = <span class="fn">useOptimistic</span>(
+    post.likes,
+    (current) => current + <span class="num">1</span>
+  );
+
+  <span class="kw">async function</span> <span class="fn">handleLike</span>() {
+    <span class="fn">addOptimisticLike</span>();           <span class="cm">// instantly updates UI</span>
+    <span class="kw">await</span> <span class="fn">likePost</span>(post.id);       <span class="cm">// real server call</span>
+  }                                <span class="cm">// on resolve: real state takes over</span>
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;button</span> <span class="atr">onClick</span>={handleLike}<span class="tag">&gt;</span>
+      ❤️ {optimisticLikes}
+    <span class="tag">&lt;/button&gt;</span>
+  );
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>useOptimistic only works inside an async transition.</strong> Call it from an action passed to <code>useActionState</code>, a form <code>action</code>, or wrapped in <code>startTransition</code>.
+          </div>
+        </section>
+
+        <section>
+          <h3>Custom Hooks</h3>
+          <div class="card">
+            <p>A <strong>custom hook</strong> is a JavaScript function whose name starts with <code>use</code> that calls other hooks. They let you extract and reuse stateful logic across multiple components without duplicating code.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Custom hook — extract fetch logic</span>
+<span class="kw">function</span> <span class="fn">useFetch</span>(url) {
+  <span class="kw">const</span> [data, setData]       = <span class="fn">useState</span>(<span class="kw">null</span>);
+  <span class="kw">const</span> [loading, setLoading] = <span class="fn">useState</span>(<span class="kw">true</span>);
+  <span class="kw">const</span> [error, setError]     = <span class="fn">useState</span>(<span class="kw">null</span>);
+
+  <span class="fn">useEffect</span>(() => {
+    <span class="fn">fetch</span>(url)
+      .<span class="fn">then</span>(r => r.<span class="fn">json</span>())
+      .<span class="fn">then</span>(<span class="fn">setData</span>)
+      .<span class="fn">catch</span>(<span class="fn">setError</span>)
+      .<span class="fn">finally</span>(() => <span class="fn">setLoading</span>(<span class="kw">false</span>));
+  }, [url]);
+
+  <span class="kw">return</span> { data, loading, error };
+}
+
+<span class="cm">// Usage — reused in any component</span>
+<span class="kw">function</span> <span class="fn">Posts</span>() {
+  <span class="kw">const</span> { data, loading } = <span class="fn">useFetch</span>(<span class="str">"/api/posts"</span>);
+  <span class="kw">if</span> (loading) <span class="kw">return</span> <span class="tag">&lt;p&gt;</span>Loading…<span class="tag">&lt;/p&gt;</span>;
+  <span class="kw">return</span> data.<span class="fn">map</span>(p => <span class="tag">&lt;PostCard</span> <span class="atr">key</span>={p.id} {...p} <span class="tag">/&gt;</span>);
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 4 — Component Patterns
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 4</div>
+        <h2>Component Patterns</h2>
+
+        <section>
+          <h3>Rendering Lists</h3>
+          <div class="card">
+            <p>Use <code>.map()</code> to render an array of items. Each item needs a stable, unique <strong>key</strong> prop so React can efficiently reconcile list changes.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">function</span> <span class="fn">TodoList</span>({ todos }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;ul&gt;</span>
+      {todos.<span class="fn">map</span>(todo => (
+        <span class="tag">&lt;li</span> <span class="atr">key</span>={todo.id}<span class="tag">&gt;</span>  <span class="cm">{/* key must be on the outermost element */}</span>
+          {todo.text}
+        <span class="tag">&lt;/li&gt;</span>
+      ))}
+    <span class="tag">&lt;/ul&gt;</span>
+  );
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Keys must be unique among siblings</strong> and stable across renders. Never use the array index as a key if the list can be reordered or filtered — it causes subtle bugs where React associates state with the wrong item. Use an ID from the data instead.
+          </div>
+        </section>
+
+        <section>
+          <h3>Conditional Rendering</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Ternary — show one or the other</span>
+{isLoggedIn ? <span class="tag">&lt;Dashboard /&gt;</span> : <span class="tag">&lt;LoginPage /&gt;</span>}
+
+<span class="cm">// && — show or show nothing</span>
+{hasError &amp;&amp; <span class="tag">&lt;ErrorBanner</span> <span class="atr">message</span>={error} <span class="tag">/&gt;</span>}
+
+<span class="cm">// !! gotcha — avoid rendering 0 with &&</span>
+{count &amp;&amp; <span class="tag">&lt;Badge /&gt;</span>}  <span class="cm">// ❌ renders "0" if count = 0</span>
+{count > <span class="num">0</span> &amp;&amp; <span class="tag">&lt;Badge /&gt;</span>} <span class="cm">// ✅ explicit boolean check</span>
+
+<span class="cm">// Early return inside component</span>
+<span class="kw">function</span> <span class="fn">Profile</span>({ user }) {
+  <span class="kw">if</span> (!user) <span class="kw">return</span> <span class="tag">&lt;p&gt;</span>Loading…<span class="tag">&lt;/p&gt;</span>;
+  <span class="kw">return</span> <span class="tag">&lt;h1&gt;</span>{user.name}<span class="tag">&lt;/h1&gt;</span>;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Lifting State Up</h3>
+          <div class="card">
+            <p>When two sibling components need to share state, move (lift) the state to their closest common ancestor and pass it down as props. The parent owns the state; children receive it via props and communicate changes via callback props.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">function</span> <span class="fn">Parent</span>() {
+  <span class="kw">const</span> [value, setValue] = <span class="fn">useState</span>(<span class="str">""</span>);
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;&gt;</span>
+      <span class="cm">{/* Input owns no state — controlled by parent */}</span>
+      <span class="tag">&lt;SearchInput</span> <span class="atr">value</span>={value} <span class="atr">onChange</span>={setValue} <span class="tag">/&gt;</span>
+      <span class="cm">{/* Results receive the same value */}</span>
+      <span class="tag">&lt;ResultsList</span> <span class="atr">query</span>={value} <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/&gt;</span>
+  );
+}
+
+<span class="kw">function</span> <span class="fn">SearchInput</span>({ value, onChange }) {
+  <span class="kw">return</span> <span class="tag">&lt;input</span> <span class="atr">value</span>={value} <span class="atr">onChange</span>={e => <span class="fn">onChange</span>(e.target.value)} <span class="tag">/&gt;</span>;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Controlled vs Uncontrolled Inputs</h3>
+          <div class="card">
+            <table>
+              <tr><th></th><th>Controlled</th><th>Uncontrolled</th></tr>
+              <tr><td>Source of truth</td><td>React state</td><td>DOM itself</td></tr>
+              <tr><td>How to read value</td><td><code>value</code> prop + <code>onChange</code></td><td><code>ref.current.value</code></td></tr>
+              <tr><td>When to use</td><td>Validation, formatting, conditional logic</td><td>Simple cases, file inputs, integrating non-React code</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Controlled input — React owns the value</span>
+<span class="kw">const</span> [email, setEmail] = <span class="fn">useState</span>(<span class="str">""</span>);
+<span class="tag">&lt;input</span>
+  <span class="atr">type</span>=<span class="str">"email"</span>
+  <span class="atr">value</span>={email}
+  <span class="atr">onChange</span>={e => <span class="fn">setEmail</span>(e.target.value)}
+<span class="tag">/&gt;</span>
+
+<span class="cm">// Uncontrolled input — DOM owns the value, read via ref</span>
+<span class="kw">const</span> emailRef = <span class="fn">useRef</span>(<span class="kw">null</span>);
+<span class="tag">&lt;input</span> <span class="atr">type</span>=<span class="str">"email"</span> <span class="atr">defaultValue</span>=<span class="str">""</span> <span class="atr">ref</span>={emailRef} <span class="tag">/&gt;</span>
+<span class="cm">// Read: emailRef.current.value</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>React.memo</h3>
+          <div class="card">
+            <p><code>React.memo</code> is a higher-order component that memoizes a component. It skips re-rendering if the props have not changed (shallow comparison). Combine with <code>useCallback</code> for function props.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { memo } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="cm">// Without memo — re-renders whenever Parent re-renders</span>
+<span class="kw">function</span> <span class="fn">Avatar</span>({ src, alt }) {
+  <span class="kw">return</span> <span class="tag">&lt;img</span> <span class="atr">src</span>={src} <span class="atr">alt</span>={alt} <span class="tag">/&gt;</span>;
+}
+
+<span class="cm">// With memo — only re-renders when src or alt actually change</span>
+<span class="kw">const</span> Avatar = <span class="fn">memo</span>(<span class="kw">function</span> <span class="fn">Avatar</span>({ src, alt }) {
+  <span class="kw">return</span> <span class="tag">&lt;img</span> <span class="atr">src</span>={src} <span class="atr">alt</span>={alt} <span class="tag">/&gt;</span>;
+});</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 5 — Error Boundaries & Suspense
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 5</div>
+        <h2>Error Boundaries &amp; Suspense</h2>
+
+        <section>
+          <h3>Error Boundaries</h3>
+          <div class="card">
+            <p>An <strong>Error Boundary</strong> is a class component that catches JavaScript errors anywhere in its child component tree during rendering or in lifecycle methods. It shows a fallback UI instead of crashing the whole app. Currently only class components can be error boundaries (or use the <code>react-error-boundary</code> library).</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { ErrorBoundary } <span class="kw">from</span> <span class="str">"react-error-boundary"</span>;
+
+<span class="kw">function</span> <span class="fn">Fallback</span>({ error, resetErrorBoundary }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;div&gt;</span>
+      <span class="tag">&lt;p&gt;</span>Something went wrong: {error.message}<span class="tag">&lt;/p&gt;</span>
+      <span class="tag">&lt;button</span> <span class="atr">onClick</span>={resetErrorBoundary}<span class="tag">&gt;</span>Try again<span class="tag">&lt;/button&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  );
+}
+
+<span class="tag">&lt;ErrorBoundary</span> <span class="atr">FallbackComponent</span>={Fallback}<span class="tag">&gt;</span>
+  <span class="tag">&lt;RiskyComponent /&gt;</span>
+<span class="tag">&lt;/ErrorBoundary&gt;</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Suspense</h3>
+          <div class="card">
+            <p><code>&lt;Suspense&gt;</code> lets you declaratively show a loading fallback while waiting for something to be ready — lazy-loaded components or data (with Suspense-enabled data libraries like TanStack Query v5 or Relay).</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { lazy, Suspense } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="cm">// Lazy load a component — code-splits the bundle</span>
+<span class="kw">const</span> Dashboard = <span class="fn">lazy</span>(() => <span class="kw">import</span>(<span class="str">"./Dashboard"</span>));
+
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;Suspense</span> <span class="atr">fallback</span>={<span class="tag">&lt;p&gt;</span>Loading…<span class="tag">&lt;/p&gt;</span>}<span class="tag">&gt;</span>
+      <span class="tag">&lt;Dashboard /&gt;</span>
+    <span class="tag">&lt;/Suspense&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 6 — Performance Optimization
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 6</div>
+        <h2>Performance Optimization</h2>
+
+        <section>
+          <h3>React.memo</h3>
+          <div class="card">
+            <p><code>React.memo</code> is a higher-order component that wraps a function component and skips re-rendering if its props haven't changed (shallow comparison). By default every parent re-render also re-renders all children — <code>React.memo</code> lets a child opt out of that.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { memo } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="cm">// Without memo — re-renders every time Parent re-renders</span>
+<span class="kw">function</span> <span class="fn">Avatar</span>({ src, alt }) {
+  <span class="kw">return</span> <span class="tag">&lt;img</span> <span class="atr">src</span>={src} <span class="atr">alt</span>={alt} <span class="tag">/&gt;</span>;
+}
+
+<span class="cm">// With memo — only re-renders when src or alt actually change</span>
+<span class="kw">const</span> Avatar = <span class="fn">memo</span>(<span class="kw">function</span> <span class="fn">Avatar</span>({ src, alt }) {
+  <span class="kw">return</span> <span class="tag">&lt;img</span> <span class="atr">src</span>={src} <span class="atr">alt</span>={alt} <span class="tag">/&gt;</span>;
+});
+
+<span class="cm">// Custom comparison — return true to SKIP re-render</span>
+<span class="kw">const</span> Avatar = <span class="fn">memo</span>(<span class="fn">AvatarFn</span>, (prev, next) => prev.src === next.src);</div>
+          </div>
+          <div class="highlight-box">
+            <strong>memo only helps if props are stable.</strong> If a parent passes an inline object or function (<code>style={{ color: "red" }}</code>, <code>onClick={() => {}}</code>), a new reference is created every render — memo sees it as changed and re-renders anyway. Pair with <code>useMemo</code> / <code>useCallback</code> to stabilise those props.
+          </div>
+        </section>
+
+        <section>
+          <h3>Code Splitting with lazy &amp; Suspense</h3>
+          <div class="card">
+            <p><code>React.lazy()</code> lets you defer loading a component's bundle until it is first rendered. Combined with <code>&lt;Suspense&gt;</code>, React shows a fallback while the chunk loads. This keeps the initial bundle small and speeds up the first paint.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { lazy, Suspense } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="cm">// Component loaded only when first rendered (separate JS chunk)</span>
+<span class="kw">const</span> Dashboard = <span class="fn">lazy</span>(() => <span class="kw">import</span>(<span class="str">"./Dashboard"</span>));
+
+<span class="kw">function</span> <span class="fn">App</span>() {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;Suspense</span> <span class="atr">fallback</span>={<span class="tag">&lt;p&gt;</span>Loading…<span class="tag">&lt;/p&gt;</span>}<span class="tag">&gt;</span>
+      <span class="tag">&lt;Dashboard /&gt;</span>
+    <span class="tag">&lt;/Suspense&gt;</span>
+  );
+}</div>
+          </div>
+          <div class="highlight-box">
+            Split at the <strong>route level</strong> first — lazy-loading each page gives the biggest gains for the least complexity. Only go deeper (splitting individual heavy components) if profiling shows it's worth it.
+          </div>
+        </section>
+
+        <section>
+          <h3>List Virtualisation</h3>
+          <div class="card">
+            <p>Rendering thousands of DOM nodes at once is slow. <strong>Virtualisation</strong> renders only the items currently visible in the viewport, recycling nodes as the user scrolls. Use <code>react-window</code> or <code>@tanstack/react-virtual</code> for long lists.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { FixedSizeList } <span class="kw">from</span> <span class="str">"react-window"</span>;
+
+<span class="kw">function</span> <span class="fn">Row</span>({ index, style }) {
+  <span class="kw">return</span> <span class="tag">&lt;div</span> <span class="atr">style</span>={style}<span class="tag">&gt;</span>Row {index}<span class="tag">&lt;/div&gt;</span>;
+}
+
+<span class="kw">function</span> <span class="fn">BigList</span>() {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;FixedSizeList</span>
+      <span class="atr">height</span>={<span class="num">400</span>}
+      <span class="atr">itemCount</span>={<span class="num">10000</span>}
+      <span class="atr">itemSize</span>={<span class="num">35</span>}
+      <span class="atr">width</span>=<span class="str">"100%"</span>
+    <span class="tag">&gt;</span>
+      {Row}
+    <span class="tag">&lt;/FixedSizeList&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Avoid Unnecessary Re-renders</h3>
+          <div class="card">
+            <p>Most performance problems in React are caused by components re-rendering more often than needed. Common causes and fixes:</p>
+            <table>
+              <tr><th>Cause</th><th>Fix</th></tr>
+              <tr><td>New object/array literal in JSX</td><td>Move outside component or wrap in <code>useMemo</code></td></tr>
+              <tr><td>Inline function as prop</td><td>Wrap handler in <code>useCallback</code></td></tr>
+              <tr><td>Context value changes every render</td><td>Memoize the value object with <code>useMemo</code></td></tr>
+              <tr><td>Child always re-renders with parent</td><td>Wrap child in <code>React.memo</code></td></tr>
+              <tr><td>Expensive computation on every render</td><td>Cache result with <code>useMemo</code></td></tr>
+              <tr><td>State too high up the tree</td><td>Colocate state — move it down to the component that owns it</td></tr>
+            </table>
+          </div>
+          <!-- prettier-ignore -->
+          <div class="code-block"><span class="cm">// ❌ New object every render — Context consumers always re-render</span>
+<span class="tag">&lt;UserContext.Provider</span> <span class="atr">value</span>={{ user, logout }}<span class="tag">&gt;</span>
+
+<span class="cm">// ✅ Memoize the value — consumers only re-render when user changes</span>
+<span class="kw">const</span> value = <span class="fn">useMemo</span>(() => ({ user, logout }), [user]);
+<span class="tag">&lt;UserContext.Provider</span> <span class="atr">value</span>={value}<span class="tag">&gt;</span></div>
+        </section>
+
+        <section>
+          <h3>Profiling with React DevTools</h3>
+          <div class="card">
+            <p>The <strong>React DevTools Profiler</strong> records a render timeline showing which components rendered, how long each took, and why they rendered. Use it to find actual bottlenecks before reaching for optimisation tools.</p>
+            <table>
+              <tr><th>Step</th><th>What to do</th></tr>
+              <tr><td>1. Open DevTools</td><td>Install React DevTools browser extension → open the <strong>Profiler</strong> tab.</td></tr>
+              <tr><td>2. Record</td><td>Click <strong>Record</strong>, interact with the slow part of the UI, then stop.</td></tr>
+              <tr><td>3. Inspect flamegraph</td><td>Each bar is a component render. Tall/wide bars took longest. Grey = not re-rendered.</td></tr>
+              <tr><td>4. Check "why did this render?"</td><td>Enable "Record why each component rendered" in settings. Shows prop/state/context changes.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>Profile before optimising.</strong> Adding <code>memo</code>, <code>useMemo</code>, and <code>useCallback</code> everywhere adds cognitive overhead and can hurt performance (memoisation has its own cost). Only apply them where the Profiler shows a real problem.
+          </div>
+        </section>
+      </div>
+
+      <footer style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #e0dfd8; font-size: 13px; color: #aaa;">
+        React Notes
+      </footer>
+    </div>
+  </body>
+</html>

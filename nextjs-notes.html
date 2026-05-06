@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Next.js Notes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: #f5f4f0;
+        color: #1a1a18;
+        font-size: 15px;
+        line-height: 1.7;
+        padding: 3rem 1rem;
+      }
+
+      .page {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 2rem;
+        padding-bottom: 0.2rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      .chapter {
+        margin-bottom: 3rem;
+      }
+
+      .chapter-heading {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #1a1a18;
+        color: #f5f4f0;
+        padding: 3px 10px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #1a1a18;
+      }
+
+      section {
+        margin-bottom: 2rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        border-left: 3px solid #1a1a18;
+        padding-left: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: #1a1a18;
+      }
+
+      h4 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #5a5a56;
+        margin-top: 1.25rem;
+        margin-bottom: 0.4rem;
+        padding-left: 1.25rem;
+      }
+
+      p {
+        margin-bottom: 0.6rem;
+        color: #5a5a56;
+        font-size: 14px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 12px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        margin-top: 0.5rem;
+      }
+
+      th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #888;
+        padding: 6px 12px;
+        border-bottom: 1px solid #e0dfd8;
+      }
+
+      td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #f0efe8;
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      td:first-child {
+        color: #5a5a56;
+        font-weight: 500;
+        width: 38%;
+      }
+
+      code {
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        background: #f0efe8;
+        padding: 1px 6px;
+        border-radius: 4px;
+        color: #c0392b;
+      }
+
+      .code-block {
+        background: #1a1a18;
+        color: #e8e6df;
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin: 0.75rem 0;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .code-block .kw  { color: #f7aa44; }
+      .code-block .str { color: #a8e6a3; }
+      .code-block .cm  { color: #777; font-style: italic; }
+      .code-block .fn  { color: #89c4e1; }
+      .code-block .num { color: #d4a0f7; }
+      .code-block .tag { color: #f7aa44; }
+      .code-block .atr { color: #89c4e1; }
+
+      ul {
+        padding-left: 1.25rem;
+        margin-bottom: 0.6rem;
+      }
+
+      ul li {
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .highlight-box {
+        background: #fffbea;
+        border-left: 3px solid #f59e0b;
+        padding: 0.75rem 1rem;
+        border-radius: 0 8px 8px 0;
+        margin: 0.75rem 0;
+        font-size: 14px;
+        color: #78350f;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .mini-card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+      }
+
+      .mini-card .mc-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-bottom: 4px;
+      }
+
+      .mini-card p {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .nav-bar {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .nav-bar .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-right: 0.5rem;
+      }
+
+      .nav-bar a {
+        font-size: 13px;
+        color: #1a1a18;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: background 0.15s ease;
+      }
+
+      .nav-bar a:hover {
+        background: #f0efe8;
+      }
+
+      .nav-bar a.active {
+        background: #1a1a18;
+        color: #f5f4f0;
+      }
+
+      @media (max-width: 560px) {
+        .grid-2 { grid-template-columns: 1fr; }
+        header h1 { font-size: 1.6rem; }
+        .nav-bar { flex-direction: column; align-items: flex-start; }
+        .nav-bar .nav-label { margin-bottom: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>Next.js Notes</h1>
+      </header>
+
+      <nav class="nav-bar">
+        <span class="nav-label">Notes:</span>
+        <a href="html-notes.html">HTML</a>
+        <a href="css-notes.html">CSS</a>
+        <a href="javascript-notes.html">JavaScript</a>
+        <a href="dom-notes.html">DOM</a>
+        <a href="react-notes.html">React</a>
+        <a href="react-native-notes.html">React Native</a>
+        <a href="nextjs-notes.html" class="active">Next.js</a>
+        <a href="hr-interview-notes.html">HR Interview</a>
+      </nav>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 1 — Introduction
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 1</div>
+        <h2>Introduction to Next.js</h2>
+
+        <section>
+          <h3>What is Next.js?</h3>
+          <div class="card">
+            <p><strong>Next.js</strong> is a React framework by Vercel that adds server-side capabilities to React — routing, data fetching, rendering strategies, image optimisation, and API routes — all with zero config. It is the most widely used full-stack React framework.</p>
+            <table>
+              <tr><th>Feature</th><th>What it gives you</th></tr>
+              <tr><td>File-based routing</td><td>Every file in <code>app/</code> automatically becomes a route</td></tr>
+              <tr><td>Server Components</td><td>Render on the server by default — no JS sent to the client</td></tr>
+              <tr><td>Data fetching</td><td><code>fetch</code> with built-in caching and revalidation</td></tr>
+              <tr><td>API routes</td><td>Backend endpoints inside the same project</td></tr>
+              <tr><td>Image optimisation</td><td><code>&lt;Image&gt;</code> component with lazy loading, WebP, resizing</td></tr>
+              <tr><td>Fonts &amp; metadata</td><td>Built-in font loading and <code>&lt;head&gt;</code> metadata API</td></tr>
+              <tr><td>Middleware</td><td>Edge functions that run before every request</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>App Router vs Pages Router</h3>
+          <div class="card">
+            <p>Next.js has two routing systems. The <strong>App Router</strong> (introduced in Next.js 13, stable in 14) is the modern default. The <strong>Pages Router</strong> is the legacy system — still supported but new projects should use App Router.</p>
+            <table>
+              <tr><th></th><th>App Router (<code>app/</code>)</th><th>Pages Router (<code>pages/</code>)</th></tr>
+              <tr><td>Default since</td><td>Next.js 13 (stable 14)</td><td>Next.js 1–12</td></tr>
+              <tr><td>Rendering default</td><td>Server Components</td><td>Client Components</td></tr>
+              <tr><td>Data fetching</td><td><code>fetch</code> in Server Components, <code>use</code></td><td><code>getServerSideProps</code>, <code>getStaticProps</code></td></tr>
+              <tr><td>Layouts</td><td>Nested <code>layout.tsx</code> files</td><td><code>_app.tsx</code> + custom wrappers</td></tr>
+              <tr><td>Loading states</td><td><code>loading.tsx</code> files</td><td>Manual</td></tr>
+              <tr><td>Error handling</td><td><code>error.tsx</code> files</td><td>Manual error boundaries</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            All notes here cover the <strong>App Router</strong>. Use it for all new projects.
+          </div>
+        </section>
+
+        <section>
+          <h3>Project Structure</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block">my-app/
+├── app/                  <span class="cm"># App Router — routes, layouts, pages</span>
+│   ├── layout.tsx        <span class="cm"># Root layout (wraps entire app)</span>
+│   ├── page.tsx          <span class="cm"># Home page → "/"</span>
+│   ├── globals.css
+│   └── dashboard/
+│       ├── layout.tsx    <span class="cm"># Nested layout for /dashboard/*</span>
+│       ├── page.tsx      <span class="cm"># /dashboard</span>
+│       └── settings/
+│           └── page.tsx  <span class="cm"># /dashboard/settings</span>
+├── components/           <span class="cm"># Shared React components</span>
+├── lib/                  <span class="cm"># Utilities, DB clients, helpers</span>
+├── public/               <span class="cm"># Static assets (images, fonts)</span>
+└── next.config.ts        <span class="cm"># Next.js config</span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 2 — Routing
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 2</div>
+        <h2>Routing</h2>
+
+        <section>
+          <h3>File-based Routing</h3>
+          <div class="card">
+            <p>Every folder inside <code>app/</code> maps to a URL segment. A <code>page.tsx</code> file inside that folder makes the route publicly accessible. Folders without a <code>page.tsx</code> are private — they can hold layouts, components, and utilities.</p>
+            <table>
+              <tr><th>File path</th><th>URL</th></tr>
+              <tr><td><code>app/page.tsx</code></td><td><code>/</code></td></tr>
+              <tr><td><code>app/about/page.tsx</code></td><td><code>/about</code></td></tr>
+              <tr><td><code>app/blog/[slug]/page.tsx</code></td><td><code>/blog/:slug</code></td></tr>
+              <tr><td><code>app/shop/[...slug]/page.tsx</code></td><td><code>/shop/*</code> (catch-all)</td></tr>
+              <tr><td><code>app/(marketing)/page.tsx</code></td><td><code>/</code> (route group — no URL segment)</td></tr>
+              <tr><td><code>app/@modal/page.tsx</code></td><td>Parallel route slot</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Dynamic Routes</h3>
+          <div class="card">
+            <p>Wrap a folder name in <code>[brackets]</code> to make it dynamic. The segment value is available in the <code>params</code> prop of the page component.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// app/blog/[slug]/page.tsx</span>
+<span class="kw">type</span> Props = { params: { slug: string } };
+
+<span class="kw">export default async function</span> <span class="fn">BlogPost</span>({ params }: Props) {
+  <span class="kw">const</span> post = <span class="kw">await</span> <span class="fn">fetchPost</span>(params.slug);
+  <span class="kw">return</span> <span class="tag">&lt;article&gt;</span>{post.title}<span class="tag">&lt;/article&gt;</span>;
+}
+
+<span class="cm">// Generate static pages at build time</span>
+<span class="kw">export async function</span> <span class="fn">generateStaticParams</span>() {
+  <span class="kw">const</span> posts = <span class="kw">await</span> <span class="fn">fetchAllPosts</span>();
+  <span class="kw">return</span> posts.<span class="fn">map</span>(p => ({ slug: p.slug }));
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Layouts</h3>
+          <div class="card">
+            <p>A <code>layout.tsx</code> file wraps all pages in its folder and below. Layouts are <strong>persistent</strong> — they don't remount when navigating between child routes. The root layout (<code>app/layout.tsx</code>) must include <code>&lt;html&gt;</code> and <code>&lt;body&gt;</code> tags.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// app/layout.tsx — root layout</span>
+<span class="kw">export default function</span> <span class="fn">RootLayout</span>({ children }: { children: React.ReactNode }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;html</span> <span class="atr">lang</span>=<span class="str">"en"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;body&gt;</span>
+        <span class="tag">&lt;Navbar /&gt;</span>
+        {children}
+        <span class="tag">&lt;Footer /&gt;</span>
+      <span class="tag">&lt;/body&gt;</span>
+    <span class="tag">&lt;/html&gt;</span>
+  );
+}
+
+<span class="cm">// app/dashboard/layout.tsx — nested layout</span>
+<span class="kw">export default function</span> <span class="fn">DashboardLayout</span>({ children }: { children: React.ReactNode }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;div</span> <span class="atr">className</span>=<span class="str">"dashboard"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;Sidebar /&gt;</span>
+      <span class="tag">&lt;main&gt;</span>{children}<span class="tag">&lt;/main&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Special Files</h3>
+          <div class="card">
+            <table>
+              <tr><th>File</th><th>Purpose</th></tr>
+              <tr><td><code>page.tsx</code></td><td>UI for a route — makes the segment publicly accessible.</td></tr>
+              <tr><td><code>layout.tsx</code></td><td>Shared UI that wraps a segment and all its children. Does not remount on navigation.</td></tr>
+              <tr><td><code>loading.tsx</code></td><td>Instant loading UI shown via <code>Suspense</code> while the page or data loads.</td></tr>
+              <tr><td><code>error.tsx</code></td><td>Error boundary for a segment. Receives <code>error</code> and <code>reset</code> props. Must be a Client Component.</td></tr>
+              <tr><td><code>not-found.tsx</code></td><td>UI shown when <code>notFound()</code> is called or no route matches.</td></tr>
+              <tr><td><code>route.ts</code></td><td>API route handler — exports <code>GET</code>, <code>POST</code>, etc. functions.</td></tr>
+              <tr><td><code>middleware.ts</code></td><td>Runs at the edge before every request.</td></tr>
+              <tr><td><code>template.tsx</code></td><td>Like layout but remounts on every navigation (creates a new instance).</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Navigation</h3>
+          <div class="card">
+            <p>Use <code>&lt;Link&gt;</code> for declarative navigation — it prefetches routes in the viewport automatically. Use <code>useRouter</code> for programmatic navigation in Client Components.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> Link <span class="kw">from</span> <span class="str">"next/link"</span>;
+<span class="kw">import</span> { useRouter } <span class="kw">from</span> <span class="str">"next/navigation"</span>;
+
+<span class="cm">// Declarative — use this by default</span>
+<span class="tag">&lt;Link</span> <span class="atr">href</span>=<span class="str">"/dashboard"</span><span class="tag">&gt;</span>Dashboard<span class="tag">&lt;/Link&gt;</span>
+<span class="tag">&lt;Link</span> <span class="atr">href</span>={<span class="str">`/blog/${slug}`</span>}<span class="tag">&gt;</span>Post<span class="tag">&lt;/Link&gt;</span>
+
+<span class="cm">// Programmatic — in Client Components only</span>
+<span class="kw">const</span> router = <span class="fn">useRouter</span>();
+router.<span class="fn">push</span>(<span class="str">"/dashboard"</span>);
+router.<span class="fn">replace</span>(<span class="str">"/login"</span>);  <span class="cm">// no history entry</span>
+router.<span class="fn">back</span>();
+
+<span class="cm">// Read current path / params / search params</span>
+<span class="kw">import</span> { usePathname, useSearchParams } <span class="kw">from</span> <span class="str">"next/navigation"</span>;
+<span class="kw">const</span> pathname = <span class="fn">usePathname</span>();  <span class="cm">// "/dashboard/settings"</span>
+<span class="kw">const</span> searchParams = <span class="fn">useSearchParams</span>();
+<span class="kw">const</span> query = searchParams.<span class="fn">get</span>(<span class="str">"q"</span>);</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 3 — Server & Client Components
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 3</div>
+        <h2>Server &amp; Client Components</h2>
+
+        <section>
+          <h3>Server Components</h3>
+          <div class="card">
+            <p><strong>Server Components</strong> (RSC) are the default in the App Router. They render exclusively on the server — their code is never sent to the browser. This means you can directly access databases, file systems, and secrets without an API layer.</p>
+            <div class="grid-2">
+              <div class="mini-card">
+                <div class="mc-label">Can do</div>
+                <p>Async/await at the top level, direct DB queries, read server-only env vars, import heavy server libraries</p>
+              </div>
+              <div class="mini-card">
+                <div class="mc-label">Cannot do</div>
+                <p>Use hooks (<code>useState</code>, <code>useEffect</code>), browser APIs, event handlers, anything requiring interactivity</p>
+              </div>
+            </div>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// app/dashboard/page.tsx — Server Component (default)</span>
+<span class="kw">import</span> { db } <span class="kw">from</span> <span class="str">"@/lib/db"</span>;
+
+<span class="kw">export default async function</span> <span class="fn">DashboardPage</span>() {
+  <span class="kw">const</span> stats = <span class="kw">await</span> db.<span class="fn">getStats</span>();  <span class="cm">// direct DB call — no API needed</span>
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;main&gt;</span>
+      <span class="tag">&lt;h1&gt;</span>Dashboard<span class="tag">&lt;/h1&gt;</span>
+      <span class="tag">&lt;StatsCard</span> <span class="atr">data</span>={stats} <span class="tag">/&gt;</span>
+    <span class="tag">&lt;/main&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Client Components</h3>
+          <div class="card">
+            <p>Add <code>"use client"</code> at the top of a file to mark it as a Client Component. It renders on the server first (for the initial HTML), then <strong>hydrates</strong> in the browser. Use Client Components for anything interactive — state, effects, event handlers, browser APIs.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="str">"use client"</span>;
+
+<span class="kw">import</span> { useState } <span class="kw">from</span> <span class="str">"react"</span>;
+
+<span class="kw">export function</span> <span class="fn">Counter</span>() {
+  <span class="kw">const</span> [count, setCount] = <span class="fn">useState</span>(<span class="num">0</span>);
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;button</span> <span class="atr">onClick</span>={() => <span class="fn">setCount</span>(c => c + <span class="num">1</span>)}<span class="tag">&gt;</span>
+      Count: {count}
+    <span class="tag">&lt;/button&gt;</span>
+  );
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Push Client Components to the leaves.</strong> Keep the top-level pages and layouts as Server Components and only mark the interactive parts as <code>"use client"</code>. This minimises the JS bundle sent to the browser.
+          </div>
+        </section>
+
+        <section>
+          <h3>Composition Pattern</h3>
+          <div class="card">
+            <p>Server Components can import and render Client Components. Client Components <strong>cannot</strong> import Server Components — but they can receive Server Components as <code>children</code> props.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// ✅ Server Component passes RSC as children to a Client Component</span>
+<span class="kw">import</span> { Modal } <span class="kw">from</span> <span class="str">"./Modal"</span>;       <span class="cm">// Client Component</span>
+<span class="kw">import</span> { UserList } <span class="kw">from</span> <span class="str">"./UserList"</span>; <span class="cm">// Server Component</span>
+
+<span class="kw">export default function</span> <span class="fn">Page</span>() {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;Modal&gt;</span>
+      <span class="tag">&lt;UserList /&gt;</span>  <span class="cm">{/* rendered on server, passed as children */}</span>
+    <span class="tag">&lt;/Modal&gt;</span>
+  );
+}
+
+<span class="cm">// ❌ Cannot import a Server Component inside a Client Component file</span>
+<span class="str">"use client"</span>;
+<span class="kw">import</span> { UserList } <span class="kw">from</span> <span class="str">"./UserList"</span>; <span class="cm">// Error — RSC in client boundary</span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 4 — Data Fetching
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 4</div>
+        <h2>Data Fetching</h2>
+
+        <section>
+          <h3>fetch in Server Components</h3>
+          <div class="card">
+            <p>Next.js extends the native <code>fetch</code> API with caching and revalidation options. Fetch calls in Server Components are automatically <strong>deduplicated</strong> — the same URL fetched multiple times in one render is only requested once.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// Static — cached indefinitely (like getStaticProps)</span>
+<span class="kw">const</span> data = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">"https://api.example.com/posts"</span>, {
+  cache: <span class="str">"force-cache"</span>,  <span class="cm">// default behaviour</span>
+});
+
+<span class="cm">// Dynamic — never cached (like getServerSideProps)</span>
+<span class="kw">const</span> data = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">"https://api.example.com/posts"</span>, {
+  cache: <span class="str">"no-store"</span>,
+});
+
+<span class="cm">// ISR — revalidate every N seconds</span>
+<span class="kw">const</span> data = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">"https://api.example.com/posts"</span>, {
+  next: { revalidate: <span class="num">60</span> },  <span class="cm">// refresh cache every 60s</span>
+});</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Route Segment Config</h3>
+          <div class="card">
+            <p>Export config variables from a page or layout to control caching for the entire route segment.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// app/dashboard/page.tsx</span>
+<span class="kw">export const</span> dynamic = <span class="str">"force-dynamic"</span>;  <span class="cm">// always render fresh (SSR)</span>
+<span class="kw">export const</span> dynamic = <span class="str">"force-static"</span>;   <span class="cm">// always static (SSG)</span>
+<span class="kw">export const</span> revalidate = <span class="num">3600</span>;            <span class="cm">// ISR — revalidate every hour</span>
+<span class="kw">export const</span> runtime = <span class="str">"edge"</span>;            <span class="cm">// run on Edge Runtime</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Parallel &amp; Sequential Fetching</h3>
+          <div class="card">
+            <p>Await multiple fetches in sequence (waterfall) or in parallel with <code>Promise.all</code>. Always prefer parallel unless each request depends on the previous one.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// ❌ Sequential — waterfall — each waits for the previous</span>
+<span class="kw">const</span> user  = <span class="kw">await</span> <span class="fn">fetchUser</span>(id);
+<span class="kw">const</span> posts = <span class="kw">await</span> <span class="fn">fetchPosts</span>(user.id);  <span class="cm">// waits for user first</span>
+
+<span class="cm">// ✅ Parallel — both fire at the same time</span>
+<span class="kw">const</span> [user, posts] = <span class="kw">await</span> Promise.<span class="fn">all</span>([
+  <span class="fn">fetchUser</span>(id),
+  <span class="fn">fetchPosts</span>(id),
+]);</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Streaming with Suspense</h3>
+          <div class="card">
+            <p>Wrap slow data-fetching components in <code>&lt;Suspense&gt;</code> to stream them progressively — the shell of the page arrives first, then each suspended part streams in as it resolves. A <code>loading.tsx</code> file does this automatically for the entire page.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { Suspense } <span class="kw">from</span> <span class="str">"react"</span>;
+<span class="kw">import</span> { UserPosts } <span class="kw">from</span> <span class="str">"./UserPosts"</span>;
+
+<span class="kw">export default function</span> <span class="fn">Page</span>() {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;main&gt;</span>
+      <span class="tag">&lt;h1&gt;</span>Profile<span class="tag">&lt;/h1&gt;</span>
+      <span class="tag">&lt;Suspense</span> <span class="atr">fallback</span>={<span class="tag">&lt;p&gt;</span>Loading posts…<span class="tag">&lt;/p&gt;</span>}<span class="tag">&gt;</span>
+        <span class="tag">&lt;UserPosts /&gt;</span>  <span class="cm">{/* streams in when data is ready */}</span>
+      <span class="tag">&lt;/Suspense&gt;</span>
+    <span class="tag">&lt;/main&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Server Actions</h3>
+          <div class="card">
+            <p><strong>Server Actions</strong> are async functions that run on the server and can be called directly from Client or Server Components — no API route needed. Mark a function with <code>"use server"</code> to make it a Server Action.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// app/actions.ts</span>
+<span class="str">"use server"</span>;
+
+<span class="kw">import</span> { revalidatePath } <span class="kw">from</span> <span class="str">"next/cache"</span>;
+<span class="kw">import</span> { db } <span class="kw">from</span> <span class="str">"@/lib/db"</span>;
+
+<span class="kw">export async function</span> <span class="fn">createPost</span>(formData: FormData) {
+  <span class="kw">const</span> title = formData.<span class="fn">get</span>(<span class="str">"title"</span>) <span class="kw">as</span> string;
+  <span class="kw">await</span> db.posts.<span class="fn">create</span>({ data: { title } });
+  <span class="fn">revalidatePath</span>(<span class="str">"/posts"</span>);  <span class="cm">// purge cache for /posts</span>
+}
+
+<span class="cm">// Use in a form — no onSubmit needed</span>
+<span class="tag">&lt;form</span> <span class="atr">action</span>={createPost}<span class="tag">&gt;</span>
+  <span class="tag">&lt;input</span> <span class="atr">name</span>=<span class="str">"title"</span> <span class="tag">/&gt;</span>
+  <span class="tag">&lt;button&gt;</span>Create<span class="tag">&lt;/button&gt;</span>
+<span class="tag">&lt;/form&gt;</span>
+
+<span class="cm">// Or call directly from a Client Component</span>
+<span class="kw">import</span> { createPost } <span class="kw">from</span> <span class="str">"@/app/actions"</span>;
+<span class="kw">const</span> [state, dispatch, isPending] = <span class="fn">useActionState</span>(createPost, <span class="kw">null</span>);</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 5 — Rendering Strategies
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 5</div>
+        <h2>Rendering Strategies</h2>
+
+        <section>
+          <h3>Static, Dynamic &amp; ISR</h3>
+          <div class="card">
+            <p>Next.js automatically determines the rendering strategy per route based on the data-fetching options you use. You can override it with the route segment config.</p>
+            <table>
+              <tr><th>Strategy</th><th>When</th><th>Use for</th></tr>
+              <tr><td><strong>Static (SSG)</strong></td><td>Built once at build time. Served from CDN.</td><td>Marketing pages, blogs, docs — content that rarely changes.</td></tr>
+              <tr><td><strong>ISR</strong></td><td>Static, but revalidated on a schedule or on demand.</td><td>E-commerce product pages, dashboards — content that changes but not on every request.</td></tr>
+              <tr><td><strong>Dynamic (SSR)</strong></td><td>Rendered on every request.</td><td>Personalised pages, auth-gated content, real-time data.</td></tr>
+              <tr><td><strong>Client-side</strong></td><td>Rendered in the browser after hydration.</td><td>Highly interactive UIs, user-specific data after login.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            A route becomes <strong>dynamic</strong> automatically if it uses: <code>cookies()</code>, <code>headers()</code>, <code>searchParams</code>, <code>cache: "no-store"</code>, or <code>noStore()</code>.
+          </div>
+        </section>
+
+        <section>
+          <h3>On-demand Revalidation</h3>
+          <div class="card">
+            <p>Purge cached data without waiting for the revalidation interval using <code>revalidatePath</code> or <code>revalidateTag</code>. Typically called from a Server Action or API route after a mutation.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { revalidatePath, revalidateTag } <span class="kw">from</span> <span class="str">"next/cache"</span>;
+
+<span class="cm">// Revalidate a specific URL path</span>
+<span class="fn">revalidatePath</span>(<span class="str">"/posts"</span>);
+<span class="fn">revalidatePath</span>(<span class="str">"/posts/[slug]"</span>, <span class="str">"page"</span>);
+
+<span class="cm">// Tag fetches and revalidate by tag</span>
+<span class="kw">const</span> data = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">"/api/posts"</span>, { next: { tags: [<span class="str">"posts"</span>] } });
+<span class="fn">revalidateTag</span>(<span class="str">"posts"</span>);  <span class="cm">// purges all fetches tagged "posts"</span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 6 — API Routes
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 6</div>
+        <h2>API Routes</h2>
+
+        <section>
+          <h3>Route Handlers</h3>
+          <div class="card">
+            <p>Create <code>route.ts</code> files inside <code>app/</code> to define API endpoints. Export named functions matching HTTP methods: <code>GET</code>, <code>POST</code>, <code>PUT</code>, <code>PATCH</code>, <code>DELETE</code>.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// app/api/posts/route.ts</span>
+<span class="kw">import</span> { NextRequest, NextResponse } <span class="kw">from</span> <span class="str">"next/server"</span>;
+
+<span class="kw">export async function</span> <span class="fn">GET</span>(req: NextRequest) {
+  <span class="kw">const</span> posts = <span class="kw">await</span> db.<span class="fn">getPosts</span>();
+  <span class="kw">return</span> NextResponse.<span class="fn">json</span>(posts);
+}
+
+<span class="kw">export async function</span> <span class="fn">POST</span>(req: NextRequest) {
+  <span class="kw">const</span> body = <span class="kw">await</span> req.<span class="fn">json</span>();
+  <span class="kw">const</span> post = <span class="kw">await</span> db.<span class="fn">createPost</span>(body);
+  <span class="kw">return</span> NextResponse.<span class="fn">json</span>(post, { status: <span class="num">201</span> });
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Dynamic API Routes</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// app/api/posts/[id]/route.ts</span>
+<span class="kw">export async function</span> <span class="fn">GET</span>(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  <span class="kw">const</span> post = <span class="kw">await</span> db.<span class="fn">getPost</span>(params.id);
+  <span class="kw">if</span> (!post) <span class="kw">return</span> NextResponse.<span class="fn">json</span>({ error: <span class="str">"Not found"</span> }, { status: <span class="num">404</span> });
+  <span class="kw">return</span> NextResponse.<span class="fn">json</span>(post);
+}
+
+<span class="kw">export async function</span> <span class="fn">DELETE</span>(
+  req: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  <span class="kw">await</span> db.<span class="fn">deletePost</span>(params.id);
+  <span class="kw">return</span> <span class="kw">new</span> <span class="fn">Response</span>(<span class="kw">null</span>, { status: <span class="num">204</span> });
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Reading Request Data</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">export async function</span> <span class="fn">GET</span>(req: NextRequest) {
+  <span class="cm">// Search params — /api/search?q=hello</span>
+  <span class="kw">const</span> q = req.nextUrl.searchParams.<span class="fn">get</span>(<span class="str">"q"</span>);
+
+  <span class="cm">// Headers</span>
+  <span class="kw">const</span> token = req.headers.<span class="fn">get</span>(<span class="str">"authorization"</span>);
+
+  <span class="cm">// Cookies</span>
+  <span class="kw">const</span> session = req.cookies.<span class="fn">get</span>(<span class="str">"session"</span>);
+}
+
+<span class="kw">export async function</span> <span class="fn">POST</span>(req: NextRequest) {
+  <span class="cm">// JSON body</span>
+  <span class="kw">const</span> body = <span class="kw">await</span> req.<span class="fn">json</span>();
+
+  <span class="cm">// Form data</span>
+  <span class="kw">const</span> formData = <span class="kw">await</span> req.<span class="fn">formData</span>();
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 7 — Middleware
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 7</div>
+        <h2>Middleware</h2>
+
+        <section>
+          <h3>What is Middleware?</h3>
+          <div class="card">
+            <p>Middleware runs at the <strong>Edge</strong> before a request is processed — before the page or API route handler. Use it for auth checks, redirects, rewrites, geolocation, and A/B testing. Create a <code>middleware.ts</code> file at the project root (next to <code>app/</code>).</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">// middleware.ts</span>
+<span class="kw">import</span> { NextRequest, NextResponse } <span class="kw">from</span> <span class="str">"next/server"</span>;
+
+<span class="kw">export function</span> <span class="fn">middleware</span>(req: NextRequest) {
+  <span class="kw">const</span> token = req.cookies.<span class="fn">get</span>(<span class="str">"session"</span>);
+
+  <span class="cm">// Redirect to login if unauthenticated</span>
+  <span class="kw">if</span> (!token) {
+    <span class="kw">return</span> NextResponse.<span class="fn">redirect</span>(<span class="kw">new</span> <span class="fn">URL</span>(<span class="str">"/login"</span>, req.url));
+  }
+
+  <span class="kw">return</span> NextResponse.<span class="fn">next</span>();  <span class="cm">// continue to the route</span>
+}
+
+<span class="cm">// Only run middleware on these paths</span>
+<span class="kw">export const</span> config = {
+  matcher: [<span class="str">"/dashboard/:path*"</span>, <span class="str">"/api/:path*"</span>],
+};</div>
+          </div>
+          <div class="highlight-box">
+            Middleware runs on the <strong>Edge Runtime</strong> — it cannot use Node.js APIs. Keep it lightweight. For heavy auth logic, verify tokens (JWT) in middleware but do the full session lookup in the route handler.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 8 — Metadata & SEO
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 8</div>
+        <h2>Metadata &amp; SEO</h2>
+
+        <section>
+          <h3>Static Metadata</h3>
+          <div class="card">
+            <p>Export a <code>metadata</code> object from any <code>page.tsx</code> or <code>layout.tsx</code> to set <code>&lt;head&gt;</code> tags. Next.js merges metadata from parent layouts down to the page.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> <span class="kw">type</span> { Metadata } <span class="kw">from</span> <span class="str">"next"</span>;
+
+<span class="kw">export const</span> metadata: Metadata = {
+  title: <span class="str">"My App"</span>,
+  description: <span class="str">"The best app ever"</span>,
+  openGraph: {
+    title: <span class="str">"My App"</span>,
+    description: <span class="str">"The best app ever"</span>,
+    images: [<span class="str">"/og-image.png"</span>],
+  },
+  twitter: { card: <span class="str">"summary_large_image"</span> },
+};</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Dynamic Metadata</h3>
+          <div class="card">
+            <p>Export a <code>generateMetadata</code> async function to compute metadata from route params or fetched data.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> <span class="kw">type</span> { Metadata } <span class="kw">from</span> <span class="str">"next"</span>;
+
+<span class="kw">export async function</span> <span class="fn">generateMetadata</span>(
+  { params }: { params: { slug: string } }
+): Promise&lt;Metadata&gt; {
+  <span class="kw">const</span> post = <span class="kw">await</span> <span class="fn">fetchPost</span>(params.slug);
+
+  <span class="kw">return</span> {
+    title: post.title,
+    description: post.excerpt,
+    openGraph: { images: [post.coverImage] },
+  };
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 9 — Optimisation
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 9</div>
+        <h2>Optimisation</h2>
+
+        <section>
+          <h3>Image Optimisation</h3>
+          <div class="card">
+            <p>The <code>&lt;Image&gt;</code> component from <code>next/image</code> automatically optimises images — lazy loading, modern formats (WebP/AVIF), responsive sizes, and prevents layout shift.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> Image <span class="kw">from</span> <span class="str">"next/image"</span>;
+
+<span class="cm">// Fixed size</span>
+<span class="tag">&lt;Image</span> <span class="atr">src</span>=<span class="str">"/avatar.jpg"</span> <span class="atr">alt</span>=<span class="str">"Avatar"</span> <span class="atr">width</span>={<span class="num">64</span>} <span class="atr">height</span>={<span class="num">64</span>} <span class="tag">/&gt;</span>
+
+<span class="cm">// Fill container — parent must be position: relative</span>
+<span class="tag">&lt;div</span> <span class="atr">style</span>={{ position: <span class="str">"relative"</span>, width: <span class="str">"100%"</span>, height: <span class="str">"400px"</span> }}<span class="tag">&gt;</span>
+  <span class="tag">&lt;Image</span> <span class="atr">src</span>=<span class="str">"/hero.jpg"</span> <span class="atr">alt</span>=<span class="str">"Hero"</span> <span class="atr">fill</span> <span class="atr">className</span>=<span class="str">"object-cover"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;/div&gt;</span>
+
+<span class="cm">// Prioritise above-the-fold images (disables lazy loading)</span>
+<span class="tag">&lt;Image</span> <span class="atr">src</span>=<span class="str">"/hero.jpg"</span> <span class="atr">alt</span>=<span class="str">"Hero"</span> <span class="atr">width</span>={<span class="num">1200</span>} <span class="atr">height</span>={<span class="num">600</span>} <span class="atr">priority</span> <span class="tag">/&gt;</span></div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Font Optimisation</h3>
+          <div class="card">
+            <p><code>next/font</code> loads Google Fonts and local fonts at build time — zero layout shift, no external network requests at runtime, automatic self-hosting.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> { Inter, DM_Mono } <span class="kw">from</span> <span class="str">"next/font/google"</span>;
+
+<span class="kw">const</span> inter = <span class="fn">Inter</span>({
+  subsets: [<span class="str">"latin"</span>],
+  variable: <span class="str">"--font-inter"</span>,
+});
+
+<span class="kw">export default function</span> <span class="fn">RootLayout</span>({ children }) {
+  <span class="kw">return</span> (
+    <span class="tag">&lt;html</span> <span class="atr">className</span>={inter.variable}<span class="tag">&gt;</span>
+      <span class="tag">&lt;body&gt;</span>{children}<span class="tag">&lt;/body&gt;</span>
+    <span class="tag">&lt;/html&gt;</span>
+  );
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Script Optimisation</h3>
+          <div class="card">
+            <p>Use <code>next/script</code> to control when third-party scripts load without blocking rendering.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="kw">import</span> Script <span class="kw">from</span> <span class="str">"next/script"</span>;
+
+<span class="cm">// afterInteractive (default) — loads after page is interactive</span>
+<span class="tag">&lt;Script</span> <span class="atr">src</span>=<span class="str">"https://analytics.example.com/script.js"</span> <span class="tag">/&gt;</span>
+
+<span class="cm">// lazyOnload — loads during idle time</span>
+<span class="tag">&lt;Script</span> <span class="atr">src</span>=<span class="str">"https://chat-widget.com/widget.js"</span> <span class="atr">strategy</span>=<span class="str">"lazyOnload"</span> <span class="tag">/&gt;</span>
+
+<span class="cm">// beforeInteractive — loads before hydration (use sparingly)</span>
+<span class="tag">&lt;Script</span> <span class="atr">src</span>=<span class="str">"/critical.js"</span> <span class="atr">strategy</span>=<span class="str">"beforeInteractive"</span> <span class="tag">/&gt;</span></div>
+          </div>
+        </section>
+      </div>
+
+      <footer style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #e0dfd8; font-size: 13px; color: #aaa;">
+        Next.js Notes
+      </footer>
+    </div>
+  </body>
+</html>

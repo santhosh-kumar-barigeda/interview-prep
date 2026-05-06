@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML Notes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: #f5f4f0;
+        color: #1a1a18;
+        font-size: 15px;
+        line-height: 1.7;
+        padding: 3rem 1rem;
+      }
+
+      .page {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 2rem;
+        padding-bottom: 0.2rem;
+      }
+
+      header .chip {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #1a1a18;
+        color: #f5f4f0;
+        padding: 3px 10px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      header p {
+        margin-top: 0.5rem;
+        color: #5a5a56;
+        font-size: 14px;
+      }
+
+      .chapter {
+        margin-bottom: 3rem;
+      }
+
+      .chapter-heading {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #1a1a18;
+        color: #f5f4f0;
+        padding: 3px 10px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #1a1a18;
+      }
+
+      section {
+        margin-bottom: 2rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        border-left: 3px solid #1a1a18;
+        padding-left: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: #1a1a18;
+      }
+
+      h4 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #5a5a56;
+        margin-bottom: 0.4rem;
+        padding-left: 1.25rem;
+      }
+
+      p {
+        margin-bottom: 0.6rem;
+        color: #5a5a56;
+        font-size: 14px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 12px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        margin-top: 0.5rem;
+      }
+
+      th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #888;
+        padding: 6px 12px;
+        border-bottom: 1px solid #e0dfd8;
+      }
+
+      td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #f0efe8;
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      td:first-child {
+        color: #5a5a56;
+        font-weight: 500;
+        width: 38%;
+      }
+
+      code {
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        background: #f0efe8;
+        padding: 1px 6px;
+        border-radius: 4px;
+        color: #c0392b;
+      }
+
+      .code-block {
+        background: #1a1a18;
+        color: #e8e6df;
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin: 0.75rem 0;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .code-block .attr { color: #89c4e1; }
+      .code-block .val  { color: #a8e6a3; }
+      .code-block .tag  { color: #f7aa44; }
+      .code-block .cm   { color: #777; font-style: italic; }
+
+      ul {
+        padding-left: 1.25rem;
+        margin-bottom: 0.6rem;
+      }
+
+      ul li {
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .highlight-box {
+        background: #fffbea;
+        border-left: 3px solid #f59e0b;
+        padding: 0.75rem 1rem;
+        border-radius: 0 8px 8px 0;
+        margin: 0.75rem 0;
+        font-size: 14px;
+        color: #78350f;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .mini-card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+      }
+
+      .mini-card .mc-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-bottom: 4px;
+      }
+
+      .mini-card p {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .placeholder {
+        background: #f0efe8;
+        border: 1.5px dashed #c8c7c0;
+        border-radius: 10px;
+        padding: 0.85rem 1.25rem;
+        font-size: 13px;
+        color: #aaa;
+        font-style: italic;
+      }
+
+      .nav-bar {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .nav-bar .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-right: 0.5rem;
+      }
+
+      .nav-bar a {
+        font-size: 13px;
+        color: #1a1a18;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: background 0.15s ease;
+      }
+
+      .nav-bar a:hover {
+        background: #f0efe8;
+      }
+
+      .nav-bar a.active {
+        background: #1a1a18;
+        color: #f5f4f0;
+      }
+
+      @media (max-width: 560px) {
+        .grid-2 { grid-template-columns: 1fr; }
+        header h1 { font-size: 1.6rem; }
+        .nav-bar { flex-direction: column; align-items: flex-start; }
+        .nav-bar .nav-label { margin-bottom: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>HTML Notes</h1>
+      </header>
+
+      <nav class="nav-bar">
+        <span class="nav-label">Notes:</span>
+        <a href="html-notes.html" class="active">HTML</a>
+        <a href="css-notes.html">CSS</a>
+        <a href="javascript-notes.html">JavaScript</a>
+        <a href="dom-notes.html">DOM</a>
+        <a href="react-notes.html">React</a>
+        <a href="react-native-notes.html">React Native</a>
+        <a href="nextjs-notes.html">Next.js</a>
+        <a href="hr-interview-notes.html">HR Interview</a>
+      </nav>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 1 — Introduction to HTML
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 1</div>
+        <h2>Introduction to HTML</h2>
+
+        <section>
+          <h3>What is HTML?</h3>
+          <div class="card">
+            <p><strong>HTML</strong> stands for <strong>HyperText Markup Language</strong>. It is the standard language used to create and structure content on the web.</p>
+            <ul>
+              <li><strong>HyperText</strong> – text that contains links (hyperlinks) to other resources.</li>
+              <li><strong>Markup Language</strong> – uses tags to define and organize the structure of content (not logic or behavior).</li>
+            </ul>
+            <p>The first release (1990) supported only text and hyperlinks. Over time, elements like images, forms, video, and semantic tags were added.</p>
+          </div>
+          <div class="highlight-box">
+            <strong>Markup vs Programming language:</strong> A markup language (HTML) defines structure. A programming language (JavaScript, Python) creates logic, functionality, and behavior.
+          </div>
+        </section>
+
+        <section>
+          <h3>HTML5 — What Changed &amp; Why It Matters</h3>
+          <div class="card">
+            <p>HTML5 is the current major version of HTML. Key additions include:</p>
+            <table>
+              <tr><th>Feature</th><th>Details</th></tr>
+              <tr><td>Semantic elements</td><td><code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code></td></tr>
+              <tr><td>New input types</td><td><code>type="date"</code>, <code>type="email"</code>, <code>type="range"</code>, <code>type="number"</code></td></tr>
+              <tr><td>Audio &amp; Video</td><td>Native <code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> elements — no plugin needed</td></tr>
+              <tr><td>Canvas &amp; SVG</td><td><code>&lt;canvas&gt;</code> for 2D drawing; inline SVG for scalable vector graphics</td></tr>
+              <tr><td>Mobile compatibility</td><td>Viewport meta tag and responsive design support built in</td></tr>
+              <tr><td>Offline &amp; storage</td><td>LocalStorage, SessionStorage, and AppCache (now Service Workers)</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>HTML vs XHTML</h3>
+          <div class="card">
+            <table>
+              <tr><th>Feature</th><th>HTML / HTML5</th><th>XHTML</th></tr>
+              <tr><td>Syntax strictness</td><td>Lenient — some closing tags optional</td><td>Strict — all tags must be closed and nested properly</td></tr>
+              <tr><td>Case sensitivity</td><td>Not case-sensitive: <code>&lt;DIV&gt;</code> works</td><td>Case-sensitive: must use lowercase <code>&lt;div&gt;</code></td></tr>
+              <tr><td>Self-closing tags</td><td><code>&lt;img src="x.jpg" alt=""&gt;</code></td><td><code>&lt;img src="x.jpg" alt="" /&gt;</code></td></tr>
+              <tr><td>Browser support</td><td>Universally supported</td><td>Limited support</td></tr>
+              <tr><td>Based on</td><td>SGML</td><td>XML (stricter rules)</td></tr>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 2 — Document Anatomy
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 2</div>
+        <h2>Document Anatomy</h2>
+
+        <section>
+          <h3>Basic Document Structure</h3>
+          <!-- prettier-ignore -->
+          <div class="code-block"><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"viewport"</span> <span class="attr">content</span>=<span class="val">"width=device-width, initial-scale=1.0"</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Page Title<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;/head&gt;</span>
+  <span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;h1&gt;</span>Hello World<span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;p&gt;</span>This is a paragraph.<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></div>
+          <div class="grid-2">
+            <div class="mini-card">
+              <div class="mc-label">Head element</div>
+              <p>Contains meta-information — not visible on the page. Holds <code>&lt;title&gt;</code>, <code>&lt;meta&gt;</code>, <code>&lt;link&gt;</code>, <code>&lt;style&gt;</code>, <code>&lt;script&gt;</code>.</p>
+            </div>
+            <div class="mini-card">
+              <div class="mc-label">Body element</div>
+              <p>Contains all visible page content — text, images, links, forms. Holds <code>&lt;h1&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;div&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;a&gt;</code>, etc.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h3>DOCTYPE Declaration</h3>
+          <div class="card">
+            <p><strong>DOCTYPE</strong> (Document Type Declaration) tells the browser which version of HTML the page uses, so it can parse and render it correctly.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;!DOCTYPE html&gt;</span> <span class="cm">← HTML5 declaration (always first line)</span></div>
+            <p><strong>Without DOCTYPE:</strong> browsers enter "quirks mode" — they may misrender the page, break layouts, cause SEO issues, and make debugging harder.</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>Script Loading</h3>
+          <div class="card">
+            <p>The <code>&lt;head&gt;</code> loads before the <code>&lt;body&gt;</code>. If a script tries to manipulate DOM elements before they exist, it will fail.</p>
+            <table>
+              <tr><th>Method</th><th>Where</th><th>Behavior</th></tr>
+              <tr><td>End of <code>&lt;body&gt;</code></td><td>Before <code>&lt;/body&gt;</code></td><td>All HTML is loaded first — safest classic approach</td></tr>
+              <tr><td><code>defer</code></td><td>In <code>&lt;head&gt;</code></td><td>Script downloads in parallel; runs after HTML is parsed. Recommended modern approach.</td></tr>
+              <tr><td><code>async</code></td><td>In <code>&lt;head&gt;</code></td><td>Downloads in parallel; runs immediately when ready — may run before DOM is ready. Use for independent scripts (e.g. analytics).</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block" style="margin-top: 10px"><span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="val">"app.js"</span> <span class="attr">defer</span><span class="tag">&gt;&lt;/script&gt;</span> <span class="cm">← modern best practice</span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 3 — Core Syntax & Structure
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 3</div>
+        <h2>Core Syntax &amp; Structure</h2>
+
+        <!-- Elements & Tags -->
+        <section>
+          <h3>Elements &amp; Tags</h3>
+
+          <h4>Anatomy of an HTML Element</h4>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://example.com"</span> <span class="attr">target</span>=<span class="val">"_blank"</span><span class="tag">&gt;</span>Click here<span class="tag">&lt;/a&gt;</span>
+<span class="cm">↑ opening tag  ↑ attribute=value pairs  ↑ content  ↑ closing tag</span></div>
+            <ul>
+              <li><strong>Tag</strong> – the keyword inside angle brackets, e.g. <code>&lt;p&gt;</code></li>
+              <li><strong>Element</strong> – the full structure: opening tag + content + closing tag</li>
+              <li><strong>Attribute</strong> – provides extra information in <code>name="value"</code> format inside the opening tag</li>
+            </ul>
+          </div>
+
+          <h4>Block &amp; Inline Elements</h4>
+          <div class="card" style="margin-bottom: 10px">
+            <div class="mc-label" style="color: #1565c0; margin-bottom: 8px">Block elements — start on a new line and take up the full available width</div>
+            <table>
+              <tr><th>Element</th><th>Definition</th></tr>
+              <tr><td colspan="2" style="background:#f0efe8;font-weight:600;font-size:12px;letter-spacing:0.05em;color:#5a5a56">Semantic Layout</td></tr>
+              <tr><td><code>&lt;header&gt;</code></td><td>Introductory content or group of navigational links.</td></tr>
+              <tr><td><code>&lt;footer&gt;</code></td><td>Footer of a section or document.</td></tr>
+              <tr><td><code>&lt;main&gt;</code></td><td>Dominant content of the page. Only one per page.</td></tr>
+              <tr><td><code>&lt;nav&gt;</code></td><td>Section with navigation links.</td></tr>
+              <tr><td><code>&lt;section&gt;</code></td><td>Groups related content that belongs together.</td></tr>
+              <tr><td><code>&lt;article&gt;</code></td><td>Self-contained piece of content (blog post, article).</td></tr>
+              <tr><td><code>&lt;aside&gt;</code></td><td>Content related to, but separate from, the main content.</td></tr>
+              <tr><td colspan="2" style="background:#f0efe8;font-weight:600;font-size:12px;letter-spacing:0.05em;color:#5a5a56">Text &amp; Content</td></tr>
+              <tr><td><code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code></td><td>Heading elements from highest to lowest level.</td></tr>
+              <tr><td><code>&lt;p&gt;</code></td><td>Paragraph of text.</td></tr>
+              <tr><td><code>&lt;blockquote&gt;</code></td><td>Section quoted from another source.</td></tr>
+              <tr><td><code>&lt;hr&gt;</code></td><td>Horizontal rule — thematic break. Void element.</td></tr>
+              <tr><td colspan="2" style="background:#f0efe8;font-weight:600;font-size:12px;letter-spacing:0.05em;color:#5a5a56">Lists</td></tr>
+              <tr><td><code>&lt;ul&gt;</code></td><td>Unordered list.</td></tr>
+              <tr><td><code>&lt;ol&gt;</code></td><td>Ordered (numbered) list.</td></tr>
+              <tr><td><code>&lt;li&gt;</code></td><td>List item.</td></tr>
+              <tr><td colspan="2" style="background:#f0efe8;font-weight:600;font-size:12px;letter-spacing:0.05em;color:#5a5a56">Generic Container</td></tr>
+              <tr><td><code>&lt;div&gt;</code></td><td>Generic container for grouping. No semantic meaning.</td></tr>
+            </table>
+          </div>
+          <div class="card">
+            <div class="mc-label" style="color: #6a1b9a; margin-bottom: 8px">Inline elements — sit within a line of text, only take up as much width as their content needs</div>
+            <table>
+              <tr><th>Element</th><th>Definition</th></tr>
+              <tr><td><code>&lt;span&gt;</code></td><td>Generic inline container. No semantic meaning.</td></tr>
+              <tr><td><code>&lt;strong&gt;</code></td><td>Strong importance, displayed bold.</td></tr>
+              <tr><td><code>&lt;em&gt;</code></td><td>Emphasis, displayed italic.</td></tr>
+              <tr><td><code>&lt;a&gt;</code></td><td>Hyperlink.</td></tr>
+              <tr><td><code>&lt;small&gt;</code></td><td>Smaller text, often used for fine print.</td></tr>
+              <tr><td><code>&lt;label&gt;</code></td><td>Label for a form input.</td></tr>
+              <tr><td><code>&lt;input&gt;</code></td><td>Form input field (replaced inline).</td></tr>
+              <tr><td><code>&lt;img&gt;</code></td><td>Embeds an image (replaced inline).</td></tr>
+              <tr><td><code>&lt;code&gt;</code></td><td>Snippet of code.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>Nesting rule:</strong> Block elements can contain inline elements, but inline elements should not contain block elements. e.g., placing a <code>&lt;div&gt;</code> inside a <code>&lt;p&gt;</code> is invalid HTML.
+          </div>
+          <div class="highlight-box" style="margin-top: 0.5rem">
+            <strong>Inline elements are of two types:</strong><br /><br />
+            <strong>1. Non-replaced inline elements</strong> — depend on internal content. Whatever you write between the tags is what gets displayed. <code>width</code> and <code>height</code> have no effect.<br />
+            <strong>Examples:</strong> <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code><br /><br />
+            <strong>2. Replaced inline elements</strong> — the browser replaces the element with external content (image, form control) loaded via attributes like <code>src</code> or <code>type</code>. Because of this, <code>width</code> and <code>height</code> are respected.<br />
+            <strong>Examples:</strong><br />
+            — <code>&lt;img&gt;</code> — loads an image file from <code>src</code>.<br />
+            — <code>&lt;audio&gt;</code> / <code>&lt;video&gt;</code> — loads media and renders browser playback controls.<br />
+            — <code>&lt;input&gt;</code> — renders a native UI control based on the <code>type</code> attribute.
+          </div>
+
+          <h4>Void Elements</h4>
+          <div class="highlight-box">
+            <strong>Void Elements (Self-Closing / Empty Elements):</strong> Elements that have no closing tag and cannot have content inside them. In HTML5 the trailing <code>/&gt;</code> is optional.
+            <table style="margin-top: 0.75rem">
+              <tr><th>Term</th><th>Meaning</th></tr>
+              <tr><td>Void element</td><td>Official HTML spec term. No children, no closing tag.</td></tr>
+              <tr><td>Self-closing element</td><td>Informal name for the same thing.</td></tr>
+              <tr><td>Empty element</td><td>Informal name — no content inside.</td></tr>
+            </table>
+            <br /><strong>All void elements:</strong> <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;meta&gt;</code>, <code>&lt;link&gt;</code>, <code>&lt;area&gt;</code>, <code>&lt;base&gt;</code>, <code>&lt;col&gt;</code>, <code>&lt;embed&gt;</code>
+          </div>
+
+          <h4>Semantic Elements</h4>
+          <div class="card">
+            <p>Semantic elements clearly describe their meaning to both the browser and the developer — the tag name tells you <em>what</em> the content is, not just how it looks.</p>
+            <table>
+              <tr><th>Non-semantic</th><th>Semantic equivalent</th></tr>
+              <tr><td><code>&lt;div id="header"&gt;</code></td><td><code>&lt;header&gt;</code></td></tr>
+              <tr><td><code>&lt;div id="nav"&gt;</code></td><td><code>&lt;nav&gt;</code></td></tr>
+              <tr><td><code>&lt;div id="content"&gt;</code></td><td><code>&lt;main&gt;</code></td></tr>
+              <tr><td><code>&lt;div id="footer"&gt;</code></td><td><code>&lt;footer&gt;</code></td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>Why it matters:</strong><br />
+            — <strong>Accessibility:</strong> screen readers use semantic elements as landmarks.<br />
+            — <strong>SEO:</strong> search engines weigh content inside semantic tags appropriately.<br />
+            — <strong>Readability:</strong> your HTML is self-documenting — easier to maintain.
+          </div>
+        </section>
+
+        <!-- HTML Attributes -->
+        <section>
+          <h3>HTML Attributes</h3>
+          <div class="card">
+            <p>Attributes provide additional information about an element. Always written in the <strong>opening tag</strong> as <code>name="value"</code> pairs.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://example.com"</span> <span class="attr">target</span>=<span class="val">"_blank"</span><span class="tag">&gt;</span>Click me<span class="tag">&lt;/a&gt;</span></div>
+          </div>
+
+          <h4>Global Attributes</h4>
+          <div class="card">
+            <p>These attributes can be used on <strong>any</strong> HTML element.</p>
+            <table>
+              <tr><th>Attribute</th><th>Purpose</th></tr>
+              <tr><td><code>id</code></td><td>Unique identifier for an element. Used by CSS (<code>#id</code>) and JavaScript (<code>getElementById</code>). Must be unique per page.</td></tr>
+              <tr><td><code>class</code></td><td>One or more space-separated class names. Used by CSS (<code>.class</code>) and JavaScript. Multiple elements can share a class.</td></tr>
+              <tr><td><code>style</code></td><td>Inline CSS styles applied directly to the element. Avoid in favour of external CSS.</td></tr>
+              <tr><td><code>title</code></td><td>Advisory text shown as a tooltip on hover.</td></tr>
+              <tr><td><code>lang</code></td><td>Declares the language of the element's content, e.g. <code>lang="en"</code>.</td></tr>
+              <tr><td><code>hidden</code></td><td>Hides the element from display. Equivalent to <code>display: none</code>.</td></tr>
+              <tr><td><code>tabindex</code></td><td>Controls keyboard tab order. <code>0</code> = natural order, <code>-1</code> = remove from tab order.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;p</span> <span class="attr">id</span>=<span class="val">"intro"</span> <span class="attr">class</span>=<span class="val">"lead text-dark"</span> <span class="attr">data-section</span>=<span class="val">"hero"</span><span class="tag">&gt;</span>Hello<span class="tag">&lt;/p&gt;</span></div>
+          </div>
+          <div class="highlight-box" style="margin-top: 0.5rem">
+            <strong>What happens if two elements have the same <code>id</code>?</strong><br /><br />
+            HTML does not throw an error — the page still renders. But the behaviour breaks:<br />
+            — <strong>CSS:</strong> Both elements get styled, because CSS selects all matching elements regardless.<br />
+            — <strong>JavaScript:</strong> <code>getElementById</code> returns only the <em>first</em> matching element and ignores the rest.<br />
+            — <strong>Anchor links:</strong> <code>#id</code> in a URL scrolls to the first element only.<br /><br />
+            Duplicate <code>id</code>s are invalid HTML. Always keep them unique per page.
+          </div>
+
+          <h4>Element-Specific Attributes — Image &amp; Link</h4>
+          <div class="card">
+            <table>
+              <tr><th>Attribute</th><th>Element</th><th>Purpose</th></tr>
+              <tr><td><code>href</code></td><td><code>&lt;a&gt;</code></td><td>Destination URL. Use <code>#id</code> for in-page links, <code>mailto:</code> for email.</td></tr>
+              <tr><td><code>target</code></td><td><code>&lt;a&gt;</code></td><td><code>_blank</code> opens in new tab. Always pair with <code>rel="noopener noreferrer"</code>.</td></tr>
+              <tr><td><code>rel</code></td><td><code>&lt;a&gt;</code>, <code>&lt;link&gt;</code></td><td>Describes relationship to the linked resource. e.g. <code>noopener</code>, <code>stylesheet</code>.</td></tr>
+              <tr><td><code>download</code></td><td><code>&lt;a&gt;</code></td><td>Prompts the browser to download the linked file instead of navigating.</td></tr>
+              <tr><td><code>src</code></td><td><code>&lt;img&gt;</code>, <code>&lt;script&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;video&gt;</code></td><td>Path or URL of the external resource to load.</td></tr>
+              <tr><td><code>alt</code></td><td><code>&lt;img&gt;</code></td><td>Alternative text shown if the image fails to load. Required for accessibility and SEO.</td></tr>
+              <tr><td><code>width</code> / <code>height</code></td><td><code>&lt;img&gt;</code>, <code>&lt;video&gt;</code></td><td>Dimensions in pixels. Prevents layout shift while the resource loads.</td></tr>
+              <tr><td><code>loading</code></td><td><code>&lt;img&gt;</code></td><td><code>lazy</code> defers loading until the image is near the viewport. Improves page speed.</td></tr>
+            </table>
+          </div>
+
+          <h4>Element-Specific Attributes — Forms</h4>
+          <div class="card">
+            <table>
+              <tr><th>Attribute</th><th>Element</th><th>Purpose</th></tr>
+              <tr><td><code>action</code></td><td><code>&lt;form&gt;</code></td><td>URL where the form data is sent on submission.</td></tr>
+              <tr><td><code>method</code></td><td><code>&lt;form&gt;</code></td><td><code>get</code> appends data to the URL; <code>post</code> sends it in the request body.</td></tr>
+              <tr><td><code>type</code></td><td><code>&lt;input&gt;</code>, <code>&lt;button&gt;</code></td><td>Controls input behaviour: <code>text</code>, <code>email</code>, <code>password</code>, <code>checkbox</code>, <code>radio</code>, <code>file</code>, <code>submit</code>, etc.</td></tr>
+              <tr><td><code>name</code></td><td><code>&lt;input&gt;</code></td><td>The key sent to the server with the field's value. Required for form submission.</td></tr>
+              <tr><td><code>value</code></td><td><code>&lt;input&gt;</code></td><td>The default or current value of the field.</td></tr>
+              <tr><td><code>placeholder</code></td><td><code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code></td><td>Hint text shown inside the field when it is empty.</td></tr>
+              <tr><td><code>for</code></td><td><code>&lt;label&gt;</code></td><td>Links the label to an input via the input's <code>id</code>. Clicking the label focuses the input.</td></tr>
+              <tr><td><code>maxlength</code></td><td><code>&lt;input&gt;</code></td><td>Maximum number of characters allowed.</td></tr>
+            </table>
+          </div>
+
+          <h4>Element-Specific Attributes — Boolean Attributes</h4>
+          <div class="card">
+            <p>Boolean attributes do not need a value — their presence alone means <code>true</code>. Writing the attribute name is enough.</p>
+            <table>
+              <tr><th>Attribute</th><th>Meaning when present</th></tr>
+              <tr><td><code>required</code></td><td>Field must be filled before the form can submit.</td></tr>
+              <tr><td><code>disabled</code></td><td>Element is inactive and cannot be interacted with.</td></tr>
+              <tr><td><code>readonly</code></td><td>Field value cannot be changed by the user.</td></tr>
+              <tr><td><code>checked</code></td><td>Checkbox or radio button is selected by default.</td></tr>
+              <tr><td><code>selected</code></td><td>An <code>&lt;option&gt;</code> is pre-selected in a dropdown.</td></tr>
+              <tr><td><code>autoplay</code></td><td>Audio or video starts playing automatically.</td></tr>
+              <tr><td><code>muted</code></td><td>Audio or video starts muted.</td></tr>
+              <tr><td><code>hidden</code></td><td>Element is not displayed.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"checkbox"</span> <span class="attr">checked</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">disabled</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"email"</span> <span class="attr">required</span> <span class="tag">/&gt;</span></div>
+          </div>
+
+          <h4><code>data-*</code> Attributes</h4>
+          <div class="card">
+            <p>Custom attributes for storing extra information on any element. Name them <code>data-</code> followed by anything you want (e.g. <code>data-user-id</code>, <code>data-theme</code>). Read in JavaScript via <code>element.dataset.userId</code> — the browser auto-converts kebab-case to camelCase.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">&lt;!-- HTML --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">data-user-id</span>=<span class="val">"42"</span> <span class="attr">data-theme</span>=<span class="val">"dark"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- JavaScript --&gt;</span>
+el.dataset.userId  <span class="cm">// "42"</span>
+el.dataset.theme   <span class="cm">// "dark"</span></div>
+          </div>
+        </section>
+
+        <!-- HTML Comments -->
+        <section>
+          <h3>HTML Comments</h3>
+          <div class="card">
+            <p>Comments are notes in the HTML source that the browser ignores — they are never shown to the user.</p>
+            <p>Used to explain code, temporarily disable markup, or leave notes for other developers.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">&lt;!-- This is a comment --&gt;</span>
+
+<span class="cm">&lt;!-- TODO: replace this placeholder image --&gt;</span>
+<span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"placeholder.jpg"</span> <span class="attr">alt</span>=<span class="val">"placeholder"</span> <span class="tag">/&gt;</span>
+
+<span class="cm">&lt;!-- &lt;p&gt;This paragraph is disabled&lt;/p&gt; --&gt;</span></div>
+          </div>
+          <div class="highlight-box">Comments are visible in "View Source" and browser DevTools — never put passwords or sensitive data in comments.</div>
+        </section>
+
+        <!-- HTML Entities -->
+        <section>
+          <h3>HTML Entities</h3>
+          <div class="card">
+            <p>Some characters have special meaning in HTML (like <code>&lt;</code> and <code>&gt;</code>) and cannot be typed directly. Use <strong>HTML entities</strong> to display them safely. An entity starts with <code>&amp;</code> and ends with <code>;</code>.</p>
+            <table>
+              <tr><th>Entity</th><th>Character</th><th>When to use</th></tr>
+              <tr><td><code>&amp;lt;</code></td><td>&lt;</td><td>Less-than sign — required when writing code examples in HTML.</td></tr>
+              <tr><td><code>&amp;gt;</code></td><td>&gt;</td><td>Greater-than sign.</td></tr>
+              <tr><td><code>&amp;amp;</code></td><td>&amp;</td><td>Ampersand — required when the <code>&amp;</code> could be mistaken for an entity start.</td></tr>
+              <tr><td><code>&amp;nbsp;</code></td><td>(non-breaking space)</td><td>A space that does not break into a new line and prevents text collapsing.</td></tr>
+              <tr><td><code>&amp;copy;</code></td><td>&copy;</td><td>Copyright symbol.</td></tr>
+              <tr><td><code>&amp;reg;</code></td><td>&reg;</td><td>Registered trademark symbol.</td></tr>
+              <tr><td><code>&amp;trade;</code></td><td>&trade;</td><td>Trademark symbol.</td></tr>
+              <tr><td><code>&amp;mdash;</code></td><td>—</td><td>Em dash — used for parenthetical statements.</td></tr>
+              <tr><td><code>&amp;hellip;</code></td><td>…</td><td>Ellipsis.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;p&gt;</span>Use <span class="tag">&amp;lt;</span>p<span class="tag">&amp;gt;</span> for paragraphs.<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;p&gt;</span>&amp;copy; 2025 My Company<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;p&gt;</span>Price&amp;nbsp;&amp;amp;&amp;nbsp;Availability<span class="tag">&lt;/p&gt;</span></div>
+          </div>
+        </section>
+
+        <!-- Nesting Rules -->
+        <section>
+          <h3>Nesting Rules</h3>
+          <div class="card">
+            <p>HTML has strict rules about which elements can go inside which. Violating them causes browsers to silently auto-correct your markup, often in unexpected ways.</p>
+            <table>
+              <tr><th>Rule</th><th>Example</th></tr>
+              <tr><td>Block elements can contain both block and inline elements</td><td><code>&lt;div&gt;</code> can hold <code>&lt;p&gt;</code>, <code>&lt;h2&gt;</code>, <code>&lt;span&gt;</code></td></tr>
+              <tr><td>Inline elements should only contain inline elements or text</td><td><code>&lt;span&gt;</code> should not contain <code>&lt;div&gt;</code> or <code>&lt;p&gt;</code></td></tr>
+              <tr><td><code>&lt;p&gt;</code> cannot contain block elements</td><td>Putting <code>&lt;div&gt;</code> inside <code>&lt;p&gt;</code> auto-closes the <code>&lt;p&gt;</code></td></tr>
+              <tr><td><code>&lt;a&gt;</code> cannot nest another <code>&lt;a&gt;</code></td><td>Links cannot be inside links</td></tr>
+              <tr><td><code>&lt;ul&gt;</code> / <code>&lt;ol&gt;</code> direct children must be <code>&lt;li&gt;</code></td><td>Cannot put <code>&lt;p&gt;</code> directly inside <code>&lt;ul&gt;</code></td></tr>
+              <tr><td><code>&lt;table&gt;</code> rows must be inside <code>&lt;tbody&gt;</code> / <code>&lt;thead&gt;</code> / <code>&lt;tfoot&gt;</code></td><td><code>&lt;tr&gt;</code> directly in <code>&lt;table&gt;</code> is auto-wrapped in <code>&lt;tbody&gt;</code></td></tr>
+              <tr><td><code>&lt;li&gt;</code> must be inside <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code></td><td>A bare <code>&lt;li&gt;</code> outside a list is invalid</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>Tip:</strong> Use the browser's DevTools (Elements panel) or an HTML validator (<code>validator.w3.org</code>) to catch nesting errors. Browsers silently fix them, so the page may look fine while the HTML is actually invalid.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 4 — HTML Elements in Depth
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 4</div>
+        <h2>HTML Elements in Depth</h2>
+
+        <!-- Head Elements -->
+        <section>
+          <h3>Head Elements</h3>
+          <div class="card">
+            <p>Everything inside <code>&lt;head&gt;</code> is metadata — not visible on the page, but essential for how the browser and search engines handle it.</p>
+            <table>
+              <tr><th>Element</th><th>Purpose</th></tr>
+              <tr><td><code>&lt;title&gt;</code></td><td>Sets the page title shown in the browser tab and in search engine results. Required on every page.</td></tr>
+              <tr><td><code>&lt;link&gt;</code></td><td>Links external resources. Most commonly used to attach a CSS stylesheet via <code>rel="stylesheet"</code>. Void element.</td></tr>
+              <tr><td><code>&lt;style&gt;</code></td><td>Embeds CSS directly in the HTML document. Useful for small pages; prefer external stylesheets for larger projects.</td></tr>
+              <tr><td><code>&lt;script&gt;</code></td><td>Embeds or links JavaScript. Use <code>defer</code> or <code>async</code> in <code>&lt;head&gt;</code>, or place before <code>&lt;/body&gt;</code>.</td></tr>
+              <tr><td><code>&lt;base&gt;</code></td><td>Sets a base URL for all relative URLs in the document. Rarely used. Void element.</td></tr>
+            </table>
+
+            <h4 style="margin: 1.25rem 0 0.5rem; padding-left: 0; font-size: 0.88rem; color: #5a5a56">Meta Tags — <code>&lt;meta&gt;</code></h4>
+            <p>Void element. Provides metadata: charset, viewport, description, author, robots.</p>
+            <table>
+              <tr><th>Meta tag</th><th>Purpose</th></tr>
+              <tr><td><code>charset="UTF-8"</code></td><td>Tells the browser to use UTF-8 encoding — correctly displays characters from all languages.</td></tr>
+              <tr><td><code>viewport</code></td><td>Makes page responsive — scales correctly on mobile devices.</td></tr>
+              <tr><td><code>description</code></td><td>Summary shown by search engines in results (important for SEO).</td></tr>
+              <tr><td><code>author</code></td><td>Specifies the author of the document.</td></tr>
+              <tr><td><code>robots</code></td><td>Controls search engine crawling: <code>index/noindex</code>, <code>follow/nofollow</code>.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span> <span class="tag">/&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="val">"viewport"</span> <span class="attr">content</span>=<span class="val">"width=device-width, initial-scale=1.0"</span> <span class="tag">/&gt;</span>
+  <span class="tag">&lt;title&gt;</span>My Page<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="val">"stylesheet"</span> <span class="attr">href</span>=<span class="val">"style.css"</span> <span class="tag">/&gt;</span>
+  <span class="tag">&lt;script</span> <span class="attr">src</span>=<span class="val">"app.js"</span> <span class="attr">defer</span><span class="tag">&gt;&lt;/script&gt;</span>
+<span class="tag">&lt;/head&gt;</span></div>
+          </div>
+        </section>
+
+        <!-- Headings -->
+        <section>
+          <h3>Headings — <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code></h3>
+          <div class="card">
+            <table>
+              <tr><th>Element</th><th>When to use</th></tr>
+              <tr><td><code>&lt;h1&gt;</code></td><td>Main page title. Use only once per page — highest importance for SEO.</td></tr>
+              <tr><td><code>&lt;h2&gt;</code></td><td>Major section headings on the page.</td></tr>
+              <tr><td><code>&lt;h3&gt;</code></td><td>Sub-sections within an <code>&lt;h2&gt;</code>.</td></tr>
+              <tr><td><code>&lt;h4&gt;</code></td><td>Sub-sections within an <code>&lt;h3&gt;</code>. Rarely needed.</td></tr>
+              <tr><td><code>&lt;h5&gt;</code></td><td>Sub-sections within an <code>&lt;h4&gt;</code>. Almost never used.</td></tr>
+              <tr><td><code>&lt;h6&gt;</code></td><td>Lowest heading level. Deepest nesting, practically unused.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">Never skip heading levels — don't jump from <code>&lt;h1&gt;</code> to <code>&lt;h4&gt;</code>. Screen reader users navigate the page by headings, so the hierarchy must make logical sense.</div>
+        </section>
+
+        <!-- Semantic & Structural Elements -->
+        <section>
+          <h3>Semantic &amp; Structural Elements</h3>
+          <div class="card">
+            <p>Beyond <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code>, HTML provides elements that carry meaning about the content they hold.</p>
+            <table>
+              <tr><th>Element</th><th>Purpose</th></tr>
+              <tr><td><code>&lt;header&gt;</code></td><td>Introductory content or navigational links for its section or page.</td></tr>
+              <tr><td><code>&lt;nav&gt;</code></td><td>A set of navigation links. Used as a landmark by screen readers.</td></tr>
+              <tr><td><code>&lt;main&gt;</code></td><td>The dominant content of the page. Only one per page.</td></tr>
+              <tr><td><code>&lt;section&gt;</code></td><td>A thematic grouping of content, typically with a heading.</td></tr>
+              <tr><td><code>&lt;article&gt;</code></td><td>Self-contained content that could be distributed independently (blog post, card).</td></tr>
+              <tr><td><code>&lt;aside&gt;</code></td><td>Content tangentially related to the surrounding content (sidebar, callout).</td></tr>
+              <tr><td><code>&lt;footer&gt;</code></td><td>Footer for its nearest section or the document.</td></tr>
+              <tr><td><code>&lt;time&gt;</code></td><td>A specific time or date. Use <code>datetime="2025-01-15"</code> for machine-readable format.</td></tr>
+              <tr><td><code>&lt;address&gt;</code></td><td>Contact information for the nearest <code>&lt;article&gt;</code> or <code>&lt;body&gt;</code>.</td></tr>
+              <tr><td><code>&lt;mark&gt;</code></td><td>Highlights text as relevant in the current context. Yellow highlight by default.</td></tr>
+              <tr><td><code>&lt;abbr&gt;</code></td><td>Marks an abbreviation. Use <code>title</code> attribute for the full form — shown as tooltip on hover.</td></tr>
+              <tr><td><code>&lt;details&gt;</code></td><td>Disclosure widget — content hidden by default, shown when clicked to expand.</td></tr>
+              <tr><td><code>&lt;summary&gt;</code></td><td>The visible label for a <code>&lt;details&gt;</code> element. Must be its first child.</td></tr>
+              <tr><td><code>&lt;blockquote&gt;</code></td><td>A long quotation from another source. Use <code>cite</code> attribute for the source URL.</td></tr>
+              <tr><td><code>&lt;cite&gt;</code></td><td>The title of a referenced creative work (book, film, article).</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;time</span> <span class="attr">datetime</span>=<span class="val">"2025-06-01"</span><span class="tag">&gt;</span>June 1, 2025<span class="tag">&lt;/time&gt;</span>
+
+<span class="tag">&lt;abbr</span> <span class="attr">title</span>=<span class="val">"HyperText Markup Language"</span><span class="tag">&gt;</span>HTML<span class="tag">&lt;/abbr&gt;</span>
+
+<span class="tag">&lt;mark&gt;</span>highlighted text<span class="tag">&lt;/mark&gt;</span>
+
+<span class="tag">&lt;details&gt;</span>
+  <span class="tag">&lt;summary&gt;</span>Click to expand<span class="tag">&lt;/summary&gt;</span>
+  <span class="tag">&lt;p&gt;</span>Hidden content shown on expand.<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/details&gt;</span></div>
+          </div>
+        </section>
+
+        <!-- Links & Navigation -->
+        <section>
+          <h3>Links &amp; Navigation</h3>
+          <div class="card">
+            <p>Links are created with the <code>&lt;a&gt;</code> (anchor) element. The <code>href</code> attribute defines where the link goes.</p>
+            <table>
+              <tr><th>Link type</th><th>Syntax</th><th>When to use</th></tr>
+              <tr><td>Absolute URL</td><td><code>href="https://example.com"</code></td><td>Linking to an external website. Always includes the full protocol and domain.</td></tr>
+              <tr><td>Relative URL</td><td><code>href="about.html"</code></td><td>Linking to pages/files within the same site. Relative to the current file's location.</td></tr>
+              <tr><td>In-page anchor</td><td><code>href="#section-id"</code></td><td>Jumps to an element on the same page that has a matching <code>id</code>.</td></tr>
+              <tr><td>Email link</td><td><code>href="mailto:hello@example.com"</code></td><td>Opens the user's email client with the address pre-filled.</td></tr>
+              <tr><td>Phone link</td><td><code>href="tel:+1234567890"</code></td><td>On mobile devices, tapping the link opens the dialler.</td></tr>
+              <tr><td>Download link</td><td><code>href="file.pdf" download</code></td><td>Prompts the browser to download the file instead of navigating to it.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">&lt;!-- External link --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"https://example.com"</span> <span class="attr">target</span>=<span class="val">"_blank"</span> <span class="attr">rel</span>=<span class="val">"noopener noreferrer"</span><span class="tag">&gt;</span>Visit Example<span class="tag">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- In-page anchor --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"#about"</span><span class="tag">&gt;</span>Go to About section<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;section</span> <span class="attr">id</span>=<span class="val">"about"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/section&gt;</span>
+
+<span class="cm">&lt;!-- Email &amp; phone --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"mailto:hello@example.com"</span><span class="tag">&gt;</span>Email us<span class="tag">&lt;/a&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"tel:+1234567890"</span><span class="tag">&gt;</span>Call us<span class="tag">&lt;/a&gt;</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong><code>target="_blank"</code> security:</strong> Opening links in a new tab gives the new page access to the opener via <code>window.opener</code>. Always add <code>rel="noopener noreferrer"</code> to prevent this.
+          </div>
+          <div class="card">
+            <h4 style="padding-left: 0; font-size: 0.88rem; color: #1a1a18; margin-bottom: 0.5rem">Navigation with <code>&lt;nav&gt;</code></h4>
+            <p>Wrap site navigation links in <code>&lt;nav&gt;</code> to give them semantic meaning. Screen readers use <code>&lt;nav&gt;</code> as a landmark. Use <code>aria-current="page"</code> on the active link.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;nav</span> <span class="attr">aria-label</span>=<span class="val">"Main navigation"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;ul&gt;</span>
+    <span class="tag">&lt;li&gt;</span><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"/"</span> <span class="attr">aria-current</span>=<span class="val">"page"</span><span class="tag">&gt;</span>Home<span class="tag">&lt;/a&gt;</span><span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;li&gt;</span><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"/about"</span><span class="tag">&gt;</span>About<span class="tag">&lt;/a&gt;</span><span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;li&gt;</span><span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="val">"/contact"</span><span class="tag">&gt;</span>Contact<span class="tag">&lt;/a&gt;</span><span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;/ul&gt;</span>
+<span class="tag">&lt;/nav&gt;</span></div>
+          </div>
+        </section>
+
+        <!-- Lists -->
+        <section>
+          <h3>Lists</h3>
+          <div class="card">
+            <table>
+              <tr><th>Element</th><th>Purpose</th></tr>
+              <tr><td><code>&lt;ul&gt;</code></td><td>Unordered list — bullet points. Use when order doesn't matter.</td></tr>
+              <tr><td><code>&lt;ol&gt;</code></td><td>Ordered list — numbered. Use when sequence matters (steps, rankings).</td></tr>
+              <tr><td><code>&lt;li&gt;</code></td><td>A list item. Must be a direct child of <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code>.</td></tr>
+              <tr><td><code>&lt;dl&gt;</code></td><td>Description list — for term/definition pairs.</td></tr>
+              <tr><td><code>&lt;dt&gt;</code></td><td>The term in a description list.</td></tr>
+              <tr><td><code>&lt;dd&gt;</code></td><td>The description or definition for the preceding <code>&lt;dt&gt;</code>.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">&lt;!-- Unordered --&gt;</span>
+<span class="tag">&lt;ul&gt;</span>
+  <span class="tag">&lt;li&gt;</span>HTML<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>CSS<span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span>
+
+<span class="cm">&lt;!-- Ordered --&gt;</span>
+<span class="tag">&lt;ol&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Install Node<span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li&gt;</span>Run npm install<span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ol&gt;</span>
+
+<span class="cm">&lt;!-- Description list --&gt;</span>
+<span class="tag">&lt;dl&gt;</span>
+  <span class="tag">&lt;dt&gt;</span>HTML<span class="tag">&lt;/dt&gt;</span>
+  <span class="tag">&lt;dd&gt;</span>HyperText Markup Language<span class="tag">&lt;/dd&gt;</span>
+<span class="tag">&lt;/dl&gt;</span></div>
+          </div>
+        </section>
+
+        <!-- Tables -->
+        <section>
+          <h3>Tables</h3>
+          <div class="card">
+            <p>Use tables for <strong>tabular data</strong> — data that naturally fits rows and columns. Never use tables for page layout.</p>
+            <table>
+              <tr><th>Element</th><th>Purpose</th></tr>
+              <tr><td><code>&lt;table&gt;</code></td><td>Wrapper for the entire table.</td></tr>
+              <tr><td><code>&lt;caption&gt;</code></td><td>Title/description for the table. Placed as the first child of <code>&lt;table&gt;</code>. Good for accessibility.</td></tr>
+              <tr><td><code>&lt;thead&gt;</code></td><td>Groups the header rows. Used for the column titles row.</td></tr>
+              <tr><td><code>&lt;tbody&gt;</code></td><td>Groups the main data rows.</td></tr>
+              <tr><td><code>&lt;tfoot&gt;</code></td><td>Groups footer rows (e.g. totals). Rendered after <code>&lt;tbody&gt;</code> regardless of position in HTML.</td></tr>
+              <tr><td><code>&lt;tr&gt;</code></td><td>A single table row.</td></tr>
+              <tr><td><code>&lt;th&gt;</code></td><td>Header cell — bold and centred by default. Use <code>scope="col"</code> or <code>scope="row"</code> for accessibility.</td></tr>
+              <tr><td><code>&lt;td&gt;</code></td><td>Data cell. Accepts <code>colspan</code> and <code>rowspan</code>.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;table&gt;</span>
+  <span class="tag">&lt;caption&gt;</span>Monthly Sales<span class="tag">&lt;/caption&gt;</span>
+  <span class="tag">&lt;thead&gt;</span>
+    <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;th</span> <span class="attr">scope</span>=<span class="val">"col"</span><span class="tag">&gt;</span>Month<span class="tag">&lt;/th&gt;</span><span class="tag">&lt;th</span> <span class="attr">scope</span>=<span class="val">"col"</span><span class="tag">&gt;</span>Revenue<span class="tag">&lt;/th&gt;</span><span class="tag">&lt;/tr&gt;</span>
+  <span class="tag">&lt;/thead&gt;</span>
+  <span class="tag">&lt;tbody&gt;</span>
+    <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;td&gt;</span>January<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;td&gt;</span>$4,000<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;/tr&gt;</span>
+    <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;td&gt;</span>February<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;td&gt;</span>$5,200<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;/tr&gt;</span>
+  <span class="tag">&lt;/tbody&gt;</span>
+  <span class="tag">&lt;tfoot&gt;</span>
+    <span class="tag">&lt;tr&gt;</span><span class="tag">&lt;td&gt;</span>Total<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;td&gt;</span>$9,200<span class="tag">&lt;/td&gt;</span><span class="tag">&lt;/tr&gt;</span>
+  <span class="tag">&lt;/tfoot&gt;</span>
+<span class="tag">&lt;/table&gt;</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>colspan / rowspan:</strong><br />
+            — <code>colspan="2"</code> on a <code>&lt;td&gt;</code> makes it span 2 columns.<br />
+            — <code>rowspan="2"</code> makes it span 2 rows.<br />
+            Both reduce the number of <code>&lt;td&gt;</code> elements needed in affected rows/columns.
+          </div>
+        </section>
+
+        <!-- Forms -->
+        <section>
+          <h3>Forms</h3>
+          <div class="card">
+            <p>A form collects user input and sends it to a server or handles it with JavaScript.</p>
+            <table>
+              <tr><th>Element</th><th>Purpose</th></tr>
+              <tr><td><code>&lt;form&gt;</code></td><td>Wrapper for all form controls. <code>action</code> = where to send data; <code>method</code> = <code>get</code> or <code>post</code>.</td></tr>
+              <tr><td><code>&lt;input&gt;</code></td><td>Single-line input field. Behaviour controlled by <code>type</code> attribute. Void element.</td></tr>
+              <tr><td><code>&lt;textarea&gt;</code></td><td>Multi-line text input. Size controlled by <code>rows</code> and <code>cols</code> attributes.</td></tr>
+              <tr><td><code>&lt;button&gt;</code></td><td>Clickable button. <code>type="submit"</code> submits the form; <code>type="button"</code> for JS handlers; <code>type="reset"</code> clears fields.</td></tr>
+              <tr><td><code>&lt;select&gt;</code></td><td>Dropdown list. Wraps <code>&lt;option&gt;</code> elements. Add <code>multiple</code> to allow multi-select.</td></tr>
+              <tr><td><code>&lt;option&gt;</code></td><td>A single choice inside a <code>&lt;select&gt;</code>. Use <code>selected</code> to pre-select, <code>value</code> to set the submitted value.</td></tr>
+              <tr><td><code>&lt;label&gt;</code></td><td>Links descriptive text to an input via <code>for="inputId"</code>. Clicking the label focuses the input. Important for accessibility.</td></tr>
+              <tr><td><code>&lt;fieldset&gt;</code></td><td>Groups related form controls visually and semantically with a border.</td></tr>
+              <tr><td><code>&lt;legend&gt;</code></td><td>Caption for a <code>&lt;fieldset&gt;</code>. Must be the first child inside <code>&lt;fieldset&gt;</code>.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="tag">&lt;form</span> <span class="attr">action</span>=<span class="val">"/submit"</span> <span class="attr">method</span>=<span class="val">"post"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;fieldset&gt;</span>
+    <span class="tag">&lt;legend&gt;</span>Personal Info<span class="tag">&lt;/legend&gt;</span>
+    <span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="val">"name"</span><span class="tag">&gt;</span>Name<span class="tag">&lt;/label&gt;</span>
+    <span class="tag">&lt;input</span> <span class="attr">type</span>=<span class="val">"text"</span> <span class="attr">id</span>=<span class="val">"name"</span> <span class="attr">name</span>=<span class="val">"name"</span> <span class="attr">required</span> <span class="tag">/&gt;</span>
+    <span class="tag">&lt;label</span> <span class="attr">for</span>=<span class="val">"bio"</span><span class="tag">&gt;</span>Bio<span class="tag">&lt;/label&gt;</span>
+    <span class="tag">&lt;textarea</span> <span class="attr">id</span>=<span class="val">"bio"</span> <span class="attr">name</span>=<span class="val">"bio"</span> <span class="attr">rows</span>=<span class="val">"4"</span><span class="tag">&gt;&lt;/textarea&gt;</span>
+    <span class="tag">&lt;select</span> <span class="attr">id</span>=<span class="val">"role"</span> <span class="attr">name</span>=<span class="val">"role"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"dev"</span><span class="tag">&gt;</span>Developer<span class="tag">&lt;/option&gt;</span>
+      <span class="tag">&lt;option</span> <span class="attr">value</span>=<span class="val">"design"</span> <span class="attr">selected</span><span class="tag">&gt;</span>Designer<span class="tag">&lt;/option&gt;</span>
+    <span class="tag">&lt;/select&gt;</span>
+  <span class="tag">&lt;/fieldset&gt;</span>
+  <span class="tag">&lt;button</span> <span class="attr">type</span>=<span class="val">"submit"</span><span class="tag">&gt;</span>Send<span class="tag">&lt;/button&gt;</span>
+<span class="tag">&lt;/form&gt;</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>Input types:</strong> <code>text</code>, <code>email</code>, <code>password</code>, <code>number</code>, <code>date</code>, <code>checkbox</code>, <code>radio</code>, <code>file</code>, <code>range</code>, <code>color</code>, <code>submit</code>, <code>reset</code>, <code>hidden</code>
+          </div>
+        </section>
+
+        <!-- Media -->
+        <section>
+          <h3>Media</h3>
+          <div class="card">
+            <table>
+              <tr><th>Element</th><th>Purpose</th></tr>
+              <tr><td><code>&lt;img&gt;</code></td><td>Embeds an image. Void element. Requires <code>src</code> and <code>alt</code>.</td></tr>
+              <tr><td><code>&lt;audio&gt;</code></td><td>Embeds audio. Use <code>controls</code> to show playback UI. Supports nested <code>&lt;source&gt;</code> elements for fallback formats.</td></tr>
+              <tr><td><code>&lt;video&gt;</code></td><td>Embeds video. Use <code>controls</code>, <code>width</code>, <code>height</code>, <code>poster</code> (thumbnail). Supports nested <code>&lt;source&gt;</code> elements.</td></tr>
+              <tr><td><code>&lt;source&gt;</code></td><td>Specifies a media resource for <code>&lt;audio&gt;</code> or <code>&lt;video&gt;</code>. Browser picks the first format it supports. Void element.</td></tr>
+              <tr><td><code>&lt;picture&gt;</code></td><td>Provides multiple image sources for responsive/art-direction. Wraps <code>&lt;source&gt;</code> elements + a fallback <code>&lt;img&gt;</code>.</td></tr>
+              <tr><td><code>&lt;figure&gt;</code></td><td>Groups media content with its caption. Semantically self-contained.</td></tr>
+              <tr><td><code>&lt;figcaption&gt;</code></td><td>Caption for a <code>&lt;figure&gt;</code>. Can appear before or after the media.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">&lt;!-- Audio --&gt;</span>
+<span class="tag">&lt;audio</span> <span class="attr">controls</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">src</span>=<span class="val">"sound.mp3"</span> <span class="attr">type</span>=<span class="val">"audio/mpeg"</span> <span class="tag">/&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">src</span>=<span class="val">"sound.ogg"</span> <span class="attr">type</span>=<span class="val">"audio/ogg"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;/audio&gt;</span>
+
+<span class="cm">&lt;!-- Video --&gt;</span>
+<span class="tag">&lt;video</span> <span class="attr">controls</span> <span class="attr">width</span>=<span class="val">"640"</span> <span class="attr">poster</span>=<span class="val">"thumb.jpg"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">src</span>=<span class="val">"clip.mp4"</span> <span class="attr">type</span>=<span class="val">"video/mp4"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;/video&gt;</span>
+
+<span class="cm">&lt;!-- Responsive image --&gt;</span>
+<span class="tag">&lt;picture&gt;</span>
+  <span class="tag">&lt;source</span> <span class="attr">srcset</span>=<span class="val">"img-large.jpg"</span> <span class="attr">media</span>=<span class="val">"(min-width: 800px)"</span> <span class="tag">/&gt;</span>
+  <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"img-small.jpg"</span> <span class="attr">alt</span>=<span class="val">"A landscape"</span> <span class="tag">/&gt;</span>
+<span class="tag">&lt;/picture&gt;</span></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 5 — Accessibility
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 5</div>
+        <h2>Accessibility</h2>
+
+        <section>
+          <h3>Why Accessibility Matters</h3>
+          <div class="card">
+            <p>Accessibility (a11y) ensures your HTML can be used by everyone — including people using screen readers, keyboard-only navigation, or assistive technologies.</p>
+            <ul>
+              <li>~15% of the world's population has some form of disability.</li>
+              <li>Accessible sites are better for SEO — semantic structure helps search engines too.</li>
+              <li>Many countries have legal requirements for web accessibility (WCAG standards).</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>Semantic HTML as Accessibility</h3>
+          <div class="card">
+            <p>The single most effective accessibility improvement is using the correct semantic element. Screen readers use elements like <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code>, and <code>&lt;footer&gt;</code> as landmarks — users can jump directly between them.</p>
+            <ul>
+              <li>Use <code>&lt;button&gt;</code> for buttons, not <code>&lt;div&gt;</code> — it gets keyboard focus for free.</li>
+              <li>Use <code>&lt;a&gt;</code> for navigation, <code>&lt;button&gt;</code> for actions.</li>
+              <li>Use proper heading order — <code>&lt;h1&gt;</code> → <code>&lt;h2&gt;</code> → <code>&lt;h3&gt;</code> — never skip levels.</li>
+              <li>Every form <code>&lt;input&gt;</code> must have an associated <code>&lt;label&gt;</code> via <code>for="inputId"</code>.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h3>ARIA Attributes</h3>
+          <div class="card">
+            <p>ARIA (Accessible Rich Internet Applications) attributes supplement HTML semantics when a native semantic element isn't available or sufficient.</p>
+            <table>
+              <tr><th>Attribute</th><th>Purpose</th></tr>
+              <tr><td><code>aria-label</code></td><td>Provides an accessible name for an element with no visible text label, e.g. an icon button: <code>&lt;button aria-label="Close"&gt;</code>.</td></tr>
+              <tr><td><code>aria-hidden="true"</code></td><td>Hides decorative elements from screen readers (e.g. icon SVGs, decorative images).</td></tr>
+              <tr><td><code>role</code></td><td>Adds ARIA role when a semantic element isn't available, e.g. <code>role="button"</code> on a <code>&lt;div&gt;</code> acting as a button.</td></tr>
+              <tr><td><code>aria-current="page"</code></td><td>Marks the currently active link in a navigation. Screen readers announce it as the active link.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">&lt;!-- Decorative image — screen readers skip it --&gt;</span>
+<span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="val">"divider.png"</span> <span class="attr">alt</span>=<span class="val">""</span> <span class="tag">/&gt;</span>
+
+<span class="cm">&lt;!-- Icon button with accessible name --&gt;</span>
+<span class="tag">&lt;button</span> <span class="attr">aria-label</span>=<span class="val">"Close menu"</span><span class="tag">&gt;</span>✕<span class="tag">&lt;/button&gt;</span>
+
+<span class="cm">&lt;!-- Div acting as a button --&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">role</span>=<span class="val">"button"</span> <span class="attr">tabindex</span>=<span class="val">"0"</span><span class="tag">&gt;</span>Click me<span class="tag">&lt;/div&gt;</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>First rule of ARIA:</strong> Don't use ARIA if a native HTML element can do the job. A <code>&lt;button&gt;</code> is always better than <code>&lt;div role="button"&gt;</code>.
+          </div>
+        </section>
+
+        <section>
+          <h3>Keyboard Navigation</h3>
+          <div class="card">
+            <p>All interactive elements must be reachable and operable via keyboard alone.</p>
+            <table>
+              <tr><th>Attribute</th><th>Purpose</th></tr>
+              <tr><td><code>tabindex="0"</code></td><td>Makes a non-interactive element (e.g. <code>&lt;div&gt;</code>) focusable and adds it to the natural tab order.</td></tr>
+              <tr><td><code>tabindex="-1"</code></td><td>Removes an element from the tab order, but allows programmatic focus via JavaScript (<code>element.focus()</code>).</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            Native interactive elements — <code>&lt;a&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;textarea&gt;</code> — are all focusable by default. You only need <code>tabindex</code> for custom interactive components built from non-interactive elements.
+          </div>
+        </section>
+      </div>
+
+      <footer style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #e0dfd8; font-size: 13px; color: #aaa;">
+        HTML Notes
+      </footer>
+    </div>
+  </body>
+</html>

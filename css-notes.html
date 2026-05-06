@@ -1,0 +1,1080 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Notes</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: #f5f4f0;
+        color: #1a1a18;
+        font-size: 15px;
+        line-height: 1.7;
+        padding: 3rem 1rem;
+      }
+
+      .page {
+        max-width: 780px;
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 2rem;
+        padding-bottom: 0.2rem;
+      }
+
+      header h1 {
+        font-size: 2.2rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      header p {
+        margin-top: 0.5rem;
+        color: #5a5a56;
+        font-size: 14px;
+      }
+
+      .chapter {
+        margin-bottom: 3rem;
+      }
+
+      .chapter-heading {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        background: #1a1a18;
+        color: #f5f4f0;
+        padding: 3px 10px;
+        border-radius: 4px;
+        margin-bottom: 0.75rem;
+      }
+
+      h2 {
+        font-size: 1.35rem;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #1a1a18;
+      }
+
+      section {
+        margin-bottom: 2rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        border-left: 3px solid #1a1a18;
+        padding-left: 0.75rem;
+        margin-bottom: 0.75rem;
+        color: #1a1a18;
+      }
+
+      h4 {
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: #5a5a56;
+        margin-bottom: 0.4rem;
+        padding-left: 1.25rem;
+      }
+
+      p {
+        margin-bottom: 0.6rem;
+        color: #5a5a56;
+        font-size: 14px;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        margin-bottom: 12px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+        margin-top: 0.5rem;
+      }
+
+      th {
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #888;
+        padding: 6px 12px;
+        border-bottom: 1px solid #e0dfd8;
+      }
+
+      td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #f0efe8;
+        vertical-align: top;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      td:first-child {
+        color: #5a5a56;
+        font-weight: 500;
+        width: 38%;
+      }
+
+      code {
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        background: #f0efe8;
+        padding: 1px 6px;
+        border-radius: 4px;
+        color: #c0392b;
+      }
+
+      .code-block {
+        background: #1a1a18;
+        color: #e8e6df;
+        font-family: "DM Mono", monospace;
+        font-size: 13px;
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin: 0.75rem 0;
+        line-height: 1.6;
+        overflow-x: auto;
+        white-space: pre;
+      }
+
+      .code-block .prop { color: #89c4e1; }
+      .code-block .val  { color: #a8e6a3; }
+      .code-block .sel  { color: #f7aa44; }
+      .code-block .cm   { color: #777; font-style: italic; }
+      .code-block .at   { color: #d4a0f7; }
+
+      ul {
+        padding-left: 1.25rem;
+        margin-bottom: 0.6rem;
+      }
+
+      ul li {
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+
+      .highlight-box {
+        background: #fffbea;
+        border-left: 3px solid #f59e0b;
+        padding: 0.75rem 1rem;
+        border-radius: 0 8px 8px 0;
+        margin: 0.75rem 0;
+        font-size: 14px;
+        color: #78350f;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .mini-card {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+      }
+
+      .mini-card .mc-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-bottom: 4px;
+      }
+
+      .mini-card p {
+        font-size: 14px;
+        margin: 0;
+      }
+
+      .nav-bar {
+        background: #fff;
+        border: 1px solid #e0dfd8;
+        border-radius: 10px;
+        padding: 0.75rem 1rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .nav-bar .nav-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #999;
+        margin-right: 0.5rem;
+      }
+
+      .nav-bar a {
+        font-size: 13px;
+        color: #1a1a18;
+        text-decoration: none;
+        padding: 4px 10px;
+        border-radius: 4px;
+        transition: background 0.15s ease;
+      }
+
+      .nav-bar a:hover {
+        background: #f0efe8;
+      }
+
+      .nav-bar a.active {
+        background: #1a1a18;
+        color: #f5f4f0;
+      }
+
+      @media (max-width: 560px) {
+        .grid-2 { grid-template-columns: 1fr; }
+        header h1 { font-size: 1.6rem; }
+        .nav-bar { flex-direction: column; align-items: flex-start; }
+        .nav-bar .nav-label { margin-bottom: 0.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <h1>CSS Notes</h1>
+      </header>
+
+      <nav class="nav-bar">
+        <span class="nav-label">Notes:</span>
+        <a href="html-notes.html">HTML</a>
+        <a href="css-notes.html" class="active">CSS</a>
+        <a href="javascript-notes.html">JavaScript</a>
+        <a href="dom-notes.html">DOM</a>
+        <a href="react-notes.html">React</a>
+        <a href="react-native-notes.html">React Native</a>
+        <a href="nextjs-notes.html">Next.js</a>
+        <a href="hr-interview-notes.html">HR Interview</a>
+      </nav>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 1 — Introduction to CSS
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 1</div>
+        <h2>Introduction to CSS</h2>
+
+        <section>
+          <h3>What is CSS?</h3>
+          <div class="card">
+            <p><strong>CSS</strong> stands for <strong>Cascading Style Sheets</strong>. It is the language used to control the visual presentation of HTML elements — layout, colour, typography, spacing, and animation.</p>
+            <ul>
+              <li><strong>Cascading</strong> — multiple style rules can apply to one element; the browser resolves conflicts using specificity and order.</li>
+              <li><strong>Style Sheet</strong> — a document (or block) that contains styling rules.</li>
+            </ul>
+          </div>
+          <div class="highlight-box">
+            <strong>Separation of concerns:</strong> HTML defines <em>structure</em>, CSS defines <em>presentation</em>. Keeping them separate makes both easier to read, maintain, and update.
+          </div>
+        </section>
+
+        <section>
+          <h3>Ways to Add CSS</h3>
+          <div class="card">
+            <table>
+              <tr><th>Method</th><th>How</th><th>When to use</th></tr>
+              <tr><td>External stylesheet</td><td><code>&lt;link rel="stylesheet" href="style.css"&gt;</code> in <code>&lt;head&gt;</code></td><td>Always — best practice for any real project.</td></tr>
+              <tr><td>Internal <code>&lt;style&gt;</code></td><td><code>&lt;style&gt;</code> block inside <code>&lt;head&gt;</code></td><td>Small single-page demos or email templates.</td></tr>
+              <tr><td>Inline <code>style</code></td><td><code>style="color: red"</code> attribute on an element</td><td>Last resort or dynamic JS overrides. Avoid for layout.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">External stylesheets are cached by the browser — users download the CSS once and reuse it across all pages. Inline styles cannot be cached and have very high specificity, making them hard to override.</div>
+        </section>
+
+        <section>
+          <h3>Anatomy of a CSS Rule</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="sel">h1</span> {
+  <span class="prop">color</span>: <span class="val">navy</span>;
+  <span class="prop">font-size</span>: <span class="val">2rem</span>;
+}
+<span class="cm">↑ selector  ↑ property: value  ← declaration</span></div>
+            <ul>
+              <li><strong>Selector</strong> — targets the element(s) to style.</li>
+              <li><strong>Declaration block</strong> — the <code>{ }</code> containing one or more declarations.</li>
+              <li><strong>Declaration</strong> — a <code>property: value</code> pair ended with <code>;</code>.</li>
+              <li><strong>Property</strong> — the aspect to style (e.g. <code>color</code>, <code>font-size</code>).</li>
+              <li><strong>Value</strong> — what to set the property to (e.g. <code>navy</code>, <code>2rem</code>).</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 2 — Selectors
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 2</div>
+        <h2>Selectors</h2>
+
+        <section>
+          <h3>Basic Selectors</h3>
+          <div class="card">
+            <table>
+              <tr><th>Selector</th><th>Syntax</th><th>Targets</th></tr>
+              <tr><td>Universal</td><td><code>*</code></td><td>Every element on the page.</td></tr>
+              <tr><td>Type / Element</td><td><code>p</code>, <code>h1</code>, <code>div</code></td><td>All elements of that HTML tag.</td></tr>
+              <tr><td>Class</td><td><code>.card</code></td><td>All elements with <code>class="card"</code>.</td></tr>
+              <tr><td>ID</td><td><code>#hero</code></td><td>The single element with <code>id="hero"</code>.</td></tr>
+              <tr><td>Attribute</td><td><code>[type="email"]</code></td><td>Elements with that attribute/value.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="sel">*</span>       { <span class="prop">box-sizing</span>: <span class="val">border-box</span>; }
+<span class="sel">p</span>       { <span class="prop">color</span>: <span class="val">#333</span>; }
+<span class="sel">.card</span>   { <span class="prop">background</span>: <span class="val">#fff</span>; }
+<span class="sel">#hero</span>   { <span class="prop">font-size</span>: <span class="val">2rem</span>; }
+<span class="sel">[disabled]</span> { <span class="prop">opacity</span>: <span class="val">0.5</span>; }</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Combinators</h3>
+          <div class="card">
+            <table>
+              <tr><th>Combinator</th><th>Syntax</th><th>Selects</th></tr>
+              <tr><td>Descendant</td><td><code>div p</code></td><td>All <code>&lt;p&gt;</code> anywhere inside a <code>&lt;div&gt;</code>.</td></tr>
+              <tr><td>Child</td><td><code>ul &gt; li</code></td><td>Only <code>&lt;li&gt;</code> that are direct children of <code>&lt;ul&gt;</code>.</td></tr>
+              <tr><td>Adjacent sibling</td><td><code>h2 + p</code></td><td>The first <code>&lt;p&gt;</code> immediately after an <code>&lt;h2&gt;</code>.</td></tr>
+              <tr><td>General sibling</td><td><code>h2 ~ p</code></td><td>All <code>&lt;p&gt;</code> siblings that follow an <code>&lt;h2&gt;</code>.</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Pseudo-classes</h3>
+          <div class="card">
+            <p>Pseudo-classes select elements based on their <strong>state</strong> or <strong>position</strong>.</p>
+            <table>
+              <tr><th>Pseudo-class</th><th>When it applies</th></tr>
+              <tr><td><code>:hover</code></td><td>Mouse is over the element.</td></tr>
+              <tr><td><code>:focus</code></td><td>Element has keyboard or click focus.</td></tr>
+              <tr><td><code>:active</code></td><td>Element is being clicked.</td></tr>
+              <tr><td><code>:visited</code></td><td>Link has been visited.</td></tr>
+              <tr><td><code>:first-child</code></td><td>Element is the first child of its parent.</td></tr>
+              <tr><td><code>:last-child</code></td><td>Element is the last child of its parent.</td></tr>
+              <tr><td><code>:nth-child(n)</code></td><td>Element is the nth child. Accepts <code>odd</code>, <code>even</code>, or <code>2n+1</code>.</td></tr>
+              <tr><td><code>:not(selector)</code></td><td>Any element that does NOT match the given selector.</td></tr>
+              <tr><td><code>:checked</code></td><td>Checkbox or radio input that is checked.</td></tr>
+              <tr><td><code>:disabled</code></td><td>Form element that is disabled.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="sel">a:hover</span>          { <span class="prop">color</span>: <span class="val">blue</span>; }
+<span class="sel">li:first-child</span>   { <span class="prop">font-weight</span>: <span class="val">600</span>; }
+<span class="sel">tr:nth-child(even)</span> { <span class="prop">background</span>: <span class="val">#f9f9f9</span>; }
+<span class="sel">input:not([type="submit"])</span> { <span class="prop">border</span>: <span class="val">1px solid #ccc</span>; }</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Pseudo-elements</h3>
+          <div class="card">
+            <p>Pseudo-elements target a <strong>part</strong> of an element, or insert virtual content.</p>
+            <table>
+              <tr><th>Pseudo-element</th><th>What it targets</th></tr>
+              <tr><td><code>::before</code></td><td>Inserts content before the element's content. Requires <code>content</code> property.</td></tr>
+              <tr><td><code>::after</code></td><td>Inserts content after the element's content. Requires <code>content</code> property.</td></tr>
+              <tr><td><code>::first-line</code></td><td>The first line of text inside an element.</td></tr>
+              <tr><td><code>::first-letter</code></td><td>The first letter of text inside an element.</td></tr>
+              <tr><td><code>::placeholder</code></td><td>The placeholder text of an input.</td></tr>
+              <tr><td><code>::selection</code></td><td>Text currently highlighted/selected by the user.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="sel">.card::before</span> {
+  <span class="prop">content</span>: <span class="val">""</span>;
+  <span class="prop">display</span>: <span class="val">block</span>;
+  <span class="prop">width</span>: <span class="val">4px</span>;
+  <span class="prop">background</span>: <span class="val">navy</span>;
+}
+
+<span class="sel">::selection</span> {
+  <span class="prop">background</span>: <span class="val">#fde68a</span>;
+  <span class="prop">color</span>: <span class="val">#000</span>;
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 3 — The Cascade, Specificity & Inheritance
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 3</div>
+        <h2>The Cascade, Specificity &amp; Inheritance</h2>
+
+        <section>
+          <h3>The Cascade</h3>
+          <div class="card">
+            <p>When multiple rules target the same element and same property, the browser uses the <strong>cascade</strong> to decide which one wins. It considers three things in order:</p>
+            <table>
+              <tr><th>Priority</th><th>Factor</th></tr>
+              <tr><td>1st</td><td><strong>Origin &amp; importance</strong> — browser defaults &lt; author styles &lt; <code>!important</code></td></tr>
+              <tr><td>2nd</td><td><strong>Specificity</strong> — how specific the selector is (see below)</td></tr>
+              <tr><td>3rd</td><td><strong>Source order</strong> — the last rule wins if specificity is equal</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Specificity</h3>
+          <div class="card">
+            <p>Specificity is a score calculated from the selector. Higher score wins.</p>
+            <table>
+              <tr><th>Selector type</th><th>Specificity value</th></tr>
+              <tr><td>Inline style (<code>style="…"</code>)</td><td>1-0-0-0 (highest)</td></tr>
+              <tr><td>ID selector (<code>#id</code>)</td><td>0-1-0-0</td></tr>
+              <tr><td>Class, attribute, pseudo-class (<code>.class</code>, <code>[attr]</code>, <code>:hover</code>)</td><td>0-0-1-0</td></tr>
+              <tr><td>Element, pseudo-element (<code>p</code>, <code>::before</code>)</td><td>0-0-0-1</td></tr>
+              <tr><td>Universal selector (<code>*</code>)</td><td>0-0-0-0 (no specificity)</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">/* specificity: 0-0-0-1 */</span>
+<span class="sel">p</span> { <span class="prop">color</span>: <span class="val">black</span>; }
+
+<span class="cm">/* specificity: 0-0-1-0 — wins */</span>
+<span class="sel">.intro</span> { <span class="prop">color</span>: <span class="val">blue</span>; }
+
+<span class="cm">/* specificity: 0-1-0-0 — wins over both */</span>
+<span class="sel">#hero</span> { <span class="prop">color</span>: <span class="val">red</span>; }</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Avoid <code>!important</code></strong> — it overrides everything and makes debugging very hard. Fix specificity issues by restructuring selectors instead.
+          </div>
+        </section>
+
+        <section>
+          <h3>Inheritance</h3>
+          <div class="card">
+            <p>Some CSS properties are <strong>inherited</strong> — child elements automatically receive the parent's value. Others are not.</p>
+            <table>
+              <tr><th>Inherited by default</th><th>Not inherited by default</th></tr>
+              <tr><td><code>color</code>, <code>font-family</code>, <code>font-size</code>, <code>font-weight</code>, <code>line-height</code>, <code>text-align</code>, <code>visibility</code></td><td><code>margin</code>, <code>padding</code>, <code>border</code>, <code>background</code>, <code>width</code>, <code>height</code>, <code>display</code>, <code>position</code></td></tr>
+            </table>
+          </div>
+          <div class="card" style="margin-top: 0">
+            <p>You can control inheritance explicitly with these special values usable on any property:</p>
+            <table>
+              <tr><th>Value</th><th>Meaning</th></tr>
+              <tr><td><code>inherit</code></td><td>Force the property to use the parent's value.</td></tr>
+              <tr><td><code>initial</code></td><td>Reset to the browser's default value for that property.</td></tr>
+              <tr><td><code>unset</code></td><td>Acts as <code>inherit</code> if the property is inherited, otherwise <code>initial</code>.</td></tr>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 4 — The Box Model
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 4</div>
+        <h2>The Box Model</h2>
+
+        <section>
+          <h3>Box Model Layers</h3>
+          <div class="card">
+            <p>Every HTML element is rendered as a rectangular box made up of four layers, from inside out:</p>
+            <table>
+              <tr><th>Layer</th><th>Property</th><th>Description</th></tr>
+              <tr><td>Content</td><td><code>width</code>, <code>height</code></td><td>The actual content area — text, image, etc.</td></tr>
+              <tr><td>Padding</td><td><code>padding</code></td><td>Space between content and border. Background colour fills padding.</td></tr>
+              <tr><td>Border</td><td><code>border</code></td><td>A line around the padding and content.</td></tr>
+              <tr><td>Margin</td><td><code>margin</code></td><td>Space outside the border — transparent, separates elements.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>Margin vs Padding:</strong> Margin is space <em>outside</em> the element (between elements). Padding is space <em>inside</em> the element (between content and border). Background colour does NOT extend into margin.
+          </div>
+        </section>
+
+        <section>
+          <h3><code>box-sizing</code></h3>
+          <div class="card">
+            <table>
+              <tr><th>Value</th><th>How <code>width</code>/<code>height</code> is calculated</th></tr>
+              <tr><td><code>content-box</code> (default)</td><td>Width/height applies to content only. Padding and border are added on top — total size is larger.</td></tr>
+              <tr><td><code>border-box</code></td><td>Width/height includes padding and border. Content shrinks to fit. <strong>Recommended.</strong></td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">/* Set globally — always do this */</span>
+<span class="sel">*,
+*::before,
+*::after</span> {
+  <span class="prop">box-sizing</span>: <span class="val">border-box</span>;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Margin, Padding &amp; Border Shorthand</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">/* All four sides equal */</span>
+<span class="prop">margin</span>: <span class="val">16px</span>;
+
+<span class="cm">/* top/bottom  left/right */</span>
+<span class="prop">padding</span>: <span class="val">8px 16px</span>;
+
+<span class="cm">/* top  right  bottom  left (clockwise) */</span>
+<span class="prop">margin</span>: <span class="val">10px 20px 10px 20px</span>;
+
+<span class="cm">/* Individual sides */</span>
+<span class="prop">margin-top</span>: <span class="val">8px</span>;
+<span class="prop">padding-left</span>: <span class="val">24px</span>;
+
+<span class="cm">/* Border shorthand: width style colour */</span>
+<span class="prop">border</span>: <span class="val">1px solid #ccc</span>;
+<span class="prop">border-radius</span>: <span class="val">8px</span>;</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Margin collapsing:</strong> When two vertical margins meet (e.g. bottom margin of one block and top margin of the next), they collapse into a single margin equal to the larger of the two. This only happens with block-level elements in normal flow.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 5 — Typography
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 5</div>
+        <h2>Typography</h2>
+
+        <section>
+          <h3>Font Properties</h3>
+          <div class="card">
+            <table>
+              <tr><th>Property</th><th>Purpose</th></tr>
+              <tr><td><code>font-family</code></td><td>Sets the typeface. Provide fallbacks: <code>font-family: "Inter", sans-serif</code>.</td></tr>
+              <tr><td><code>font-size</code></td><td>Size of the text. Use <code>rem</code> for accessibility.</td></tr>
+              <tr><td><code>font-weight</code></td><td>Thickness: <code>400</code> (normal), <code>600</code> (semibold), <code>700</code> (bold).</td></tr>
+              <tr><td><code>font-style</code></td><td><code>normal</code>, <code>italic</code>, <code>oblique</code>.</td></tr>
+              <tr><td><code>line-height</code></td><td>Spacing between lines. Unitless value (e.g. <code>1.6</code>) is recommended — scales with font size.</td></tr>
+              <tr><td><code>letter-spacing</code></td><td>Space between characters. Use <code>em</code> values (e.g. <code>0.05em</code>).</td></tr>
+              <tr><td><code>text-transform</code></td><td><code>uppercase</code>, <code>lowercase</code>, <code>capitalize</code>.</td></tr>
+              <tr><td><code>text-decoration</code></td><td><code>underline</code>, <code>none</code>, <code>line-through</code>.</td></tr>
+              <tr><td><code>text-align</code></td><td><code>left</code>, <code>right</code>, <code>center</code>, <code>justify</code>.</td></tr>
+              <tr><td><code>white-space</code></td><td><code>nowrap</code> prevents line breaks; <code>pre</code> preserves whitespace.</td></tr>
+              <tr><td><code>overflow</code> + <code>text-overflow</code></td><td><code>text-overflow: ellipsis</code> truncates overflowing text with "…".</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>CSS Units</h3>
+          <div class="card">
+            <table>
+              <tr><th>Unit</th><th>Type</th><th>Description</th></tr>
+              <tr><td><code>px</code></td><td>Absolute</td><td>Pixels — fixed size, not scalable with user font preferences.</td></tr>
+              <tr><td><code>rem</code></td><td>Relative</td><td>Relative to the root (<code>html</code>) font size. Default = 16px, so <code>1rem = 16px</code>. Best for font sizes.</td></tr>
+              <tr><td><code>em</code></td><td>Relative</td><td>Relative to the element's own font size. Compounds when nested — use carefully.</td></tr>
+              <tr><td><code>%</code></td><td>Relative</td><td>Relative to the parent element's value. Common for widths.</td></tr>
+              <tr><td><code>vw</code> / <code>vh</code></td><td>Viewport</td><td>1vw = 1% of viewport width. 1vh = 1% of viewport height.</td></tr>
+              <tr><td><code>ch</code></td><td>Relative</td><td>Width of the "0" character in the current font. Useful for limiting line length.</td></tr>
+              <tr><td><code>fr</code></td><td>Grid</td><td>Fractional unit — only used in CSS Grid. <code>1fr</code> = one equal share of available space.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>rem vs em:</strong> Prefer <code>rem</code> for font sizes — it always references the root and avoids the compounding problem of <code>em</code>. Use <code>em</code> when you want spacing to scale proportionally with the element's own font size (e.g. <code>padding: 0.5em</code>).
+          </div>
+        </section>
+
+        <section>
+          <h3>Google Fonts</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">&lt;!-- In HTML &lt;head&gt; --&gt;</span>
+&lt;<span class="sel">link</span> <span class="prop">href</span>=<span class="val">"https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"</span> <span class="prop">rel</span>=<span class="val">"stylesheet"</span>&gt;
+
+<span class="cm">/* In CSS */</span>
+<span class="sel">body</span> {
+  <span class="prop">font-family</span>: <span class="val">"Inter", sans-serif</span>;
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 6 — Colours & Backgrounds
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 6</div>
+        <h2>Colours &amp; Backgrounds</h2>
+
+        <section>
+          <h3>Colour Values</h3>
+          <div class="card">
+            <table>
+              <tr><th>Format</th><th>Example</th><th>Notes</th></tr>
+              <tr><td>Named</td><td><code>red</code>, <code>navy</code>, <code>transparent</code></td><td>~140 predefined names. Easy but limited.</td></tr>
+              <tr><td>Hex</td><td><code>#ff0000</code>, <code>#f00</code></td><td>3- or 6-digit hex. Most common. Supports 8-digit with alpha (<code>#ff000080</code>).</td></tr>
+              <tr><td><code>rgb()</code></td><td><code>rgb(255, 0, 0)</code></td><td>Red, green, blue channels 0–255.</td></tr>
+              <tr><td><code>rgba()</code></td><td><code>rgba(0, 0, 0, 0.5)</code></td><td>RGB plus alpha 0 (transparent) – 1 (opaque).</td></tr>
+              <tr><td><code>hsl()</code></td><td><code>hsl(220, 90%, 56%)</code></td><td>Hue (0–360°), saturation %, lightness %. Easy to adjust perceptually.</td></tr>
+              <tr><td><code>currentColor</code></td><td><code>border: 1px solid currentColor</code></td><td>Inherits the element's current <code>color</code> value.</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Background Properties</h3>
+          <div class="card">
+            <table>
+              <tr><th>Property</th><th>Purpose</th></tr>
+              <tr><td><code>background-color</code></td><td>Solid background colour.</td></tr>
+              <tr><td><code>background-image</code></td><td>Image or gradient: <code>url("img.jpg")</code> or <code>linear-gradient(…)</code>.</td></tr>
+              <tr><td><code>background-size</code></td><td><code>cover</code> fills the area; <code>contain</code> fits without cropping; or explicit dimensions.</td></tr>
+              <tr><td><code>background-position</code></td><td><code>center</code>, <code>top left</code>, <code>50% 50%</code>.</td></tr>
+              <tr><td><code>background-repeat</code></td><td><code>no-repeat</code>, <code>repeat-x</code>, <code>repeat-y</code>.</td></tr>
+              <tr><td><code>background-attachment</code></td><td><code>fixed</code> for parallax-style scrolling; <code>scroll</code> (default).</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="sel">.hero</span> {
+  <span class="prop">background-image</span>: <span class="val">url("hero.jpg")</span>;
+  <span class="prop">background-size</span>: <span class="val">cover</span>;
+  <span class="prop">background-position</span>: <span class="val">center</span>;
+  <span class="prop">background-repeat</span>: <span class="val">no-repeat</span>;
+}
+
+<span class="sel">.gradient</span> {
+  <span class="prop">background</span>: <span class="val">linear-gradient(135deg, #667eea, #764ba2)</span>;
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 7 — Display & Positioning
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 7</div>
+        <h2>Display &amp; Positioning</h2>
+
+        <section>
+          <h3>The <code>display</code> Property</h3>
+          <div class="card">
+            <table>
+              <tr><th>Value</th><th>Behaviour</th></tr>
+              <tr><td><code>block</code></td><td>Takes full width, starts on a new line. <code>width</code>/<code>height</code> apply.</td></tr>
+              <tr><td><code>inline</code></td><td>Flows with text. <code>width</code>/<code>height</code> ignored. Margin/padding only affect horizontal space.</td></tr>
+              <tr><td><code>inline-block</code></td><td>Flows with text but respects <code>width</code>, <code>height</code>, all margin/padding.</td></tr>
+              <tr><td><code>none</code></td><td>Element removed from layout completely. Takes up no space.</td></tr>
+              <tr><td><code>flex</code></td><td>Becomes a flex container — children laid out with Flexbox.</td></tr>
+              <tr><td><code>grid</code></td><td>Becomes a grid container — children laid out with CSS Grid.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong><code>display: none</code> vs <code>visibility: hidden</code>:</strong> <code>none</code> removes the element from layout (no space taken). <code>visibility: hidden</code> hides it visually but it still occupies space.
+          </div>
+        </section>
+
+        <section>
+          <h3>The <code>position</code> Property</h3>
+          <div class="card">
+            <table>
+              <tr><th>Value</th><th>Behaviour</th></tr>
+              <tr><td><code>static</code> (default)</td><td>Normal document flow. <code>top</code>/<code>left</code>/<code>right</code>/<code>bottom</code> have no effect.</td></tr>
+              <tr><td><code>relative</code></td><td>Positioned relative to its <strong>normal position</strong>. Offset with <code>top</code>/<code>left</code>/etc. Still occupies original space.</td></tr>
+              <tr><td><code>absolute</code></td><td>Removed from flow. Positioned relative to the nearest ancestor with <code>position</code> other than <code>static</code>.</td></tr>
+              <tr><td><code>fixed</code></td><td>Removed from flow. Positioned relative to the <strong>viewport</strong>. Stays in place when scrolling.</td></tr>
+              <tr><td><code>sticky</code></td><td>Acts as <code>relative</code> until the scroll threshold is hit, then behaves like <code>fixed</code>.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">/* Tooltip pattern: child absolute inside relative parent */</span>
+<span class="sel">.parent</span> { <span class="prop">position</span>: <span class="val">relative</span>; }
+<span class="sel">.tooltip</span> {
+  <span class="prop">position</span>: <span class="val">absolute</span>;
+  <span class="prop">top</span>: <span class="val">100%</span>;
+  <span class="prop">left</span>: <span class="val">0</span>;
+}
+
+<span class="cm">/* Sticky header */</span>
+<span class="sel">header</span> {
+  <span class="prop">position</span>: <span class="val">sticky</span>;
+  <span class="prop">top</span>: <span class="val">0</span>;
+  <span class="prop">z-index</span>: <span class="val">100</span>;
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong><code>z-index</code></strong> controls stacking order — higher value = on top. Only works on elements with <code>position</code> other than <code>static</code>, and on flex/grid children.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 8 — Flexbox
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 8</div>
+        <h2>Flexbox</h2>
+
+        <section>
+          <h3>Flex Container Properties</h3>
+          <div class="card">
+            <p>Set <code>display: flex</code> on the parent. These properties control how children are arranged.</p>
+            <table>
+              <tr><th>Property</th><th>Values</th><th>Effect</th></tr>
+              <tr><td><code>flex-direction</code></td><td><code>row</code> (default), <code>column</code>, <code>row-reverse</code>, <code>column-reverse</code></td><td>Sets the main axis direction.</td></tr>
+              <tr><td><code>justify-content</code></td><td><code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>space-between</code>, <code>space-around</code>, <code>space-evenly</code></td><td>Aligns children along the <strong>main axis</strong>.</td></tr>
+              <tr><td><code>align-items</code></td><td><code>stretch</code> (default), <code>flex-start</code>, <code>flex-end</code>, <code>center</code>, <code>baseline</code></td><td>Aligns children along the <strong>cross axis</strong>.</td></tr>
+              <tr><td><code>flex-wrap</code></td><td><code>nowrap</code> (default), <code>wrap</code>, <code>wrap-reverse</code></td><td>Whether children wrap to a new line when they overflow.</td></tr>
+              <tr><td><code>gap</code></td><td>e.g. <code>16px</code> or <code>16px 8px</code></td><td>Space between flex children. Cleaner than margins.</td></tr>
+              <tr><td><code>align-content</code></td><td><code>flex-start</code>, <code>center</code>, <code>space-between</code>, etc.</td><td>Aligns <em>rows</em> along cross axis when wrapping. Only active when <code>flex-wrap: wrap</code>.</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Flex Item Properties</h3>
+          <div class="card">
+            <p>These go on the children (flex items).</p>
+            <table>
+              <tr><th>Property</th><th>Description</th></tr>
+              <tr><td><code>flex-grow</code></td><td>How much the item grows to fill available space. Default <code>0</code> (don't grow). <code>1</code> = grow equally.</td></tr>
+              <tr><td><code>flex-shrink</code></td><td>How much the item shrinks when space is tight. Default <code>1</code>.</td></tr>
+              <tr><td><code>flex-basis</code></td><td>Initial size before growing/shrinking. Default <code>auto</code>.</td></tr>
+              <tr><td><code>flex</code></td><td>Shorthand for <code>grow shrink basis</code>. Common: <code>flex: 1</code> = <code>1 1 0</code>.</td></tr>
+              <tr><td><code>align-self</code></td><td>Override <code>align-items</code> for a single item.</td></tr>
+              <tr><td><code>order</code></td><td>Visual ordering. Default <code>0</code>. Lower = appears first.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="sel">.nav</span> {
+  <span class="prop">display</span>: <span class="val">flex</span>;
+  <span class="prop">justify-content</span>: <span class="val">space-between</span>;
+  <span class="prop">align-items</span>: <span class="val">center</span>;
+  <span class="prop">gap</span>: <span class="val">16px</span>;
+}
+
+<span class="sel">.sidebar</span>  { <span class="prop">flex</span>: <span class="val">0 0 240px</span>; }  <span class="cm">/* fixed 240px */</span>
+<span class="sel">.main</span>     { <span class="prop">flex</span>: <span class="val">1</span>; }          <span class="cm">/* takes remaining space */</span></div>
+          </div>
+          <div class="highlight-box">
+            <strong>Main axis vs Cross axis:</strong> When <code>flex-direction: row</code> (default), main axis is horizontal → <code>justify-content</code> controls horizontal alignment, <code>align-items</code> controls vertical. Flip when <code>flex-direction: column</code>.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 9 — CSS Grid
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 9</div>
+        <h2>CSS Grid</h2>
+
+        <section>
+          <h3>Grid Container Properties</h3>
+          <div class="card">
+            <p>Set <code>display: grid</code> on the parent.</p>
+            <table>
+              <tr><th>Property</th><th>Description</th></tr>
+              <tr><td><code>grid-template-columns</code></td><td>Defines column track sizes. e.g. <code>1fr 1fr 1fr</code> or <code>repeat(3, 1fr)</code>.</td></tr>
+              <tr><td><code>grid-template-rows</code></td><td>Defines row track sizes.</td></tr>
+              <tr><td><code>gap</code> / <code>column-gap</code> / <code>row-gap</code></td><td>Space between grid cells.</td></tr>
+              <tr><td><code>justify-items</code></td><td>Aligns items horizontally within their cell. Default <code>stretch</code>.</td></tr>
+              <tr><td><code>align-items</code></td><td>Aligns items vertically within their cell.</td></tr>
+              <tr><td><code>justify-content</code></td><td>Aligns the entire grid horizontally within the container.</td></tr>
+              <tr><td><code>align-content</code></td><td>Aligns the entire grid vertically within the container.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="sel">.grid</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-template-columns</span>: <span class="val">repeat(3, 1fr)</span>;
+  <span class="prop">gap</span>: <span class="val">24px</span>;
+}
+
+<span class="cm">/* Auto-fit responsive grid */</span>
+<span class="sel">.auto-grid</span> {
+  <span class="prop">display</span>: <span class="val">grid</span>;
+  <span class="prop">grid-template-columns</span>: <span class="val">repeat(auto-fit, minmax(200px, 1fr))</span>;
+  <span class="prop">gap</span>: <span class="val">16px</span>;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Grid Item Properties</h3>
+          <div class="card">
+            <table>
+              <tr><th>Property</th><th>Description</th></tr>
+              <tr><td><code>grid-column</code></td><td>Shorthand for start/end column line. e.g. <code>1 / 3</code> spans columns 1–2. <code>1 / -1</code> spans full width.</td></tr>
+              <tr><td><code>grid-row</code></td><td>Shorthand for start/end row line.</td></tr>
+              <tr><td><code>grid-column: span 2</code></td><td>Span 2 columns from current position.</td></tr>
+              <tr><td><code>justify-self</code></td><td>Override horizontal alignment for a single item.</td></tr>
+              <tr><td><code>align-self</code></td><td>Override vertical alignment for a single item.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="sel">.featured</span> {
+  <span class="prop">grid-column</span>: <span class="val">1 / -1</span>;  <span class="cm">/* spans full width */</span>
+}
+
+<span class="sel">.sidebar</span> {
+  <span class="prop">grid-column</span>: <span class="val">span 1</span>;
+  <span class="prop">grid-row</span>: <span class="val">1 / 3</span>;  <span class="cm">/* spans 2 rows */</span>
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Grid vs Flexbox:</strong> Use <strong>Grid</strong> for two-dimensional layouts (rows <em>and</em> columns). Use <strong>Flexbox</strong> for one-dimensional layouts (a row <em>or</em> a column). They work great together — Grid for page structure, Flexbox for component internals.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 10 — Responsive Design
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 10</div>
+        <h2>Responsive Design</h2>
+
+        <section>
+          <h3>Media Queries</h3>
+          <div class="card">
+            <p>Media queries apply styles only when certain conditions are met — most commonly screen width.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">/* Mobile-first: base styles apply to all sizes */</span>
+<span class="sel">.container</span> { <span class="prop">padding</span>: <span class="val">1rem</span>; }
+
+<span class="cm">/* Tablet and up */</span>
+<span class="at">@media</span> (<span class="prop">min-width</span>: <span class="val">640px</span>) {
+  <span class="sel">.container</span> { <span class="prop">padding</span>: <span class="val">2rem</span>; }
+}
+
+<span class="cm">/* Desktop and up */</span>
+<span class="at">@media</span> (<span class="prop">min-width</span>: <span class="val">1024px</span>) {
+  <span class="sel">.container</span> { <span class="prop">max-width</span>: <span class="val">1200px</span>; <span class="prop">margin</span>: <span class="val">0 auto</span>; }
+}</div>
+          </div>
+          <div class="highlight-box">
+            <strong>Mobile-first:</strong> Write base styles for small screens, then use <code>min-width</code> media queries to add complexity for larger screens. This is easier to maintain and results in better performance on mobile.
+          </div>
+        </section>
+
+        <section>
+          <h3>Common Breakpoints</h3>
+          <div class="card">
+            <table>
+              <tr><th>Name</th><th>Min-width</th><th>Target</th></tr>
+              <tr><td>sm</td><td><code>640px</code></td><td>Large phones, small tablets</td></tr>
+              <tr><td>md</td><td><code>768px</code></td><td>Tablets</td></tr>
+              <tr><td>lg</td><td><code>1024px</code></td><td>Laptops / small desktops</td></tr>
+              <tr><td>xl</td><td><code>1280px</code></td><td>Desktops</td></tr>
+              <tr><td>2xl</td><td><code>1536px</code></td><td>Large desktops</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Responsive Images &amp; Fluid Widths</h3>
+          <div class="card">
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">/* Images never overflow their container */</span>
+<span class="sel">img</span> {
+  <span class="prop">max-width</span>: <span class="val">100%</span>;
+  <span class="prop">height</span>: <span class="val">auto</span>;
+}
+
+<span class="cm">/* Fluid container with max width */</span>
+<span class="sel">.container</span> {
+  <span class="prop">width</span>: <span class="val">100%</span>;
+  <span class="prop">max-width</span>: <span class="val">1200px</span>;
+  <span class="prop">margin</span>: <span class="val">0 auto</span>;
+  <span class="prop">padding</span>: <span class="val">0 1rem</span>;
+}</div>
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 11 — CSS Custom Properties (Variables)
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 11</div>
+        <h2>CSS Custom Properties (Variables)</h2>
+
+        <section>
+          <h3>Defining &amp; Using Variables</h3>
+          <div class="card">
+            <p>Custom properties (CSS variables) let you store values and reuse them throughout your stylesheet. Defined with <code>--name</code>, used with <code>var(--name)</code>.</p>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="cm">/* Define on :root to make globally available */</span>
+<span class="sel">:root</span> {
+  <span class="prop">--color-primary</span>: <span class="val">#2563eb</span>;
+  <span class="prop">--color-text</span>: <span class="val">#1a1a18</span>;
+  <span class="prop">--radius</span>: <span class="val">8px</span>;
+  <span class="prop">--spacing-md</span>: <span class="val">1rem</span>;
+}
+
+<span class="sel">button</span> {
+  <span class="prop">background</span>: <span class="val">var(--color-primary)</span>;
+  <span class="prop">border-radius</span>: <span class="val">var(--radius)</span>;
+  <span class="prop">padding</span>: <span class="val">var(--spacing-md)</span>;
+}
+
+<span class="cm">/* Fallback value */</span>
+<span class="sel">p</span> { <span class="prop">color</span>: <span class="val">var(--color-text, #333)</span>; }</div>
+          </div>
+          <div class="highlight-box">CSS variables are live — changing a variable with JavaScript (<code>el.style.setProperty('--color-primary', 'red')</code>) instantly updates all elements that use it. Great for theming.</div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 12 — Transitions & Animations
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 12</div>
+        <h2>Transitions &amp; Animations</h2>
+
+        <section>
+          <h3>Transitions</h3>
+          <div class="card">
+            <p>Transitions smoothly animate a change from one CSS value to another (triggered by state changes like <code>:hover</code>).</p>
+            <table>
+              <tr><th>Property</th><th>Description</th></tr>
+              <tr><td><code>transition-property</code></td><td>Which CSS property to animate. Use <code>all</code> or a specific property.</td></tr>
+              <tr><td><code>transition-duration</code></td><td>How long the transition takes. e.g. <code>300ms</code>, <code>0.3s</code>.</td></tr>
+              <tr><td><code>transition-timing-function</code></td><td><code>ease</code> (default), <code>linear</code>, <code>ease-in</code>, <code>ease-out</code>, <code>ease-in-out</code>, <code>cubic-bezier(…)</code>.</td></tr>
+              <tr><td><code>transition-delay</code></td><td>Wait before starting. e.g. <code>100ms</code>.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="sel">button</span> {
+  <span class="prop">background</span>: <span class="val">navy</span>;
+  <span class="prop">transition</span>: <span class="val">background 200ms ease, transform 150ms ease</span>;
+}
+
+<span class="sel">button:hover</span> {
+  <span class="prop">background</span>: <span class="val">royalblue</span>;
+  <span class="prop">transform</span>: <span class="val">translateY(-2px)</span>;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Keyframe Animations</h3>
+          <div class="card">
+            <p>Animations run automatically without a state change trigger. Define keyframes with <code>@keyframes</code>, then apply with <code>animation</code>.</p>
+            <table>
+              <tr><th>Property</th><th>Description</th></tr>
+              <tr><td><code>animation-name</code></td><td>Name of the <code>@keyframes</code> rule.</td></tr>
+              <tr><td><code>animation-duration</code></td><td>How long one cycle takes.</td></tr>
+              <tr><td><code>animation-iteration-count</code></td><td><code>1</code> (default), a number, or <code>infinite</code>.</td></tr>
+              <tr><td><code>animation-direction</code></td><td><code>normal</code>, <code>reverse</code>, <code>alternate</code>, <code>alternate-reverse</code>.</td></tr>
+              <tr><td><code>animation-fill-mode</code></td><td><code>forwards</code> keeps end-state after finishing; <code>backwards</code> applies from-state during delay.</td></tr>
+            </table>
+            <!-- prettier-ignore -->
+            <div class="code-block"><span class="at">@keyframes</span> <span class="sel">fadeIn</span> {
+  <span class="prop">from</span> { <span class="prop">opacity</span>: <span class="val">0</span>; <span class="prop">transform</span>: <span class="val">translateY(10px)</span>; }
+  <span class="prop">to</span>   { <span class="prop">opacity</span>: <span class="val">1</span>; <span class="prop">transform</span>: <span class="val">translateY(0)</span>; }
+}
+
+<span class="sel">.card</span> {
+  <span class="prop">animation</span>: <span class="val">fadeIn 300ms ease forwards</span>;
+}</div>
+          </div>
+        </section>
+
+        <section>
+          <h3>Transform</h3>
+          <div class="card">
+            <p><code>transform</code> moves, scales, rotates, or skews an element visually without affecting layout.</p>
+            <table>
+              <tr><th>Function</th><th>Effect</th></tr>
+              <tr><td><code>translateX(n)</code> / <code>translateY(n)</code></td><td>Move horizontally / vertically. Also <code>translate(x, y)</code>.</td></tr>
+              <tr><td><code>scale(n)</code></td><td>Scale uniformly. <code>scale(1.05)</code> = 5% larger.</td></tr>
+              <tr><td><code>rotate(deg)</code></td><td>Rotate. e.g. <code>rotate(45deg)</code>.</td></tr>
+              <tr><td><code>skewX(deg)</code></td><td>Skew along the X axis.</td></tr>
+            </table>
+          </div>
+          <div class="highlight-box">
+            <strong>Prefer <code>transform</code> and <code>opacity</code> for animations</strong> — they are GPU-accelerated and do not trigger layout recalculation. Avoid animating <code>width</code>, <code>height</code>, <code>margin</code>, or <code>top</code>/<code>left</code>.
+          </div>
+        </section>
+      </div>
+
+      <!-- ═══════════════════════════════════════
+           CHAPTER 13 — Overflow, Visibility & Stacking
+      ════════════════════════════════════════ -->
+      <div class="chapter">
+        <div class="chapter-heading">Chapter 13</div>
+        <h2>Overflow, Visibility &amp; Stacking</h2>
+
+        <section>
+          <h3>Overflow</h3>
+          <div class="card">
+            <table>
+              <tr><th>Value</th><th>Behaviour</th></tr>
+              <tr><td><code>visible</code> (default)</td><td>Content spills out of the element's box.</td></tr>
+              <tr><td><code>hidden</code></td><td>Overflow is clipped — content beyond the box is not visible.</td></tr>
+              <tr><td><code>scroll</code></td><td>Scrollbar always shown, even when not needed.</td></tr>
+              <tr><td><code>auto</code></td><td>Scrollbar appears only when content overflows. Recommended.</td></tr>
+              <tr><td><code>clip</code></td><td>Like <code>hidden</code> but also prevents programmatic scrolling.</td></tr>
+            </table>
+            <p style="margin-top: 0.5rem">Use <code>overflow-x</code> and <code>overflow-y</code> to control each axis independently.</p>
+          </div>
+        </section>
+
+        <section>
+          <h3>Visibility &amp; Opacity</h3>
+          <div class="card">
+            <table>
+              <tr><th>Property / Value</th><th>Space in layout</th><th>Pointer events</th></tr>
+              <tr><td><code>display: none</code></td><td>No — removed completely</td><td>None</td></tr>
+              <tr><td><code>visibility: hidden</code></td><td>Yes — space preserved</td><td>None</td></tr>
+              <tr><td><code>opacity: 0</code></td><td>Yes — space preserved</td><td>Still receives events</td></tr>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3>Stacking Context &amp; <code>z-index</code></h3>
+          <div class="card">
+            <p>Elements are stacked on a z-axis. <code>z-index</code> controls which elements appear on top.</p>
+            <ul>
+              <li>Only works on elements with <code>position</code> other than <code>static</code>, or flex/grid children.</li>
+              <li>Higher <code>z-index</code> = closer to the viewer (appears on top).</li>
+              <li>A new <strong>stacking context</strong> is created by <code>position + z-index</code>, <code>opacity &lt; 1</code>, <code>transform</code>, <code>filter</code>, etc. Elements inside a stacking context are stacked relative to each other, not the whole page.</li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <footer style="margin-top: 4rem; padding-top: 1rem; border-top: 1px solid #e0dfd8; font-size: 13px; color: #aaa;">
+        CSS Notes
+      </footer>
+    </div>
+  </body>
+</html>
